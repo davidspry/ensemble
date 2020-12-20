@@ -1,0 +1,5 @@
+ofxGui
+ofxMidi
+ofxRisographColours
+ofxValueTransition
+ofxWindowOptions
