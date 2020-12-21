@@ -11,7 +11,13 @@
 
 #include "KeyCodes.h"
 #include "Constants.h"
+
+#include "UITypes.h"
 #include "UIWindow.h"
 #include "UIComponent.h"
+
+#include "MIDITypes.h"
+
+#include "SQTypes.h"
 
 #endif

@@ -11,6 +11,9 @@
 template <typename T>
 struct UISize
 {
+    T w;
+    T h;
+
     UISize()
     {
         static_assert(std::is_arithmetic<T>::value, "The given type must be numeric.");
@@ -27,8 +30,11 @@ struct UISize
         this->h = height;
     }
     
-    T w;
-    T h;
+    void set(T width, T height)
+    {
+        this->w = width;
+        this->h = height;
+    }
 };
 
 #endif

@@ -19,6 +19,9 @@ int main()
     ofEnableSmoothing();
     ofSetFrameRate(60);
     ofBackground(215);
+    
+    ofSetDataPathRoot("bin/data");
+    ofSetEscapeQuitsApp(false);
 
     ofRunApp(new Commander());
 }

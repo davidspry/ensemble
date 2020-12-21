@@ -4,11 +4,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#define HMARGIN 40
-#define VMARGIN 25
-
 enum class Axis { X, Y };
 
-enum class Direction { UP, RIGHT, DOWN, LEFT };
+enum class Direction { N, E, S, W };
 
 #endif

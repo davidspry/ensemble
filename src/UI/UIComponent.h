@@ -4,10 +4,8 @@
 #ifndef UICOMPONENT_H
 #define UICOMPONENT_H
 
+#include "ofMain.h"
 #include "UITypes.h"
-#include "ofxRisographColours.hpp"
-
-// ** TODO: Abstract colours into ColourScheme class. ** //
 
 /// @brief A component with a rectangular shape that can be drawn to the screen.
 
@@ -38,81 +36,69 @@ public:
     
     /// \brief Get the component's bounds rectangle.
 
-    [[nodiscard]] UIRect getBounds() const noexcept
+    [[nodiscard]] const UIRect getBounds() const noexcept
     {
         return {origin, size};
     }
     
     /// \brief Get the component's origin point.
     
-    [[nodiscard]] UIPoint<int> getOriginPoint() const noexcept
+    [[nodiscard]] const UIPoint<int>& getOriginPoint() const noexcept
     {
         return origin;
     }
     
     /// \brief Get the component's centre point.
 
-    [[nodiscard]] UIPoint<int> getCentrePoint() const noexcept
+    [[nodiscard]] const UIPoint<int>& getCentrePoint() const noexcept
     {
         return centre;
     }
     
     /// \brief Get the component's background colour.
     
-    [[nodiscard]] ofColor getBackgroundColour() const noexcept
+    [[nodiscard]] const UIColourScheme& getColourScheme() const noexcept
     {
-        return backgroundColour;
+        return colours;
     }
     
-    /// \brief Get the component's foreground colour.
-    
-    [[nodiscard]] ofColor getForegroundColour() const noexcept
-    {
-        return foregroundColour;
-    }
-    
-    /// \brief Get the component's accent colour.
-    
-    [[nodiscard]] ofColor getAccentColour() const noexcept
-    {
-        return accentColour;
-    }
-    
-    /// \brief Set the component's background colour and flag the component for redrawing.
-    /// \param colour The desired background colour.
+    /// \brief Set the component's colour scheme and flag the component for redrawing.
+    /// \param scheme The desired colour scheme.
 
-    virtual void setBackgroundColour(ofColor colour)
+    virtual void setColourScheme(UIColourScheme scheme)
     {
-        backgroundColour = colour;
-        
+        colours = scheme;
+
         setShouldRedraw();
     }
     
-    /// \brief Set the component's foreground colour and flag the component for redrawing.
-    /// \param colour The desired foreground colour.
+    /// \brief Set the component's position and size using the given bounds rectangle.
+    /// \param bounds The desired bounds rectangle.
 
-    virtual void setForegroundColour(ofColor colour)
+    virtual void setBounds(UIRect bounds) noexcept
     {
-        foregroundColour = colour;
+        const auto origin = bounds.getTopLeft();
         
-        setShouldRedraw();
+        setSize(bounds.width, bounds.height);
+        setPositionWithOrigin(origin.x, origin.y);
+    }
+
+    /// \brief Set the component's position to the given origin point.
+    /// \param position The desired origin point.
+
+    virtual inline void setPositionWithOrigin(UIPoint<int>& position)
+    {
+        origin.x = position.x;
+        origin.y = position.y;
+        centre.x = static_cast<int>((float) position.x + (float) size.w * 0.5f);
+        centre.y = static_cast<int>((float) position.y + (float) size.h * 0.5f);
     }
     
-    /// \brief Set the component's accent colour and flag the component for redrawing.
-    /// \param colour The desired accent colour.
-
-    virtual void setAccentColour(ofColor colour)
-    {
-        accentColour = colour;
-        
-        setShouldRedraw();
-    }
-
     /// \brief Set the component's position to the given origin point.
     /// \param x The x-coordinate of the desired origin point.
     /// \param y The y-coordinate of the desired origin point.
 
-    virtual void setPositionWithOrigin(const float x, const float y)
+    virtual inline void setPositionWithOrigin(const float x, const float y)
     {
         origin.x = static_cast<int>(x);
         origin.y = static_cast<int>(y);
@@ -121,10 +107,21 @@ public:
     }
 
     /// \brief Set the component's position using the given centre point.
+    /// \param centrePoint The desired centre point.
+
+    virtual inline void setPositionWithCentre(UIPoint<int>& centrePoint)
+    {
+        centre.x = centrePoint.x;
+        centre.y = centrePoint.y;
+        origin.x = static_cast<int>((float) centrePoint.x - (float) size.w * 0.5f);
+        origin.y = static_cast<int>((float) centrePoint.y - (float) size.h * 0.5f);
+    }
+    
+    /// \brief Set the component's position using the given centre point.
     /// \param x The x-coordinate of the desired centre point.
     /// \param y The y-coordinate of the desired centre point.
 
-    virtual void setPositionWithCentre(const float x, const float y)
+    virtual inline void setPositionWithCentre(const float x, const float y)
     {
         centre.x = static_cast<int>(x);
         centre.y = static_cast<int>(y);
@@ -136,7 +133,7 @@ public:
     /// \param width The desired width of the component in pixels
     /// \param height The desired height of the component in pixels
 
-    virtual void setSize(const float width, const float height)
+    virtual inline void setSize(const float width, const float height)
     {
         size.w = static_cast<int>(width);
         size.h = static_cast<int>(height);
@@ -144,23 +141,20 @@ public:
         setShouldRedraw();
     }
 
-    /// \brief Set the component's size while maintaining its centre point.
+    /// \brief Set the component's size while maintaining its centre point and flag the component for redrawing.
     /// \param width The deisred width of the component in pixels
-    /// \param height The desired height of the component in pixel
+    /// \param height The desired height of the component in pixels
 
-    virtual void setSizeFromCentre(const float width, const float height)
+    virtual inline void setSizeFromCentre(const float width, const float height)
     {
-        const int mx = static_cast<int>((float) centre.x - width  * 0.5f);
-        const int my = static_cast<int>((float) centre.y - height * 0.5f);
-
         setSize(width, height);
-        setPositionWithCentre(mx, my);
+        setPositionWithCentre(centre.x, centre.y);
     }
     
     /// \brief Set the component's margins and flag the component for redrawing.
     /// \param margins The desired margins.
 
-    virtual void setMargins(UIMargins<int>& margins)
+    virtual inline void setMargins(UIMargins<int>& margins)
     {
         this->margins.t = margins.t;
         this->margins.l = margins.l;
@@ -176,7 +170,7 @@ public:
     /// \param right The desired right margin in pixels.
     /// \param bottom The desired bottom margin in pixels.
 
-    virtual void setMargins(const int top, const int left, const int right, const int bottom)
+    virtual inline void setMargins(const int top, const int left, const int right, const int bottom)
     {
         margins.t = top;
         margins.l = left;
@@ -212,17 +206,9 @@ protected:
     
 protected:
     
-    /// \brief The component's background colour.
+    /// \brief The component's colour scheme.
     
-    ofColor backgroundColour = {215};
-    
-    /// \brief The component's foreground colour.
-    
-    ofColor foregroundColour = {15};
-    
-    /// \brief The component's accent colour.
-    
-    ofColor accentColour = ofxRisographColours::ivy;
+    UIColourScheme colours;
     
 protected:
 

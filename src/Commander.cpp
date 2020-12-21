@@ -7,13 +7,6 @@ Commander::Commander()
 
 void Commander::setup()
 {
-    UIRect window  = ui.getBounds();
-    UIRect options = window.removeFromBottom(150);
-    
-    sequencer.setMargins(20, 20, 20, 0);
-    sequencer.setSize(window.width, window.height);
-    sequencer.setPositionWithCentre(window.getCenter().x, window.getCenter().y);
-
     ui.addChildComponent(&sequencer);
 }
 
@@ -75,6 +68,13 @@ void Commander::windowResized(int w, int h)
     centre.y = static_cast<float>(h) * 0.5f;
 
     ui.setPositionWithCentre(centre.x, centre.y);
+
+    UIRect grid = ui.getBounds();
+    UIRect menu = grid.removeFromBottom(150);
+
+    sequencer.setMargins(50, 50, 50, 0);
+    sequencer.setSize(grid.width, grid.height);
+    sequencer.setPositionWithCentre(grid.getCenter().x, grid.getCenter().y);
 }
 
 void Commander::gotMessage(ofMessage msg)

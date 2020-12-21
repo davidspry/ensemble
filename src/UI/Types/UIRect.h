@@ -15,21 +15,25 @@
 class UIRect: public ofRectangle
 {
 public:
-    UIRect():
-    ofRectangle()
-    {
-        
-    }
-    
-    template <typename T>
-    UIRect(UIPoint<T> origin, UISize<T> size):
-    ofRectangle(origin.x, origin.y, size.w, size.h)
-    {
-        
-    }
+    /// @brief Construct a UIRect at position (0, 0) with size (0, 0).
 
-    UIRect(float x, float y, float width, float height):
-    ofRectangle(x, y, width, height)
+    UIRect();
+    
+    /// @brief Construct a UIRect at position (x, y) with size (width, height).
+    /// @param x The x-coordinate of the desired origin point.
+    /// @param y The y-coordinate of the desired origin point.
+    /// @param width The desired width.
+    /// @param height The desired height.
+    
+    UIRect(float x, float y, float width, float height);
+    
+    /// @brief Construct a UIRect at the given origin point with the given size.
+    /// @param origin The desired origin point.
+    /// @param size The desired size.
+
+    template <typename T, typename M>
+    UIRect(UIPoint<T> origin, UISize<M> size):
+    ofRectangle(origin.x, origin.y, size.w, size.h)
     {
         
     }
@@ -60,7 +64,7 @@ public:
     /// @param subdivisions The number of subdivisions to compute
 
     [[nodiscard]] std::vector<UIRect> subdivide(Axis axis, int subdivisions) const noexcept(false);
-    
+
 public:
     /// @brief Subtract the given margins from the UIRect and return the result.
     /// @param margins The margins to be subtracted from the UIRect.

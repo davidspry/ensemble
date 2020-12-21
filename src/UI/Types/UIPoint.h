@@ -11,6 +11,9 @@
 template <typename T>
 struct UIPoint
 {
+    T x;
+    T y;
+    
     UIPoint()
     {
         static_assert(std::is_arithmetic<T>::value, "The given type must be numeric.");
@@ -26,9 +29,12 @@ struct UIPoint
         this->x = x;
         this->y = y;
     }
-
-    T x;
-    T y;
+    
+    void set(T x, T y)
+    {
+        this->x = x;
+        this->y = y;
+    }
 };
 
 #endif

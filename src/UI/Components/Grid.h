@@ -9,15 +9,14 @@
 class Grid: public UIComponent
 {
 public:
-    Grid(): UIComponent()
+    Grid():
+    UIComponent(), SPACE(25)
     {
         grid.setFilled(false);
-        grid.setStrokeWidth(2.0f);
+        grid.setStrokeWidth(1.5f);
         grid.setColor(15);
 
-        SPACE = 20;
-        W = size.w / SPACE;
-        H = size.h / SPACE;
+        updateGridDimensions();
     }
 
     void draw() override
@@ -26,7 +25,6 @@ public:
         {
             grid.clear();
             shouldRedraw = false;
-            grid.setColor(foregroundColour);
 
             const int R = W * SPACE;
             const int B = H * SPACE;
@@ -42,6 +40,8 @@ public:
                 grid.moveTo(x * SPACE, 0 - 1);
                 grid.lineTo(x * SPACE, B + 1);
             }
+            
+            grid.setColor(colours.foregroundColour);
         }
 
         grid.draw(origin.x + margins.l, origin.y + margins.t);
@@ -50,21 +50,15 @@ public:
     void setSize(const float width, const float height) override
     {
         UIComponent::setSize(width, height);
-
-        W = static_cast<int>(1.0f / (float) SPACE * width);
-        H = static_cast<int>(1.0f / (float) SPACE * height);
         
-        setMargins(margins);
+        updateGridDimensions();
     }
     
     void setSizeFromCentre(const float width, const float height) override
     {
         UIComponent::setSizeFromCentre(width, height);
 
-        W = static_cast<int>(1.0f / (float) SPACE * width);
-        H = static_cast<int>(1.0f / (float) SPACE * height);
-        
-        setMargins(margins);
+        updateGridDimensions();
     }
 
     void setMargins(UIMargins<int>& margins) override
@@ -76,11 +70,16 @@ public:
     {
         UIComponent::setMargins(top, left, right, bottom);
 
-        W = (size.w - margins.l - margins.r) / SPACE;
-        H = (size.h - margins.t - margins.b) / SPACE;
+        updateGridDimensions();
     }
+    
+    /// @brief Compute the position of a grid cell in pixels.
+    /// @note  The position of the centre of the grid cell is returned.
+    /// @param row The cell's row index, beginning from 0.
+    /// @param col The cell's column index, beginning from 0.
+    /// @throw An exception will be thrown in the case where the given indices are out of range.
 
-    const UIPoint<int> locationOfCell(uint row, uint col) const noexcept(false)
+    const UIPoint<int> positionOfCell(uint row, uint col) const noexcept(false)
     {
         if (!(row < H && col < W))
         {
@@ -94,6 +93,30 @@ public:
         return {x, y};
     }
 
+    /// @brief Return the size of the grid's cells in pixels.
+
+    const int getGridCellSize() const noexcept
+    {
+        return static_cast<int>(SPACE);
+    }
+    
+    /// @brief Return the grid's dimensions in rows and columns.
+
+    const UISize<int>& getGridDimensions() const noexcept
+    {
+        return shape;
+    }
+    
+protected:
+    /// @brief Update the grid's dimensions using its component size, margins, and cell spacing.
+
+    inline void updateGridDimensions()
+    {
+        W = (size.w - margins.l - margins.r) / SPACE;
+        H = (size.h - margins.t - margins.b) / SPACE;
+        shape.set(W, H);
+    }
+
 private:
     ofPath grid;
     
@@ -101,6 +124,7 @@ private:
     unsigned int W;
     unsigned int H;
     unsigned int SPACE;
+    UISize <int> shape;
 };
 
 #endif

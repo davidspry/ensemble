@@ -4,7 +4,7 @@
 #ifndef UIWINDOW_H
 #define UIWINDOW_H
 
-#include "UITypes.h"
+#include "ofMain.h"
 #include "UIComponent.h"
 
 class UIWindow: public UIComponent
@@ -27,12 +27,7 @@ public:
 
     ~UIWindow()
     {
-        for (UIComponent* component : childComponents)
-        {
-            delete component;
-
-            component = nullptr;
-        }
+        
     }
 
 public:

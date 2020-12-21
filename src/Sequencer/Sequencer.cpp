@@ -4,13 +4,13 @@
 #include "Sequencer.hpp"
 
 Sequencer::Sequencer():
-UIComponent()
+UIComponent(), cursor(grid.getGridCellSize())
 {
     
 }
 
 Sequencer::Sequencer(int x, int y, int width, int height):
-UIComponent(x, y, width, height)
+UIComponent(x, y, width, height), cursor(grid.getGridCellSize())
 {
     
 }
@@ -20,6 +20,7 @@ UIComponent(x, y, width, height)
 void Sequencer::draw()
 {
     grid.draw();
+    cursor.draw();
 }
 
 void Sequencer::setPositionWithOrigin(const float x, const float y)
@@ -37,19 +38,29 @@ void Sequencer::setPositionWithCentre(const float x, const float y)
 void Sequencer::setSizeFromCentre(const float width, const float height)
 {
     grid.setSizeFromCentre(width, height);
+    const auto cellSize = grid.getGridCellSize();
+    cursor.setSizeFromCentre(cellSize, cellSize);
     UIComponent::setSizeFromCentre(width, height);
 }
 
 void Sequencer::setSize(const float width, const float height)
 {
     grid.setSize(width, height);
+    const auto cellSize = grid.getGridCellSize();
+    cursor.setSizeFromCentre(cellSize, cellSize);
     UIComponent::setSize(width, height);
 }
 
 void Sequencer::setMargins(const int top, const int left, const int right, const int bottom)
 {
     grid.setMargins(top, left, right, bottom);
+    cursor.setMargins(top, left, right, bottom);
     UIComponent::setMargins(top, left, right, bottom);
 }
 
 // MARK: - Sequencer API
+
+void Sequencer::moveCursor(Direction direction) noexcept
+{
+    cursor.move(direction, grid.getGridDimensions());
+}

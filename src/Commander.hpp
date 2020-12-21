@@ -35,7 +35,7 @@ public:
 private:
     UISize <int> size;
     UIPoint<int> centre;
-    UIWindow     ui;
+    UIWindow ui;
 
 private:
     Sequencer sequencer;

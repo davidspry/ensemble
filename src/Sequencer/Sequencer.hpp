@@ -5,6 +5,7 @@
 #define SEQUENCER_HPP
 
 #include "Ensemble.h"
+#include "Cursor.h"
 #include "Grid.h"
 
 class Sequencer: public UIComponent
@@ -22,12 +23,14 @@ public:
     void setMargins(const int top, const int left, const int right, const int bottom) override;
     
 public:
-    
-    
-    
-    
+    void placeNote(MIDINote note) noexcept;
+    void placeRedirect() noexcept;
+    void eraseFromCurrentPosition() noexcept;
+    void moveCursor(Direction direction) noexcept;
+
 private:
-    Grid grid;
+    Grid   grid;
+    Cursor cursor;
 };
 
 #endif

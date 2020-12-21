@@ -3,6 +3,18 @@
 
 #include "UIRect.h"
 
+UIRect::UIRect():
+ofRectangle()
+{
+    
+}
+
+UIRect::UIRect(float x, float y, float width, float height):
+ofRectangle(x, y, width, height)
+{
+    
+}
+
 UIRect UIRect::removeFromTop(int amountToRemove) noexcept(false)
 {
     if (!(amountToRemove > 0)) {

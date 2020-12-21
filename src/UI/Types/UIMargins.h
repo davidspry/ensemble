@@ -11,6 +11,11 @@
 template <typename T>
 struct UIMargins
 {
+    T t;
+    T l;
+    T r;
+    T b;
+    
     UIMargins()
     {
         static_assert(std::is_arithmetic<T>::value, "The given type must be numeric.");
@@ -40,11 +45,14 @@ struct UIMargins
         this->t = top;
         this->b = bottom;
     }
-
-    T t;
-    T l;
-    T r;
-    T b;
+    
+    void set(T top, T left, T right, T bottom)
+    {
+        this->l = left;
+        this->r = right;
+        this->t = top;
+        this->b = bottom;
+    }
 };
 
 
