@@ -15,6 +15,71 @@ ofRectangle(x, y, width, height)
     
 }
 
+const UISize<int> UIRect::getSize() const noexcept
+{
+    return {static_cast<int>(width), static_cast<int>(height)};
+}
+
+UIRect UIRect::translatedTo(int x, int y) noexcept
+{
+    UIRect r = *(this);
+    
+    r.setX(x);
+    r.setY(y);
+
+    return r;
+}
+
+void UIRect::trimFromTop(int amountToRemove) noexcept(false)
+{
+    if (!(amountToRemove > 0)) {
+        throw std::out_of_range("The amount to remove must be positive.");
+    }
+    
+    const auto removed = std::fmin((float) amountToRemove, height);
+    setHeight(height - removed);
+    translateY(removed);
+    
+    return;
+}
+
+void UIRect::trimFromBottom(int amountToRemove) noexcept(false)
+{
+    if (!(amountToRemove > 0)) {
+        throw std::out_of_range("The amount to remove must be positive.");
+    }
+    
+    const auto removed = std::fmin((float) amountToRemove, height);
+    setHeight(height - removed);
+    
+    return;
+}
+
+void UIRect::trimFromLeft(int amountToRemove) noexcept(false)
+{
+    if (!(amountToRemove > 0)) {
+        throw std::out_of_range("The amount to remove must be positive.");
+    }
+    
+    const auto removed = std::fmin((float) amountToRemove, width);
+    setWidth(width - removed);
+    translateX(removed);
+    
+    return;
+}
+
+void UIRect::trimFromRight(int amountToRemove) noexcept(false)
+{
+    if (!(amountToRemove > 0)) {
+        throw std::out_of_range("The amount to remove must be positive.");
+    }
+    
+    const auto removed = std::fmin((float) amountToRemove, width);
+    setWidth(width - removed);
+    
+    return;
+}
+
 UIRect UIRect::removeFromTop(int amountToRemove) noexcept(false)
 {
     if (!(amountToRemove > 0)) {
@@ -70,7 +135,7 @@ UIRect UIRect::removeFromRight(int amountToRemove) noexcept(false)
 
     setWidth(width - removed);
     
-    return {origin.x - removed, origin.y, width, height};
+    return {origin.x - removed, origin.y, removed, height};
 }
 
 std::vector<UIRect> UIRect::subdivide(Axis axis, int subdivisions) const noexcept(false)

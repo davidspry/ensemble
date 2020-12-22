@@ -11,6 +11,7 @@
 		1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */; };
 		1462C672258F434E0088A705 /* Sequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C670258F434E0088A705 /* Sequencer.cpp */; };
 		1462C676258F4CC40088A705 /* UIRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C675258F4CC40088A705 /* UIRect.cpp */; };
+		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
 		3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712B183BC00EBFFB1EEA5AB8 /* ofxRtMidiOut.cpp */; };
@@ -52,6 +53,8 @@
 		05F6CF127D4A621113D4A62F /* ofxMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxMidi.h; path = ../../../addons/ofxMidi/src/ofxMidi.h; sourceTree = SOURCE_ROOT; };
 		0A1DAC09F322AE313A40706D /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxToggle.h; path = ../../../addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
 		10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxMidiTimecode.cpp; path = ../../../addons/ofxMidi/src/ofxMidiTimecode.cpp; sourceTree = SOURCE_ROOT; };
+		1424EC1525919C060089A3CD /* UIFontLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFontLibrary.h; sourceTree = "<group>"; };
+		1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIFontLibrary.cpp; sourceTree = "<group>"; };
 		1462C670258F434E0088A705 /* Sequencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sequencer.cpp; sourceTree = "<group>"; };
 		1462C671258F434E0088A705 /* Sequencer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sequencer.hpp; sourceTree = "<group>"; };
 		1462C674258F4B2E0088A705 /* UIRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIRect.h; sourceTree = "<group>"; };
@@ -74,6 +77,7 @@
 		1462C68D259091E70088A705 /* MIDIClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIClock.h; sourceTree = "<group>"; };
 		1462C68E259092800088A705 /* ClockListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockListener.h; sourceTree = "<group>"; };
 		1462C68F2590A6FD0088A705 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		1462C6942590CB2A0088A705 /* Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Label.h; sourceTree = "<group>"; };
 		14D7F07D258E6E5A006A79BD /* UIComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponent.h; sourceTree = "<group>"; };
 		14D7F07E258E715B006A79BD /* UITypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITypes.h; sourceTree = "<group>"; };
 		14D7F080258E742B006A79BD /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -398,6 +402,8 @@
 				1462C673258F4B210088A705 /* Types */,
 				14D7F07F258E7421006A79BD /* Components */,
 				14D7F07E258E715B006A79BD /* UITypes.h */,
+				1424EC1525919C060089A3CD /* UIFontLibrary.h */,
+				1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */,
 				14D7F07D258E6E5A006A79BD /* UIComponent.h */,
 				1462C679258F5D8C0088A705 /* UIWindow.h */,
 			);
@@ -408,6 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				14D7F080258E742B006A79BD /* Grid.h */,
+				1462C6942590CB2A0088A705 /* Label.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1035,6 +1042,7 @@
 				F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */,
 				837220E80EB56CD44AD27F2A /* ofxSlider.cpp in Sources */,
 				B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */,
+				147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */,
 				1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */,
 				63D0FD8734D5760B8080C901 /* RtMidi.cpp in Sources */,
 				BCC8D420CBA9217E437D2D76 /* ofxRtMidiIn.cpp in Sources */,

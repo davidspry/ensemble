@@ -15,6 +15,7 @@
 #include "UITypes.h"
 #include "UIWindow.h"
 #include "UIComponent.h"
+#include "UIFontLibrary.h"
 
 #include "MIDITypes.h"
 

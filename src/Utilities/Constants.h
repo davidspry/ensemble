@@ -8,4 +8,8 @@ enum class Axis { X, Y };
 
 enum class Direction { N, E, S, W };
 
+enum class HorizontalAlignment { Centre, Left, Right };
+
+enum class VerticalAlignment { Centre, Top, Bottom };
+
 #endif

@@ -34,26 +34,14 @@ public:
 
     virtual void draw() = 0;
     
-    /// \brief Get the component's bounds rectangle.
+    /// \brief Indicate that the component should be redrawn.
 
-    [[nodiscard]] const UIRect getBounds() const noexcept
+    inline void setShouldRedraw()
     {
-        return {origin, size};
+        shouldRedraw = true;
     }
     
-    /// \brief Get the component's origin point.
-    
-    [[nodiscard]] const UIPoint<int>& getOriginPoint() const noexcept
-    {
-        return origin;
-    }
-    
-    /// \brief Get the component's centre point.
-
-    [[nodiscard]] const UIPoint<int>& getCentrePoint() const noexcept
-    {
-        return centre;
-    }
+    // MARK: - UIColourScheme
     
     /// \brief Get the component's background colour.
     
@@ -65,17 +53,87 @@ public:
     /// \brief Set the component's colour scheme and flag the component for redrawing.
     /// \param scheme The desired colour scheme.
 
-    virtual void setColourScheme(UIColourScheme scheme)
+    virtual inline void setColourScheme(UIColourScheme scheme)
     {
         colours = scheme;
 
         setShouldRedraw();
     }
     
+    /// \brief Set the component's background colour and flag the component for redrawing.
+    /// \param colour The desired background colour.
+
+    virtual inline void setBackgroundColour(ofColor colour)
+    {
+        colours.backgroundColour = colour;
+        
+        setShouldRedraw();
+    }
+    
+    /// \brief Set the component's foreground colour and flag the component for redrawing.
+    /// \param colour The desired foreground colour.
+
+    virtual inline void setForegroundColour(ofColor colour)
+    {
+        colours.foregroundColour = colour;
+        
+        setShouldRedraw();
+    }
+    
+    /// \brief Set the component's accent colour and flag the component for redrawing.
+    /// \param colour The desired accent colour.
+
+    virtual inline void setAccentColour(ofColor colour)
+    {
+        colours.accentColour = colour;
+        
+        setShouldRedraw();
+    }
+    
+    /// \brief Set the component's text colour and flag the component for redrawing.
+    /// \param colour The desired text colour.
+
+    virtual inline void setTextColour(ofColor colour)
+    {
+        colours.textColour = colour;
+        
+        setShouldRedraw();
+    }
+    
+    // MARK: - Geometry
+    
+    /// \brief Get the component's bounds rectangle.
+
+    [[nodiscard]] inline UIRect getBounds() const noexcept
+    {
+        return {origin, size};
+    }
+    
+    /// \brief Get the component's inner bounds rectangle (i.e., the bounds less the margins).
+
+    [[nodiscard]] inline UIRect getInnerBounds() const noexcept
+    {
+        return UIRect(origin, size).subtractMargins(margins);
+    }
+
+    /// \brief Get the component's origin point.
+    
+    [[nodiscard]] inline const UIPoint<int>& getOriginPoint() const noexcept
+    {
+        return origin;
+    }
+    
+    /// \brief Get the component's centre point.
+
+    [[nodiscard]] inline const UIPoint<int>& getCentrePoint() const noexcept
+    {
+        return centre;
+    }
+    
     /// \brief Set the component's position and size using the given bounds rectangle.
     /// \param bounds The desired bounds rectangle.
 
-    virtual void setBounds(UIRect bounds) noexcept
+    virtual inline void setBounds(UIRect bounds) noexcept
     {
         const auto origin = bounds.getTopLeft();
         
@@ -151,17 +209,20 @@ public:
         setPositionWithCentre(centre.x, centre.y);
     }
     
+    /// \brief Set each of the component's margins to the given value and flag the component for redrawing.
+    /// \param marginSize The desired size for each of the component's margins in pixels.
+
+    virtual inline void setMargins(const int marginSize)
+    {
+        this->setMargins(marginSize, marginSize, marginSize, marginSize);
+    }
+    
     /// \brief Set the component's margins and flag the component for redrawing.
     /// \param margins The desired margins.
 
     virtual inline void setMargins(UIMargins<int>& margins)
     {
-        this->margins.t = margins.t;
-        this->margins.l = margins.l;
-        this->margins.r = margins.r;
-        this->margins.b = margins.b;
-        
-        setShouldRedraw();
+        this->setMargins(margins.t, margins.l, margins.r, margins.b);
     }
     
     /// \brief Set the component's margins and flag the component for redrawing.
@@ -178,13 +239,6 @@ public:
         margins.b = bottom;
         
         setShouldRedraw();
-    }
-
-    /// \brief Indicate that the component should be redrawn.
-
-    inline void setShouldRedraw()
-    {
-        shouldRedraw = true;
     }
 
 protected:

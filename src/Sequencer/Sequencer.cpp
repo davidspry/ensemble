@@ -6,13 +6,13 @@
 Sequencer::Sequencer():
 UIComponent(), cursor(grid.getGridCellSize())
 {
-    
+    setMargins(25, 25, 25, 0);
 }
 
 Sequencer::Sequencer(int x, int y, int width, int height):
 UIComponent(x, y, width, height), cursor(grid.getGridCellSize())
 {
-    
+    setMargins(25, 25, 25, 0);
 }
 
 // MARK: - UIComponent Drawing
@@ -38,7 +38,7 @@ void Sequencer::setPositionWithCentre(const float x, const float y)
 void Sequencer::setSizeFromCentre(const float width, const float height)
 {
     grid.setSizeFromCentre(width, height);
-    const auto cellSize = grid.getGridCellSize();
+    const int cellSize = grid.getGridCellSize();
     cursor.setSizeFromCentre(cellSize, cellSize);
     UIComponent::setSizeFromCentre(width, height);
 }
@@ -46,7 +46,7 @@ void Sequencer::setSizeFromCentre(const float width, const float height)
 void Sequencer::setSize(const float width, const float height)
 {
     grid.setSize(width, height);
-    const auto cellSize = grid.getGridCellSize();
+    const int cellSize = grid.getGridCellSize();
     cursor.setSizeFromCentre(cellSize, cellSize);
     UIComponent::setSize(width, height);
 }

@@ -39,6 +39,36 @@ public:
     }
 
 public:
+    /// @brief Get the size of the UIRect.
+
+    [[nodiscard]] const UISize<int> getSize() const noexcept;
+    
+    /// @brief Return a copy of the UIRect translated to the given origin point.
+    /// @param x The x-coordinate of the desired origin point for the returned UIRect.
+    /// @param y The y-coordinate of the desired origin point for the returned UIRect.
+
+    [[nodiscard]] UIRect translatedTo(int x, int y) noexcept;
+    
+    /// @brief Remove a rectangle from the top of the UIRect.
+    /// @param amountToRemove The desired number of pixels to remove from the top.
+
+    void trimFromTop(int amountToRemove) noexcept(false);
+    
+    /// @brief Remove a rectangle from the bottom of the UIRect.
+    /// @param amountToRemove The desired number of pixels to remove from the bottom.
+
+    void trimFromBottom(int amountToRemove) noexcept(false);
+    
+    /// @brief Remove a rectangle from the left of the UIRect.
+    /// @param amountToRemove The desired number of pixels to remove from the left.
+
+    void trimFromLeft(int amountToRemove) noexcept(false);
+    
+    /// @brief Remove a rectangle from the right of the UIRect.
+    /// @param amountToRemove The desired number of pixels to remove from the right.
+
+    void trimFromRight(int amountToRemove) noexcept(false);
+    
     /// @brief Remove a rectangle from the top of the UIRect and return it.
     /// @param amountToRemove The desired number of pixels to remove from the top.
 

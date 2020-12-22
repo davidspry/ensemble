@@ -26,25 +26,27 @@ public:
             grid.clear();
             shouldRedraw = false;
 
-            const int R = W * SPACE;
-            const int B = H * SPACE;
+            const int t = margins.t;
+            const int l = margins.l;
+            const int r = margins.l + W * SPACE;
+            const int b = margins.t + H * SPACE;
 
             for (size_t y = 0; y < H + 1; ++y)
             {
-                grid.moveTo(0 - 1, y * SPACE);
-                grid.lineTo(R + 1, y * SPACE);
+                grid.moveTo(l - 1, t + y * SPACE);
+                grid.lineTo(r + 1, t + y * SPACE);
             }
 
             for (size_t x = 0; x < W + 1; ++x)
             {
-                grid.moveTo(x * SPACE, 0 - 1);
-                grid.lineTo(x * SPACE, B + 1);
+                grid.moveTo(l + x * SPACE, t - 1);
+                grid.lineTo(l + x * SPACE, b + 1);
             }
-            
+
             grid.setColor(colours.foregroundColour);
         }
 
-        grid.draw(origin.x + margins.l, origin.y + margins.t);
+        grid.draw(origin.x, origin.y);
     }
     
     void setSize(const float width, const float height) override

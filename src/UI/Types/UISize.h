@@ -11,8 +11,17 @@
 template <typename T>
 struct UISize
 {
-    T w;
-    T h;
+    union
+    {
+        T w;
+        T width;
+    };
+    
+    union
+    {
+        T h;
+        T height;
+    };
 
     UISize()
     {
