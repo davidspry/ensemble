@@ -5,39 +5,25 @@
 #define CURSOR_H
 
 #include "Ensemble.h"
+#include "GridCell.h"
 
 /// @brief The user's sequencer position and MIDI settings.
 
-class Cursor: public UIComponent
+class Cursor: public GridCell
 {
 public:
     Cursor(unsigned int cursorSize):
-    UIComponent()
+    GridCell(cursorSize)
     {
-        setSize(cursorSize, cursorSize);
-        moveToGridPosition(0, 0);
-
         initialisePath();
     }
 
     Cursor(unsigned int cursorSize, UIPoint<int> position, MIDISettings settings):
-    UIComponent()
+    GridCell(cursorSize, position), midi(settings)
     {
-        setSize(cursorSize, cursorSize);
-        moveToGridPosition(position);
-
-        midi = settings;
         initialisePath();
     }
 
-private:
-    inline void initialisePath()
-    {
-        cursor.setFilled(true);
-        cursor.setStrokeWidth(0.0f);
-        cursor.clear();
-    }
-    
 public:
     /// @brief Move the cursor on the sequencer in the given direction.
     /// @param direction The direction in which the cursor should be moved.
@@ -53,7 +39,7 @@ public:
         xy.x = (xy.x + dx + gridSize.w) % gridSize.w;
         xy.y = (xy.y + dy + gridSize.h) % gridSize.h;
 
-        setPositionWithOrigin(xy.x * size.w, xy.y * size.h);
+        moveToGridPosition(xy);
     }
     
     /// @brief Return the current MIDI settings.
@@ -63,44 +49,21 @@ public:
         return midi;
     }
     
-private:
-    /// @brief Move the cursor to the given position on the sequencer.
-    /// @param position The desired position as row and column indices.
-
-    inline void moveToGridPosition(UIPoint<int>& position)
-    {
-        moveToGridPosition(position.y, position.x);
-    }
-    
-    /// @brief Move the cursor to the given position on the sequencer.
-    /// @param row The desired row index
-    /// @param col The desired column index
-
-    inline void moveToGridPosition(int row, int col)
-    {
-        xy.x = row;
-        xy.y = col;
-        setPositionWithOrigin(xy.x * size.w, xy.y * size.h);
-    }
-    
 public:
     void draw() override
     {
         if (shouldRedraw)
         {
-            cursor.clear();
-            cursor.rectangle(0, 0, size.w, size.h);
-            cursor.setColor(colours.foregroundColour);
+            path.clear();
+            path.circle(0.5f * size.w, 0.5f * size.h, 0.4f * size.w);
+            path.setColor(colours.foregroundColour);
         }
-        
-        cursor.draw(origin.x + margins.l, origin.y + margins.t);
+
+        path.draw(origin.x + margins.l + gridPosition.x,
+                  origin.y + margins.t + gridPosition.y);
     }
-    
-private:
-    ofPath cursor;
 
 private:
-    UIPoint<int> xy;
     MIDISettings midi;
 };
 

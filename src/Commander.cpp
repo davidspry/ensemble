@@ -7,7 +7,7 @@ Commander::Commander()
 
 void Commander::setup()
 {
-    ui.addChildComponent(&sequencer);    
+    ui.addChildComponent(&sequencer);
 }
 
 void Commander::update()
@@ -22,7 +22,23 @@ void Commander::draw()
 
 void Commander::keyPressed(int key)
 {
-    
+//    printf("%d\n", key);
+    switch (key)
+    {
+        case K_UArrow: { return sequencer.moveCursor(Direction::N); }
+        case K_DArrow: { return sequencer.moveCursor(Direction::S); }
+        case K_LArrow: { return sequencer.moveCursor(Direction::W); }
+        case K_RArrow: { return sequencer.moveCursor(Direction::E); }
+            
+        case K_LowerX: { return sequencer.placeRedirect(Redirection::X); }
+        case K_LowerY: { return sequencer.placeRedirect(Redirection::Y); }
+        case K_LowerV: { return sequencer.placeRedirect(Redirection::Alternating); }
+        case K_LowerL: { return sequencer.placeRedirect(Redirection::Diagonal); }
+        case K_LowerR: { return sequencer.placeRedirect(Redirection::Random); }
+
+        case K_Space:  { return sequencer.toggleClock(); }
+        default: return;
+    }
 }
 
 void Commander::keyReleased(int key)
@@ -68,10 +84,10 @@ void Commander::windowResized(int w, int h)
     centre.y = static_cast<int>(static_cast<float>(h) * 0.5f);
 
     ui.setPositionWithCentre(centre.x, centre.y);
-
+    
     UIRect grid = ui.getBounds();
-    UIRect menu = grid.removeFromBottom(150);
-    UIRect left = menu.removeFromLeft(175).removeFromRight(150);
+    UIRect menu = grid.removeFromBottom(140);
+    UIRect left = menu.removeFromLeft(125).trimFromLeft(25);
     
     sequencer.setSize(grid.width, grid.height);
     sequencer.setPositionWithCentre(grid.getCenter().x, grid.getCenter().y);

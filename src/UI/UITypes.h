@@ -4,6 +4,7 @@
 #ifndef UITYPES_H
 #define UITYPES_H
 
+#include "UIPath.h"
 #include "UIRect.h"
 #include "UISize.h"
 #include "UIPoint.h"

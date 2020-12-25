@@ -13,9 +13,9 @@ public:
     UIComponent()
     {
         setSize(50, 25);
-        setText("Label");
         setFont("JetBrainsMono-Medium.ttf", 10);
-        setTextAlignment(HorizontalAlignment::Left, VerticalAlignment::Centre);
+        setText("Label");
+        setTextAlignment(HorizontalAlignment::Centre, VerticalAlignment::Centre);
     }
 
 public:
@@ -28,7 +28,7 @@ public:
         if (shouldFillBackground)
         {
             const UIRect r = getInnerBounds();
-            ofSetColor(colours.backgroundColour);
+            ofSetColor(colours.accentColour);
             ofDrawRectangle(r);
         }
 
@@ -38,6 +38,15 @@ public:
         
         ofPopMatrix();
         ofPopStyle();
+    }
+    
+    /// @brief Match the size of the label to the size of the label's text
+
+    void shrinkToFitText() noexcept
+    {
+        const auto bounds = font->getStringBoundingBox(text, 0, 0);
+
+        setSize(bounds.width, bounds.height);
     }
     
     inline void setSize(const float width, const float height) override
@@ -82,6 +91,11 @@ public:
     inline void setText(const char * string) noexcept
     {
         text = std::string(string);
+
+        if (font != nullptr)
+        {
+            setTextAlignment(horizontalTextAlignment, verticalTextAlignment);
+        }
     }
 
     /// @brief Get the label's text component.
@@ -121,8 +135,8 @@ public:
         switch (horizontal)
         {
             case H::Left:   { textOrigin.x = margins.l; break; }
-            case H::Centre: { textOrigin.x = size.w; break; }
-            case H::Right:  { textOrigin.x = 2 * size.w - margins.r; break; }
+            case H::Centre: { textOrigin.x = (size.w - bounds.width) * 0.5f; break; }
+            case H::Right:  { textOrigin.x = size.w - margins.r; break; }
         }
 
         using V = VerticalAlignment;
@@ -138,10 +152,6 @@ public:
     }
 
 private:
-    /// @brief The visible area of the label.
-
-    ofFbo label;
-    
     /// @brief Whether the label's background should be filled with the component's background colour or not.
     
     bool shouldFillBackground = false;

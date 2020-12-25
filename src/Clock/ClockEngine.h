@@ -12,7 +12,7 @@ class ClockEngine
 public:
     ClockEngine()
     {
-        setTempo(100);
+        setTempo(120);
         setSubdivision(4);
     }
     
@@ -43,6 +43,13 @@ public:
         auto & list = listeners;
 
         list.erase(std::remove(list.begin(), list.end(), listener), list.end());
+    }
+    
+    /// @brief Toggle the clock's ticking state.
+
+    virtual inline void toggleClock() noexcept
+    {
+        ticking = !ticking;
     }
     
     /// @brief Get the clock's tempo in beats per minute.
@@ -97,6 +104,9 @@ protected:
         }
     }
 
+protected:
+    bool ticking;
+    
 protected:
     unsigned int tempo;
     unsigned int subdivision;

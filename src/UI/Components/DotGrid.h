@@ -1,19 +1,19 @@
 //  Ensemble
-//  Created by David Spry on 20/12/20.
+//  Created by David Spry on 24/12/20.
 
-#ifndef GRID_H
-#define GRID_H
+#ifndef DOTGRID_H
+#define DOTGRID_H
 
 #include "Ensemble.h"
 
-class Grid: public UIComponent
+class DotGrid: public UIComponent
 {
 public:
-    Grid():
-    UIComponent(), SPACE(20)
+    DotGrid():
+    UIComponent(), SPACE(15)
     {
-        grid.setFilled(false);
-        grid.setStrokeWidth(1.5f);
+        grid.setFilled(true);
+        grid.setStrokeWidth(0.0f);
         updateGridDimensions();
     }
 
@@ -24,21 +24,12 @@ public:
             grid.clear();
             shouldRedraw = false;
 
-            const int t = margins.t;
-            const int l = margins.l;
-            const int r = margins.l + W * SPACE;
-            const int b = margins.t + H * SPACE;
-
-            for (size_t y = 0; y < H + 1; ++y)
+            for (size_t y = 0; y < H; ++y)
             {
-                grid.moveTo(l - 1, t + y * SPACE);
-                grid.lineTo(r + 1, t + y * SPACE);
-            }
-
-            for (size_t x = 0; x < W + 1; ++x)
-            {
-                grid.moveTo(l + x * SPACE, t - 1);
-                grid.lineTo(l + x * SPACE, b + 1);
+                grid.moveTo(0, margins.t + y * SPACE);
+                for (size_t x = 0; x < W; ++x)
+                    grid.circle(margins.l + SPACE * (x + 0.5f),
+                                margins.t + SPACE * (y + 0.5f), 1.0f);
             }
 
             grid.setColor(colours.secondaryForegroundColour);

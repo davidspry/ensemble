@@ -1,4 +1,5 @@
 #include "ofMain.h"
+#include "Themes.h"
 #include "Commander.hpp"
 #include "ofxWindowOptions.h"
 
@@ -13,12 +14,13 @@ int main()
     ofxWindowOptions::setTitleBarVisibility(false);
     ofxWindowOptions::setResizable(false);
     
-    ofSetWindowPosition(35, 65);
+    ofSetWindowPosition(35, 65); 
     ofSetCircleResolution(256);
+    ofDisableAlphaBlending();
     ofEnableAntiAliasing();
     ofEnableSmoothing();
     ofSetFrameRate(60);
-    ofBackground(215);
+    ofBackground(Themes::theme.backgroundColour);
 
     ofSetEscapeQuitsApp(false);
 

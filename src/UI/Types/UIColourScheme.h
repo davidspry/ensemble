@@ -11,13 +11,27 @@
 
 struct UIColourScheme
 {
-    ofColor backgroundColour = {225};
+    ofColor backgroundColour;
+    ofColor foregroundColour;
+    ofColor secondaryForegroundColour;
+    ofColor accentColour;
+    ofColor textColour;
     
-    ofColor foregroundColour = {15};
-    
-    ofColor accentColour     = {ofxRisographColours::ivy};
-    
-    ofColor textColour       = {15};
+    /// @brief Construct a colour scheme by specifying each colour.
+    /// @param background A background colour
+    /// @param foreground A foreground colour
+    /// @param secondary A secondary foreground colour
+    /// @param accent An accent colour
+    /// @param text A text colour
+
+    UIColourScheme(ofColor background, ofColor foreground, ofColor secondary, ofColor accent, ofColor text)
+    {
+        backgroundColour = background;
+        foregroundColour = foreground;
+        secondaryForegroundColour = secondary;
+        accentColour = accent;
+        textColour = text;
+    }
 };
 
 #endif

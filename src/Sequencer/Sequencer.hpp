@@ -6,9 +6,12 @@
 
 #include "Ensemble.h"
 #include "Cursor.h"
+#include "DotGrid.h"
 #include "Grid.h"
 
-class Sequencer: public UIComponent
+#include "SampleClock.h"
+
+class Sequencer: public UIComponent, public ClockListener
 {
 public:
     Sequencer();
@@ -23,14 +26,23 @@ public:
     void setMargins(const int top, const int left, const int right, const int bottom) override;
     
 public:
+    void tick() override;
+    void toggleClock() noexcept;
+    
+public:
     void placeNote(MIDINote note) noexcept;
-    void placeRedirect() noexcept;
+    void placeRedirect(Redirection type) noexcept;
     void eraseFromCurrentPosition() noexcept;
     void moveCursor(Direction direction) noexcept;
 
 private:
-    Grid   grid;
+    DotGrid grid;
     Cursor cursor;
+    
+private:
+    SampleClock clock;
+    std::vector<SQPlayhead> playheads;
+    std::vector<SQRedirect> redirects;
 };
 
 #endif

@@ -53,6 +53,9 @@
 		05F6CF127D4A621113D4A62F /* ofxMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxMidi.h; path = ../../../addons/ofxMidi/src/ofxMidi.h; sourceTree = SOURCE_ROOT; };
 		0A1DAC09F322AE313A40706D /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxToggle.h; path = ../../../addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
 		10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxMidiTimecode.cpp; path = ../../../addons/ofxMidi/src/ofxMidiTimecode.cpp; sourceTree = SOURCE_ROOT; };
+		14061DEB25944C1100F8AC65 /* UIPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIPath.h; sourceTree = "<group>"; };
+		14061DEC2594888A00F8AC65 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		14061DED25949A2A00F8AC65 /* DotGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotGrid.h; sourceTree = "<group>"; };
 		1424EC1525919C060089A3CD /* UIFontLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFontLibrary.h; sourceTree = "<group>"; };
 		1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIFontLibrary.cpp; sourceTree = "<group>"; };
 		1462C670258F434E0088A705 /* Sequencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sequencer.cpp; sourceTree = "<group>"; };
@@ -78,6 +81,8 @@
 		1462C68E259092800088A705 /* ClockListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockListener.h; sourceTree = "<group>"; };
 		1462C68F2590A6FD0088A705 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		1462C6942590CB2A0088A705 /* Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Label.h; sourceTree = "<group>"; };
+		146AF2B6259251CC0008F8C6 /* SQPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQPortal.h; sourceTree = "<group>"; };
+		146AF2B7259383EE0008F8C6 /* GridCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
 		14D7F07D258E6E5A006A79BD /* UIComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponent.h; sourceTree = "<group>"; };
 		14D7F07E258E715B006A79BD /* UITypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITypes.h; sourceTree = "<group>"; };
 		14D7F080258E742B006A79BD /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -347,6 +352,7 @@
 		1462C673258F4B210088A705 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				14061DEB25944C1100F8AC65 /* UIPath.h */,
 				1462C674258F4B2E0088A705 /* UIRect.h */,
 				1462C675258F4CC40088A705 /* UIRect.cpp */,
 				1462C677258F580D0088A705 /* UIPoint.h */,
@@ -381,6 +387,7 @@
 				1462C682258FAF4E0088A705 /* SQNode.h */,
 				1462C684258FB09E0088A705 /* SQRedirect.h */,
 				1462C685258FB2A30088A705 /* SQPlayhead.h */,
+				146AF2B6259251CC0008F8C6 /* SQPortal.h */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -414,6 +421,8 @@
 			isa = PBXGroup;
 			children = (
 				14D7F080258E742B006A79BD /* Grid.h */,
+				14061DED25949A2A00F8AC65 /* DotGrid.h */,
+				146AF2B7259383EE0008F8C6 /* GridCell.h */,
 				1462C6942590CB2A0088A705 /* Label.h */,
 			);
 			path = Components;
@@ -425,6 +434,7 @@
 				14D7F081258E7441006A79BD /* Ensemble.h */,
 				14D7F083258E75B3006A79BD /* Constants.h */,
 				14D7F084258E75DF006A79BD /* KeyCodes.h */,
+				14061DEC2594888A00F8AC65 /* Themes.h */,
 				1462C68F2590A6FD0088A705 /* Utilities.h */,
 			);
 			path = Utilities;
@@ -1170,6 +1180,7 @@
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					"$(OF_CORE_FRAMEWORKS)",
@@ -1361,6 +1372,7 @@
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					"$(OF_CORE_FRAMEWORKS)",
@@ -1409,6 +1421,7 @@
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					"$(OF_CORE_FRAMEWORKS)",

@@ -9,6 +9,7 @@
 #include "ofxValueTransition.hpp"
 #include "ofxRisographColours.hpp"
 
+#include "Themes.h"
 #include "KeyCodes.h"
 #include "Constants.h"
 

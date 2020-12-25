@@ -16,13 +16,13 @@ public:
         const int W = ofGetWidth();
         const int H = ofGetHeight();
 
-        buffer.allocate(W, H);
+        buffer.allocate(W, H, GL_RGBA, buffer.maxSamples());
     }
     
     UIWindow(int x, int y, int width, int height):
     UIComponent(x, y, width, height)
     {
-        buffer.allocate(width, height);
+        buffer.allocate(width, height, GL_RGBA, buffer.maxSamples());
     }
 
     ~UIWindow()

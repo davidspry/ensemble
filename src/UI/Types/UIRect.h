@@ -49,49 +49,67 @@ public:
 
     [[nodiscard]] UIRect translatedTo(int x, int y) noexcept;
     
+    /// @brief Remove a margin from the edges of the UIRect.
+    /// @param fromTop The desired number of pixels to remove from the top.
+    /// @param fromLeft The desired number of pixels to remove from the left.
+    /// @param fromRight The desired number of pixels to remove from the right.
+    /// @param fromBottom The desired number of pixels to remove from the bottom.
+    /// @throw An exception will be thrown in the case where any of the amounts to trim is negative.
+
+    UIRect& trim(int fromTop, int fromLeft, int fromRight, int fromBottom) noexcept(false);
+    
     /// @brief Remove a rectangle from the top of the UIRect.
     /// @param amountToRemove The desired number of pixels to remove from the top.
+    /// @throw An exception will be thrown in the case where the amount to trim is negative.
 
-    void trimFromTop(int amountToRemove) noexcept(false);
+    UIRect& trimFromTop(int amountToRemove) noexcept(false);
     
     /// @brief Remove a rectangle from the bottom of the UIRect.
     /// @param amountToRemove The desired number of pixels to remove from the bottom.
+    /// @throw An exception will be thrown in the case where the amount to trim is negative.
 
-    void trimFromBottom(int amountToRemove) noexcept(false);
+    UIRect& trimFromBottom(int amountToRemove) noexcept(false);
     
     /// @brief Remove a rectangle from the left of the UIRect.
     /// @param amountToRemove The desired number of pixels to remove from the left.
+    /// @throw An exception will be thrown in the case where the amount to trim is negative.
 
-    void trimFromLeft(int amountToRemove) noexcept(false);
+    UIRect& trimFromLeft(int amountToRemove) noexcept(false);
     
     /// @brief Remove a rectangle from the right of the UIRect.
     /// @param amountToRemove The desired number of pixels to remove from the right.
+    /// @throw An exception will be thrown in the case where the amount to trim is negative.
 
-    void trimFromRight(int amountToRemove) noexcept(false);
+    UIRect& trimFromRight(int amountToRemove) noexcept(false);
     
     /// @brief Remove a rectangle from the top of the UIRect and return it.
     /// @param amountToRemove The desired number of pixels to remove from the top.
+    /// @throw An exception will be thrown in the case where the amount to remove is not positive.
 
     [[nodiscard]] UIRect removeFromTop(int amountToRemove) noexcept(false);
     
     /// @brief Remove a rectangle from the bottom of the UIRect and return it.
     /// @param amountToRemove The desired number of pixels to remove from the bottom.
+    /// @throw An exception will be thrown in the case where the amount to remove is not positive.
 
     [[nodiscard]] UIRect removeFromBottom(int amountToRemove) noexcept(false);
     
     /// @brief Remove a rectangle from the left of the UIRect and return it.
     /// @param amountToRemove The desired number of pixels to remove from the left.
+    /// @throw An exception will be thrown in the case where the amount to remove is not positive.
 
     [[nodiscard]] UIRect removeFromLeft(int amountToRemove) noexcept(false);
     
     /// @brief Remove a rectangle from the right of the UIRect and return it.
     /// @param amountToRemove The desired number of pixels to remove from the right.
+    /// @throw An exception will be thrown in the case where the amount to remove is not positive.
 
     [[nodiscard]] UIRect removeFromRight(int amountToRemove) noexcept(false);
     
     /// @brief Subdivide the UIRect into some number of smaller rectangles along the given axis.
     /// @param axis The axis along which to subdivide the UIRect
     /// @param subdivisions The number of subdivisions to compute
+    /// @throw An exception will be thrown in the case where the requested number of subdivisions is not positive.
 
     [[nodiscard]] std::vector<UIRect> subdivide(Axis axis, int subdivisions) const noexcept(false);
 

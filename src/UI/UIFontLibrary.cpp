@@ -43,15 +43,15 @@ ofTrueTypeFont * UIFontLibrary::add(const char * filepath, int pointSize) noexce
         throw std::invalid_argument(error);
     }
     
-    ofTrueTypeFont* font = &(result.first->second);
+    auto & font = result.first->second;
     
-    if (!((*font).load(filepath, pointSize)))
+    if (!(font.load(filepath, pointSize)))
     {
         constexpr auto error = "The given filepath could not be loaded from successfully.";
         throw std::invalid_argument(error);
     }
     
-    return font;
+    return &font;
 }
 
 UIFontLibrary::FontLibrary UIFontLibrary::fonts = {};

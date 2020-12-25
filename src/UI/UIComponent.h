@@ -5,6 +5,7 @@
 #define UICOMPONENT_H
 
 #include "ofMain.h"
+#include "Themes.h"
 #include "UITypes.h"
 
 /// @brief A component with a rectangular shape that can be drawn to the screen.
@@ -262,7 +263,7 @@ protected:
     
     /// \brief The component's colour scheme.
     
-    UIColourScheme colours;
+    UIColourScheme& colours = Themes::theme;
     
 protected:
 

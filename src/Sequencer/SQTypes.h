@@ -5,6 +5,7 @@
 #define SQTYPES_H
 
 #include "SQNode.h"
+#include "SQPortal.h"
 #include "SQRedirect.h"
 #include "SQPlayhead.h"
 

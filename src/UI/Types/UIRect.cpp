@@ -30,9 +30,18 @@ UIRect UIRect::translatedTo(int x, int y) noexcept
     return r;
 }
 
-void UIRect::trimFromTop(int amountToRemove) noexcept(false)
+UIRect& UIRect::trim(int fromTop, int fromLeft, int fromRight, int fromBottom) noexcept(false)
 {
-    if (!(amountToRemove > 0)) {
+    trimFromTop(fromTop);
+    trimFromLeft(fromLeft);
+    trimFromRight(fromRight);
+    trimFromBottom(fromBottom);
+    return *(this);
+}
+
+UIRect& UIRect::trimFromTop(int amountToRemove) noexcept(false)
+{
+    if (amountToRemove < 0) {
         throw std::out_of_range("The amount to remove must be positive.");
     }
     
@@ -40,24 +49,24 @@ void UIRect::trimFromTop(int amountToRemove) noexcept(false)
     setHeight(height - removed);
     translateY(removed);
     
-    return;
+    return *(this);
 }
 
-void UIRect::trimFromBottom(int amountToRemove) noexcept(false)
+UIRect& UIRect::trimFromBottom(int amountToRemove) noexcept(false)
 {
-    if (!(amountToRemove > 0)) {
+    if (amountToRemove < 0) {
         throw std::out_of_range("The amount to remove must be positive.");
     }
     
     const auto removed = std::fmin((float) amountToRemove, height);
     setHeight(height - removed);
     
-    return;
+    return *(this);
 }
 
-void UIRect::trimFromLeft(int amountToRemove) noexcept(false)
+UIRect& UIRect::trimFromLeft(int amountToRemove) noexcept(false)
 {
-    if (!(amountToRemove > 0)) {
+    if (amountToRemove < 0) {
         throw std::out_of_range("The amount to remove must be positive.");
     }
     
@@ -65,19 +74,19 @@ void UIRect::trimFromLeft(int amountToRemove) noexcept(false)
     setWidth(width - removed);
     translateX(removed);
     
-    return;
+    return *(this);
 }
 
-void UIRect::trimFromRight(int amountToRemove) noexcept(false)
+UIRect& UIRect::trimFromRight(int amountToRemove) noexcept(false)
 {
-    if (!(amountToRemove > 0)) {
+    if (amountToRemove < 0) {
         throw std::out_of_range("The amount to remove must be positive.");
     }
     
     const auto removed = std::fmin((float) amountToRemove, width);
     setWidth(width - removed);
     
-    return;
+    return *(this);
 }
 
 UIRect UIRect::removeFromTop(int amountToRemove) noexcept(false)
@@ -158,13 +167,13 @@ std::vector<UIRect> UIRect::subdivide(Axis axis, int subdivisions) const noexcep
         UIRect r = *(this);
 
         if (axis == Axis::X) {
-            r.scaleHeight(scale);
-            r.translateY(k * height * scale);
+            r.scaleWidth(scale);
+            r.translateX(k * width * scale);
         }
 
         else if (axis == Axis::Y) {
-            r.scaleWidth(scale);
-            r.translateX(k * width * scale);
+            r.scaleHeight(scale);
+            r.translateY(k * height * scale);
         }
 
         vector.push_back(r);

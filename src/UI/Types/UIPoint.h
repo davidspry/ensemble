@@ -35,6 +35,21 @@ struct UIPoint
         this->x = x;
         this->y = y;
     }
+    
+    inline bool operator == (const UIPoint<T>& q)
+    {
+        return x == q.x && y == q.y;
+    }
+    
+    friend UIPoint<T> operator + (const UIPoint<T>& p, const UIPoint<T>& q)
+    {
+        return {p.x + q.x, p.y + q.y};
+    }
+    
+    friend UIPoint<T> operator - (const UIPoint<T>& p, const UIPoint<T>& q)
+    {
+        return {p.x - q.x, p.y - q.y};
+    }
 };
 
 #endif

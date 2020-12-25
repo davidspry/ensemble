@@ -11,32 +11,31 @@
 class SQPlayhead: public SQNode
 {
 public:
-    SQPlayhead():
-    SQNode()
+    SQPlayhead(unsigned int cellSize):
+    SQNode(cellSize)
     {
+        initialisePath();
         delta.set(0, 1);
     }
     
-    SQPlayhead(int x, int y):
-    SQNode(x, y)
+    SQPlayhead(unsigned int cellSize, UIPoint<int>& position):
+    SQNode(cellSize, position)
     {
+        initialisePath();
         delta.set(0, 1);
     }
     
-    SQPlayhead(int x, int y, int deltaX, int deltaY):
-    SQNode(x, y)
+    SQPlayhead(unsigned int cellSize, UIPoint<int>& position, int deltaX, int deltaY):
+    SQNode(cellSize, position)
     {
+        initialisePath();
         delta.set(deltaX, deltaY);
     }
-    
-public:
-    /// @brief Update the node's position on the sequencer.
-    /// @param gridSize The dimensions of the sequencer grid in rows and columns.
 
-    inline void update(UISize<int>& gridSize)
+public:
+    void draw() override
     {
-        xy.x = (xy.x + delta.x + gridSize.w) % gridSize.w;
-        xy.y = (xy.y + delta.y + gridSize.h) % gridSize.h;
+        GridCell::draw();
     }
 };
 

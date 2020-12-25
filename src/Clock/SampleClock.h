@@ -22,15 +22,13 @@ public:
     }
     
 public:
-    /// @brief Adance the clock forwards and broadcast ticks to listeners when appropriate.
-    
-    inline void advance()
+    inline void toggleClock() noexcept override
     {
-        time = time + 1;
-        time = time * static_cast<int>(time < tickLength);
-
-        if (time == 0)
-            tick();
+        ClockEngine::toggleClock();
+        
+        if (ticking)
+             soundstream.start();
+        else soundstream.stop();
     }
     
     /// @brief Set the clock's sample rate in samples per second.
@@ -70,6 +68,18 @@ public:
             advance();
         }
     }
+    
+private:
+    /// @brief Adance the clock forwards and broadcast ticks to listeners when appropriate.
+    
+    inline void advance()
+    {
+        time = time + 1;
+        time = time * static_cast<int>(time < tickLength);
+
+        if (time == 0)
+            tick();
+    }
 
 private:
     /// @brief Update the tick length based on the clock's tempo, sample rate, and time subdivision.
@@ -102,8 +112,8 @@ private:
             settings.sampleRate = sampleRate;
             settings.bufferSize = 64;
 
-        soundstream.stop();
         soundstream.setup(settings);
+        soundstream.stop();
     }
     
     /// @brief Get the default sound output device.
