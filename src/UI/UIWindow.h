@@ -7,6 +7,8 @@
 #include "ofMain.h"
 #include "UIComponent.h"
 
+/// @brief A UIComponent with child components who are drawn into a frame buffer.
+
 class UIWindow: public UIComponent
 {
 public:

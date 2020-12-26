@@ -18,6 +18,8 @@
 #include "UIComponent.h"
 #include "UIFontLibrary.h"
 
+#include "ClockTypes.h"
+
 #include "MIDITypes.h"
 
 #include "SQTypes.h"

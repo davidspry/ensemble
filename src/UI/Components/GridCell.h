@@ -4,7 +4,7 @@
 #ifndef GRIDCELL_H
 #define GRIDCELL_H
 
-#include "Ensemble.h"
+#include "UIPoint.h"
 #include "Label.h"
 
 /// @brief A component whose position is defined in grid cell indices.

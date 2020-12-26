@@ -95,14 +95,14 @@ public:
 
     /// @brief Return the size of the grid's cells in pixels.
 
-    const int getGridCellSize() const noexcept
+    inline const int getGridCellSize() const noexcept
     {
         return static_cast<int>(SPACE);
     }
     
     /// @brief Return the grid's dimensions in rows and columns.
 
-    const UISize<int>& getGridDimensions() const noexcept
+    inline const UISize<int>& getGridDimensions() const noexcept
     {
         return shape;
     }
@@ -117,10 +117,8 @@ protected:
         shape.set(W, H);
     }
 
-private:
+protected:
     ofPath grid;
-    
-private:
     unsigned int W;
     unsigned int H;
     unsigned int SPACE;

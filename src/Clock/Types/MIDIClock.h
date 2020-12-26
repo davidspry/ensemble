@@ -65,9 +65,8 @@ public:
     
     inline void selectNextMIDIPort() noexcept
     {
-        const int ports = midiIn.getNumInPorts();
         const int port  = midiIn.getPort();
-        
+        const int ports = midiIn.getNumInPorts();
         selectMIDIPort((port + 1) % ports);
     }
     
@@ -75,12 +74,21 @@ public:
 
     inline void selectPreviousMIDIPort() noexcept
     {
-        const int ports = midiIn.getNumInPorts();
         const int port  = midiIn.getPort();
-        
+        const int ports = midiIn.getNumInPorts();
         selectMIDIPort((port - 1 + ports) % ports);
     }
-
+    
+    inline void setClockShouldTick(bool shouldTick) noexcept override
+    {
+        ClockEngine::setClockShouldTick(shouldTick);
+        
+        if (!shouldTick)
+        {
+            reset();
+        }
+    }
+    
 private:
 
     /// @brief Adance the clock forwards and broadcast ticks to listeners when appropriate.
@@ -113,7 +121,7 @@ private:
     /// @brief The callback executed when new MIDI messages are received.
     /// @param message The MIDI message that was received.
 
-    inline void newMidiMessage(ofxMidiMessage& message)
+    inline void newMidiMessage(ofxMidiMessage& message) override
     {
         auto & bytes = message.bytes;
         auto & state = message.status;
@@ -121,6 +129,8 @@ private:
         midiClock.update(bytes);
         updateInferredTempo();
 
+        if (!ticking) return;
+        
         switch (state)
         {
             case MIDI_TIME_CLOCK:

@@ -55,7 +55,7 @@ public:
         if (shouldRedraw)
         {
             path.clear();
-            path.circle(0.5f * size.w, 0.5f * size.h, 0.4f * size.w);
+            path.rectangle(0, 0, size.w, size.h);
             path.setColor(colours.foregroundColour);
         }
 

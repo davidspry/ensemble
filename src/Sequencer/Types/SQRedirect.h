@@ -62,17 +62,16 @@ public:
     }
     
     /// @brief Get the colour corresponding to the redirect's type.
-    
+
     inline ofColor getRedirectionTypeColour() noexcept
     {
-//        const Redirection r = determineBasicRedirection();
         switch (redirection)
         {
-            case Redirection::X: return ofxRisographColours::lake;
-            case Redirection::Y: return ofxRisographColours::cranberry;
-            case Redirection::Diagonal: return ofxRisographColours::indigo;
-            case Redirection::Alternating: return ofxRisographColours::hunter_green;
-            case Redirection::Random: return ofxRisographColours::metallic_gold;
+            case Redirection::X:           return ofxRisographColours::sky_blue;
+            case Redirection::Y:           return ofxRisographColours::crimson;
+            case Redirection::Diagonal:    return ofxRisographColours::light_mauve;
+            case Redirection::Alternating: return ofxRisographColours::grass;
+            case Redirection::Random:      return ofxRisographColours::apricot;
             default: return colours.foregroundColour;
         }
     }

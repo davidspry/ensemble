@@ -31,6 +31,19 @@ public:
         else soundstream.stop();
     }
     
+    inline void setClockShouldTick(bool shouldTick) noexcept override
+    {
+        if (ticking == shouldTick) {
+            return;
+        }
+        
+        if (!shouldTick) {
+            reset();
+        }
+        
+        toggleClock();
+    }
+
     /// @brief Set the clock's sample rate in samples per second.
     /// @param samplesPerSecond The desired sample rate.
 
@@ -72,13 +85,20 @@ public:
 private:
     /// @brief Adance the clock forwards and broadcast ticks to listeners when appropriate.
     
-    inline void advance()
+    inline void advance() noexcept
     {
         time = time + 1;
         time = time * static_cast<int>(time < tickLength);
 
         if (time == 0)
             tick();
+    }
+    
+    /// @brief Reset the time keeping value to zero.
+
+    inline void reset() noexcept
+    {
+        time = 0;
     }
 
 private:
@@ -104,6 +124,7 @@ private:
         if (device == nullptr)
             return;
         
+        soundstream.stop();
         ofSoundStreamSettings settings;
             settings.setOutDevice(*device);
             settings.numInputChannels  = 0;
@@ -117,7 +138,6 @@ private:
     }
     
     /// @brief Get the default sound output device.
-    /// @throw An exception will be thrown if no output device is found.
 
     inline ofSoundDevice* getDefaultOutputDevice() noexcept
     {

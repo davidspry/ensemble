@@ -5,7 +5,7 @@
 #ifndef UIPATH_H
 #define UIPATH_H
 
-#include <cmath>
+#include "ofMain.h"
 #include "UIPoint.h"
 
 /// @brief An extension of `ofPath`.

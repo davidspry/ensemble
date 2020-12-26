@@ -83,6 +83,10 @@
 		1462C6942590CB2A0088A705 /* Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Label.h; sourceTree = "<group>"; };
 		146AF2B6259251CC0008F8C6 /* SQPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQPortal.h; sourceTree = "<group>"; };
 		146AF2B7259383EE0008F8C6 /* GridCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
+		14A16FAC2596D1B400B90B49 /* ClockTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockTypes.h; sourceTree = "<group>"; };
+		14A95EBB2595C9FD0082168E /* Sequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sequence.cpp; sourceTree = "<group>"; };
+		14A95EBC2595C9FD0082168E /* Sequence.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sequence.hpp; sourceTree = "<group>"; };
+		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
 		14D7F07D258E6E5A006A79BD /* UIComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponent.h; sourceTree = "<group>"; };
 		14D7F07E258E715B006A79BD /* UITypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITypes.h; sourceTree = "<group>"; };
 		14D7F080258E742B006A79BD /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -344,6 +348,8 @@
 				1462C68925906CF00088A705 /* SQTypes.h */,
 				1462C670258F434E0088A705 /* Sequencer.cpp */,
 				1462C671258F434E0088A705 /* Sequencer.hpp */,
+				14A95EBB2595C9FD0082168E /* Sequence.cpp */,
+				14A95EBC2595C9FD0082168E /* Sequence.hpp */,
 				1462C67B258F98B30088A705 /* Cursor.h */,
 			);
 			path = Sequencer;
@@ -395,12 +401,22 @@
 		1462C68B25908F170088A705 /* Clock */ = {
 			isa = PBXGroup;
 			children = (
+				14A16FAD2596D5DC00B90B49 /* Types */,
+				14A16FAC2596D1B400B90B49 /* ClockTypes.h */,
+				14A95EBD2595CA4A0082168E /* Clock.h */,
+			);
+			path = Clock;
+			sourceTree = "<group>";
+		};
+		14A16FAD2596D5DC00B90B49 /* Types */ = {
+			isa = PBXGroup;
+			children = (
 				1462C68E259092800088A705 /* ClockListener.h */,
 				1462C68C25908F730088A705 /* ClockEngine.h */,
 				1462C68A259082380088A705 /* SampleClock.h */,
 				1462C68D259091E70088A705 /* MIDIClock.h */,
 			);
-			path = Clock;
+			path = Types;
 			sourceTree = "<group>";
 		};
 		14D7F07C258E6E4B006A79BD /* UI */ = {

@@ -4,7 +4,9 @@
 #ifndef LABEL_H
 #define LABEL_H
 
-#include "Ensemble.h"
+#include "ofMain.h"
+#include "Constants.h"
+#include "UIComponent.h"
 
 class Label: public UIComponent
 {

@@ -5,11 +5,11 @@
 #define SEQUENCER_HPP
 
 #include "Ensemble.h"
+#include "Sequence.hpp"
+
 #include "Cursor.h"
 #include "DotGrid.h"
 #include "Grid.h"
-
-#include "SampleClock.h"
 
 class Sequencer: public UIComponent, public ClockListener
 {
@@ -40,7 +40,7 @@ private:
     Cursor cursor;
     
 private:
-    SampleClock clock;
+    Clock clock;
     std::vector<SQPlayhead> playheads;
     std::vector<SQRedirect> redirects;
 };

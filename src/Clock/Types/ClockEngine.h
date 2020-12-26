@@ -45,11 +45,26 @@ public:
         list.erase(std::remove(list.begin(), list.end(), listener), list.end());
     }
     
+    /// @brief Get the `ticking` state of the clock.
+
+    inline bool clockIsTicking() const noexcept
+    {
+        return ticking;
+    }
+    
     /// @brief Toggle the clock's ticking state.
 
     virtual inline void toggleClock() noexcept
     {
         ticking = !ticking;
+    }
+    
+    /// @brief Set the clock's ticking state explicitly.
+    /// @param shouldTick Whether the clock should tick or not.
+
+    virtual inline void setClockShouldTick(bool shouldTick) noexcept
+    {
+        ticking = shouldTick;
     }
     
     /// @brief Get the clock's tempo in beats per minute.
@@ -111,8 +126,13 @@ protected:
     unsigned int tempo;
     unsigned int subdivision;
     
+/// Consider moving subdivisions into SQPlayhead:
+///   - i.e., Playhead moves once every `n` ticks
+///   - This allows for more complex rhythms
+/// Alternatively duplicate subdivisions in SQPlayhead and retain a global subdivision.
+
 protected:
-    constexpr static unsigned int MINIMUM_TEMPO = 1;
+    constexpr static unsigned int MINIMUM_TEMPO = 5;
     constexpr static unsigned int MAXIMUM_TEMPO = 300;
     constexpr static unsigned int MINIMUM_SUBDIVISION = 1;
     constexpr static unsigned int MAXIMUM_SUBDIVISION = 7;
