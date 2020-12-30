@@ -25,16 +25,16 @@ public:
     {
         ofPushStyle();
         ofPushMatrix();
-        ofSetColor(colours.textColour);
+        ofSetColor(colours->textColour);
         
         if (shouldFillBackground)
         {
             const UIRect r = getInnerBounds();
-            ofSetColor(colours.accentColour);
+            ofSetColor(colours->accentColour);
             ofDrawRectangle(r);
         }
 
-        ofSetColor(colours.textColour);
+        ofSetColor(colours->textColour);
         ofTranslate(origin.x, origin.y);
         font->drawString(text, textOrigin.x, textOrigin.y);
         

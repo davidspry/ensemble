@@ -56,11 +56,11 @@ public:
         {
             path.clear();
             path.rectangle(0, 0, size.w, size.h);
-            path.setColor(colours.foregroundColour);
+            path.setColor(colours->foregroundColour);
         }
 
-        path.draw(origin.x + margins.l + gridPosition.x,
-                  origin.y + margins.t + gridPosition.y);
+        path.draw(origin.x + margins.l + screenPosition.x,
+                  origin.y + margins.t + screenPosition.y);
     }
 
 private:

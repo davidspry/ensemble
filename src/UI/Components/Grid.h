@@ -41,7 +41,7 @@ public:
                 grid.lineTo(l + x * SPACE, b + 1);
             }
 
-            grid.setColor(colours.secondaryForegroundColour);
+            grid.setColor(colours->secondaryForegroundColour);
         }
 
         grid.draw(origin.x, origin.y);

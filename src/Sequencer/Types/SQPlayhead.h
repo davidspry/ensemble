@@ -12,21 +12,21 @@ class SQPlayhead: public SQNode
 {
 public:
     SQPlayhead(unsigned int cellSize):
-    SQNode(cellSize)
+    SQNode(cellSize, Playhead)
     {
         initialisePath();
         delta.set(0, 1);
     }
     
-    SQPlayhead(unsigned int cellSize, UIPoint<int>& position):
-    SQNode(cellSize, position)
+    SQPlayhead(unsigned int cellSize, const UIPoint<int>& position):
+    SQNode(cellSize, position, Playhead)
     {
         initialisePath();
         delta.set(0, 1);
     }
     
-    SQPlayhead(unsigned int cellSize, UIPoint<int>& position, int deltaX, int deltaY):
-    SQNode(cellSize, position)
+    SQPlayhead(unsigned int cellSize, const UIPoint<int>& position, int deltaX, int deltaY):
+    SQNode(cellSize, position, Playhead)
     {
         initialisePath();
         delta.set(deltaX, deltaY);
@@ -36,6 +36,11 @@ public:
     void draw() override
     {
         GridCell::draw();
+    }
+    
+    void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept override
+    {
+        
     }
 };
 

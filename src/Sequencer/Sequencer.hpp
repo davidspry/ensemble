@@ -5,18 +5,17 @@
 #define SEQUENCER_HPP
 
 #include "Ensemble.h"
-#include "Sequence.hpp"
-
 #include "Cursor.h"
 #include "DotGrid.h"
-#include "Grid.h"
+#include "Sequence.hpp"
 
-class Sequencer: public UIComponent, public ClockListener
+class Sequencer: public UIComponent
 {
 public:
     Sequencer();
     Sequencer(int x, int y, int width, int height);
-    
+    ~Sequencer();
+
 public:
     void draw() override;
     void setPositionWithOrigin(const float x, const float y) override;
@@ -26,23 +25,22 @@ public:
     void setMargins(const int top, const int left, const int right, const int bottom) override;
     
 public:
-    void tick() override;
     void toggleClock() noexcept;
     
 public:
-    void placeNote(MIDINote note) noexcept;
+    void moveCursor(Direction direction) noexcept;
+    void placeNote(uint8_t noteNumber) noexcept;
+    void placePortal() noexcept;
+    void placePlayhead() noexcept;
     void placeRedirect(Redirection type) noexcept;
     void eraseFromCurrentPosition() noexcept;
-    void moveCursor(Direction direction) noexcept;
 
 private:
-    DotGrid grid;
-    Cursor cursor;
-    
-private:
-    Clock clock;
-    std::vector<SQPlayhead> playheads;
-    std::vector<SQRedirect> redirects;
+    Clock      clock;
+    Cursor     cursor;
+    DotGrid    grid;
+    Sequence   sequence;
+    MIDIServer midiServer;
 };
 
 #endif

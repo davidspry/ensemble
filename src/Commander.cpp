@@ -30,13 +30,35 @@ void Commander::keyPressed(int key)
         case K_LArrow: { return sequencer.moveCursor(Direction::W); }
         case K_RArrow: { return sequencer.moveCursor(Direction::E); }
             
+        case K_Space:  { return sequencer.toggleClock(); }
+        case K_Delete: { return sequencer.eraseFromCurrentPosition(); }
+        
+        case K_Plus:   { return sequencer.placePlayhead(); }
+            
+        case K_LowerA: { return sequencer.placeNote(9);  }
+        case K_LowerB: { return sequencer.placeNote(11); }
+        case K_LowerC: { return sequencer.placeNote(0);  }
+        case K_LowerD: { return sequencer.placeNote(2);  }
+        case K_LowerE: { return sequencer.placeNote(4);  }
+        case K_LowerF: { return sequencer.placeNote(5);  }
+        case K_LowerG: { return sequencer.placeNote(7);  }
+            
+        case K_UpperA: { return sequencer.placeNote(10); }
+        case K_UpperB: { return sequencer.placeNote(12); }
+        case K_UpperC: { return sequencer.placeNote(1);  }
+        case K_UpperD: { return sequencer.placeNote(3);  }
+        case K_UpperE: { return sequencer.placeNote(5);  }
+        case K_UpperF: { return sequencer.placeNote(6);  }
+        case K_UpperG: { return sequencer.placeNote(8);  }
+
         case K_LowerX: { return sequencer.placeRedirect(Redirection::X); }
         case K_LowerY: { return sequencer.placeRedirect(Redirection::Y); }
         case K_LowerV: { return sequencer.placeRedirect(Redirection::Alternating); }
         case K_LowerL: { return sequencer.placeRedirect(Redirection::Diagonal); }
         case K_LowerR: { return sequencer.placeRedirect(Redirection::Random); }
+            
+        case K_LowerP: { return sequencer.placePortal(); }
 
-        case K_Space:  { return sequencer.toggleClock(); }
         default: return;
     }
 }

@@ -9,6 +9,7 @@
 #include "ofxValueTransition.hpp"
 #include "ofxRisographColours.hpp"
 
+#include "Table.h"
 #include "Themes.h"
 #include "KeyCodes.h"
 #include "Constants.h"
@@ -18,10 +19,16 @@
 #include "UIComponent.h"
 #include "UIFontLibrary.h"
 
+#include "Clock.h"
 #include "ClockTypes.h"
 
+#include "MIDIServer.h"
 #include "MIDITypes.h"
 
 #include "SQTypes.h"
+
+#include "Table.h"
+#include "Array.h"
+#include "CircularQueue.h"
 
 #endif

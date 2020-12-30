@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */; };
 		1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */; };
+		14268C19259C8CDA00D00121 /* Sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A95EBB2595C9FD0082168E /* Sequence.cpp */; };
 		1462C672258F434E0088A705 /* Sequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C670258F434E0088A705 /* Sequencer.cpp */; };
 		1462C676258F4CC40088A705 /* UIRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C675258F4CC40088A705 /* UIRect.cpp */; };
 		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
@@ -58,6 +59,11 @@
 		14061DED25949A2A00F8AC65 /* DotGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotGrid.h; sourceTree = "<group>"; };
 		1424EC1525919C060089A3CD /* UIFontLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFontLibrary.h; sourceTree = "<group>"; };
 		1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIFontLibrary.cpp; sourceTree = "<group>"; };
+		14268C1B259C940500D00121 /* Table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Table.h; sourceTree = "<group>"; };
+		14268C1C259CA72D00D00121 /* MIDIServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIServer.h; sourceTree = "<group>"; };
+		14268C1D259CAC0000D00121 /* CircularQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularQueue.h; sourceTree = "<group>"; };
+		14268C1E259CB51700D00121 /* SQNote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQNote.h; sourceTree = "<group>"; };
+		14268C1F259CD53B00D00121 /* Array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
 		1462C670258F434E0088A705 /* Sequencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sequencer.cpp; sourceTree = "<group>"; };
 		1462C671258F434E0088A705 /* Sequencer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sequencer.hpp; sourceTree = "<group>"; };
 		1462C674258F4B2E0088A705 /* UIRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIRect.h; sourceTree = "<group>"; };
@@ -341,6 +347,16 @@
 			name = ofxRisographColours;
 			sourceTree = "<group>";
 		};
+		14268C1A259C935800D00121 /* Data Structures */ = {
+			isa = PBXGroup;
+			children = (
+				14268C1B259C940500D00121 /* Table.h */,
+				14268C1D259CAC0000D00121 /* CircularQueue.h */,
+				14268C1F259CD53B00D00121 /* Array.h */,
+			);
+			path = "Data Structures";
+			sourceTree = "<group>";
+		};
 		1462C66F258F43400088A705 /* Sequencer */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +390,7 @@
 			children = (
 				1462C680258F9F640088A705 /* Types */,
 				1462C67F258F9CEA0088A705 /* MIDITypes.h */,
+				14268C1C259CA72D00D00121 /* MIDIServer.h */,
 			);
 			path = MIDI;
 			sourceTree = "<group>";
@@ -394,6 +411,7 @@
 				1462C684258FB09E0088A705 /* SQRedirect.h */,
 				1462C685258FB2A30088A705 /* SQPlayhead.h */,
 				146AF2B6259251CC0008F8C6 /* SQPortal.h */,
+				14268C1E259CB51700D00121 /* SQNote.h */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -447,6 +465,7 @@
 		14D7F082258E75A9006A79BD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				14268C1A259C935800D00121 /* Data Structures */,
 				14D7F081258E7441006A79BD /* Ensemble.h */,
 				14D7F083258E75B3006A79BD /* Constants.h */,
 				14D7F084258E75DF006A79BD /* KeyCodes.h */,
@@ -1062,6 +1081,7 @@
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,
 				5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */,
 				853E0BA2F448076739446874 /* ofxColorPicker.cpp in Sources */,
+				14268C19259C8CDA00D00121 /* Sequence.cpp in Sources */,
 				B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */,
 				852E0891794923EE7583C621 /* ofxInputField.cpp in Sources */,
 				483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */,

@@ -5,20 +5,26 @@
 #define SQNODE_H
 
 #include "GridCell.h"
+#include "MIDIServer.h"
+#include "ofxRisographColours.hpp"
+
+/// @brief Constants defining nodes that can be placed on the Ensemble sequencer.
+
+enum  SQNodeType { Redirect, Playhead, Portal, Note };
 
 /// @brief A node that can be placed on the Ensemble sequencer.
 
 class SQNode: public GridCell
 {
 public:
-    SQNode(unsigned int cellSize):
-    GridCell(cellSize)
+    SQNode(unsigned int cellSize, SQNodeType type):
+    GridCell(cellSize), nodeType(type)
     {
         
     }
     
-    SQNode(unsigned int cellSize, UIPoint<int>& position):
-    GridCell(cellSize, position)
+    SQNode(unsigned int cellSize, const UIPoint<int>& position, SQNodeType type):
+    GridCell(cellSize, position), nodeType(type)
     {
         
     }
@@ -26,12 +32,10 @@ public:
 public:
     /// @brief Interact with the given node.
     /// @param node The node that should be interacted with.
+    /// @param server The sequencer's MIDI server.
     /// @param gridSize The dimensions of the grid in rows and columns.
 
-    virtual void interact(SQNode& node, const UISize<int>& gridSize) noexcept
-    {
-        
-    }
+    virtual void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept = 0;
 
     /// @brief Update the node's position on the sequencer.
     /// @param gridSize The dimensions of the sequencer grid in rows and columns.
@@ -42,13 +46,6 @@ public:
         xy.y = (xy.y + delta.y + gridSize.h) % gridSize.h;
         
         moveToGridPosition(xy);
-    }
-    
-    /// @brief Get the node's grid position as row and column indices.
-
-    inline const UIPoint<int>& getPosition() const noexcept
-    {
-        return xy;
     }
     
     /// @brief Get the node's direction of movement.
@@ -62,6 +59,10 @@ public:
     /// @brief The node's direction.
     
     UIVector<int> delta;
+    
+    /// @brief The node's type.
+
+    SQNodeType nodeType;
 };
 
 #endif

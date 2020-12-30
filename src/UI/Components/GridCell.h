@@ -40,7 +40,7 @@ protected:
         path.setFilled(true);
         path.setStrokeWidth(0.0f);
         path.setCircleResolution(256);
-        path.setColor(colours.foregroundColour);
+        path.setColor(colours->foregroundColour);
         path.clear();
     }
 
@@ -61,8 +61,15 @@ public:
     {
         xy.x = col;
         xy.y = row;
-        gridPosition.x = xy.x * size.w;
-        gridPosition.y = xy.y * size.h;
+        screenPosition.x = xy.x * size.w;
+        screenPosition.y = xy.y * size.h;
+    }
+    
+    /// @brief Get the cell's position as row and column indices.
+
+    inline const UIPoint<int>& getGridPosition() const noexcept
+    {
+        return xy;
     }
 
     void draw() override
@@ -74,8 +81,8 @@ public:
             shouldRedraw = false;
         }
         
-        path.draw(origin.x + margins.l + gridPosition.x,
-                  origin.y + margins.t + gridPosition.y);
+        path.draw(origin.x + margins.l + screenPosition.x,
+                  origin.y + margins.t + screenPosition.y);
     }
 
 protected:
@@ -84,7 +91,7 @@ protected:
 
 public:
     UIPoint<int> xy;
-    UIPoint<int> gridPosition;
+    UIPoint<int> screenPosition;
 };
 
 #endif

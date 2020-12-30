@@ -7,6 +7,5 @@
 #include "ClockListener.h"
 #include "SampleClock.h"
 #include "MIDIClock.h"
-#include "Clock.h"
 
 #endif

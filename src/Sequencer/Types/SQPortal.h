@@ -25,15 +25,15 @@ class SQPortal: public SQNode
 
 public:
     SQPortal(unsigned int cellSize, PortalType portalType):
-    SQNode(cellSize),
+    SQNode(cellSize, Portal),
     type(portalType),
     pair(nullptr)
     {
         text.setText(portalType == PortalType::A ? "PX" : "PY");
     }
     
-    SQPortal(unsigned int cellSize, UIPoint<int>& position, PortalType portalType):
-    SQNode(cellSize, position),
+    SQPortal(unsigned int cellSize, const UIPoint<int>& position, PortalType portalType):
+    SQNode(cellSize, position, Portal),
     type(portalType),
     pair(nullptr)
     {
@@ -55,12 +55,12 @@ public:
             path.setColor(getPortalColour());
             shouldRedraw = false;
 
-            text.setPositionWithOrigin(origin.x + margins.l + gridPosition.x,
-                                       origin.y + margins.t + gridPosition.y);
+            text.setPositionWithOrigin(origin.x + margins.l + screenPosition.x,
+                                       origin.y + margins.t + screenPosition.y);
         }
         
-        path.draw(origin.x + margins.l + gridPosition.x,
-                  origin.y + margins.t + gridPosition.y);
+        path.draw(origin.x + margins.l + screenPosition.x,
+                  origin.y + margins.t + screenPosition.y);
         
         text.draw();
     }
@@ -88,13 +88,39 @@ public:
         pair = nullptr;
     }
     
+    /// @brief Indicate whether the SQPortal can be paired with the given portal.
+    /// @param portal The proposed pair.
+
+    inline bool canPairWith(SQPortal & portal) const noexcept
+    {
+        return pair == nullptr &&
+              !portal.isPaired() &&
+               type != portal.type;
+    }
+    
+    /// @brief Get the portal's pair (or nullptr if the portal is unpaired).
+
+    [[nodiscard]] inline SQPortal* getPair() const noexcept
+    {
+        return pair;
+    }
+    
     /// @brief Get the portal node's portal type.
     
     [[nodiscard]] inline PortalType getPortalType() const noexcept
     {
         return type;
     }
-    
+
+    /// @brief Get the portal node's opposite portal type.
+
+    [[nodiscard]] inline PortalType getPairPortalType() const noexcept
+    {
+        if (type == PortalType::A) return PortalType::B;
+        if (type == PortalType::B) return PortalType::A;
+        else                       return PortalType::A;
+    }
+
     /// @brief Indicate if the portal is currently paired.
 
     [[nodiscard]] inline bool isPaired() const noexcept
@@ -130,9 +156,10 @@ public:
     
     /// @brief Teleport the given node on the sequencer grid.
     /// @param node The node that's passing through the portal.
+    /// @param server The sequencer's MIDI server.
     /// @param gridSize The dimensions of the sequencer grid in rows and columns.
     
-    void interact(SQNode& node, const UISize<int>& gridSize) noexcept override
+    void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept override
     {
         if (pair != nullptr)
         {

@@ -48,7 +48,7 @@ public:
     
     [[nodiscard]] const UIColourScheme& getColourScheme() const noexcept
     {
-        return colours;
+        return *colours;
     }
     
     /// \brief Set the component's colour scheme and flag the component for redrawing.
@@ -56,7 +56,7 @@ public:
 
     virtual inline void setColourScheme(UIColourScheme scheme)
     {
-        colours = scheme;
+        colours = &scheme;
 
         setShouldRedraw();
     }
@@ -66,7 +66,7 @@ public:
 
     virtual inline void setBackgroundColour(ofColor colour)
     {
-        colours.backgroundColour = colour;
+        (*colours).backgroundColour = colour;
         
         setShouldRedraw();
     }
@@ -76,7 +76,7 @@ public:
 
     virtual inline void setForegroundColour(ofColor colour)
     {
-        colours.foregroundColour = colour;
+        (*colours).foregroundColour = colour;
         
         setShouldRedraw();
     }
@@ -86,7 +86,7 @@ public:
 
     virtual inline void setAccentColour(ofColor colour)
     {
-        colours.accentColour = colour;
+        (*colours).accentColour = colour;
         
         setShouldRedraw();
     }
@@ -96,7 +96,7 @@ public:
 
     virtual inline void setTextColour(ofColor colour)
     {
-        colours.textColour = colour;
+        (*colours).textColour = colour;
         
         setShouldRedraw();
     }
@@ -115,6 +115,13 @@ public:
     [[nodiscard]] inline UIRect getInnerBounds() const noexcept
     {
         return UIRect(origin, size).subtractMargins(margins);
+    }
+
+    /// \brief Get the component's size.
+
+    [[nodiscard]] inline const UISize<int>& getSize() const noexcept
+    {
+        return size;
     }
 
     /// \brief Get the component's origin point.
@@ -263,7 +270,7 @@ protected:
     
     /// \brief The component's colour scheme.
     
-    UIColourScheme& colours = Themes::theme;
+    UIColourScheme* colours = &(Themes::theme);
     
 protected:
 

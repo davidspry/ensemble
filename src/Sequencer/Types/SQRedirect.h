@@ -13,19 +13,19 @@ class SQRedirect: public SQNode
 {
 public:
     SQRedirect(unsigned int cellSize):
-    SQNode(cellSize)
+    SQNode(cellSize, Redirect)
     {
         initialisePath();
     }
     
-    SQRedirect(unsigned int cellSize, UIPoint<int>& position):
-    SQNode(cellSize, position)
+    SQRedirect(unsigned int cellSize, const UIPoint<int>& position):
+    SQNode(cellSize, position, Redirect)
     {
         initialisePath();
     }
     
-    SQRedirect(unsigned int cellSize, UIPoint<int>& position, Redirection type):
-    SQNode(cellSize, position)
+    SQRedirect(unsigned int cellSize, const UIPoint<int>& position, Redirection type):
+    SQNode(cellSize, position, Redirect)
     {
         initialisePath();
         setRedirectionType(type);
@@ -72,16 +72,17 @@ public:
             case Redirection::Diagonal:    return ofxRisographColours::light_mauve;
             case Redirection::Alternating: return ofxRisographColours::grass;
             case Redirection::Random:      return ofxRisographColours::apricot;
-            default: return colours.foregroundColour;
+            default: return colours->foregroundColour;
         }
     }
 
 public:
     /// @brief Redirect the given node based on its direction.
     /// @param node The node that should be redirected.
+    /// @param server The sequencer's MIDI server.
     /// @param gridSize The dimensions of the grid in rows and columns.
 
-    void interact(SQNode& node, const UISize<int>& gridSize) noexcept override
+    void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept override
     {
         if (node.delta.x == 0 && node.delta.y == 0)
             return;

@@ -10,8 +10,20 @@
 
 struct MIDINote
 {
-    uint8_t note = 60;
+    uint8_t note;
     MIDISettings midi;
+    
+    MIDINote()
+    {
+        note = 60;
+        midi = {};
+    }
+    
+    MIDINote(uint8_t noteNumber, const MIDISettings& settings)
+    {
+        note = 12 * (settings.octave + 1) + (noteNumber % 12);
+        midi = settings;
+    }
 };
 
 #endif

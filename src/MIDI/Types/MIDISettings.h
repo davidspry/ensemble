@@ -12,6 +12,22 @@ struct MIDISettings
     uint8_t channel  = 0x1;
     uint8_t duration = 0x1;
     uint8_t velocity = 100;
+
+    MIDISettings()
+    {
+        octave   = 0x3;
+        channel  = 0x1;
+        duration = 0x1;
+        velocity = 100;
+    }
+
+    MIDISettings(uint8_t octave, uint8_t channel, uint8_t duration, uint8_t velocity)
+    {
+        this->octave = octave;
+        this->channel = channel;
+        this->duration = duration;
+        this->velocity = velocity;
+    }
     
     void set(uint8_t octave, uint8_t channel, uint8_t duration, uint8_t velocity)
     {
