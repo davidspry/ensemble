@@ -17,7 +17,7 @@ void Sequence::tick()
     
     const auto dimensions = grid->getGridDimensions();
 
-    for (auto& playhead : playheads)
+    for (auto & playhead : playheads)
     {
         const UIPoint<int> originalPosition = playhead.xy;
 
@@ -25,9 +25,8 @@ void Sequence::tick()
 
         if (table.contains(playhead.xy.x, playhead.xy.y))
         {
-            SQNode * node = table.get(playhead.xy.x, playhead.xy.y);
-
-            node->interact(playhead, *server, dimensions);   
+            auto node = table.get(playhead.xy.x, playhead.xy.y);
+            node->get()->interact(playhead, *server, dimensions);
         }
 
         if (playhead.xy == originalPosition)
@@ -35,16 +34,14 @@ void Sequence::tick()
 
         if (table.contains(playhead.xy.x, playhead.xy.y))
         {
-            SQNode * node = table.get(playhead.xy.x, playhead.xy.y);
-
-            node->interact(playhead, *server, dimensions);
+            auto node = table.get(playhead.xy.x, playhead.xy.y);
+            node->get()->interact(playhead, *server, dimensions);
         }
         
         if (table.contains(playhead.xy.x, playhead.xy.y))
         {
-            SQNode * node = table.get(playhead.xy.x, playhead.xy.y);
-
-            node->interact(playhead, *server, dimensions);
+            auto node = table.get(playhead.xy.x, playhead.xy.y);
+            node->get()->interact(playhead, *server, dimensions);
         }
     }
 }
@@ -56,13 +53,14 @@ void Sequence::gridDimensionsDidUpdate() noexcept(false)
     table.setSize(dimensions.h, dimensions.w);
 }
 
-bool Sequence::placeNote(MIDINote note, const UIPoint<int>& xy) noexcept(false)
+bool Sequence::placeNote(MIDINote midiNote, const UIPoint<int>& xy) noexcept(false)
 {
     if (table.contains(xy.x, xy.y))
         return false;
-    
-    SQNote & node = notes.include(grid->getGridCellSize(), xy, note);
-    table.set(&node, xy.x, xy.y);
+
+    SQNote* node = new SQNote(grid->getGridCellSize(), xy, midiNote);
+
+    table.set(std::shared_ptr<SQNode>(node), xy.x, xy.y);
     
     return true;
 }
@@ -72,31 +70,27 @@ bool Sequence::placePortal(const UIPoint<int>& xy) noexcept
     if (table.contains(xy.x, xy.y))
         return false;
     
-    SQPortal & node = portals.include(grid->getGridCellSize(), xy, nextPortalType);
-    
-    table.set(&node, xy.x, xy.y);
-    
-    nextPortalType = static_cast<PortalType>((static_cast<int>(nextPortalType) + 1) % 2);
-
-    for (SQPortal & portal : portals)
+    if (!unpairedPortals.empty())
     {
-        if (&portal != &node && portal.canPairWith(node))
-        {
-            portal.pairWith(node);
-            node.pairWith(portal);
-        }
-    }
-    
-    return true;
-}
+        SQPortal* pair = unpairedPortals.back();
+        SQPortal* node = new SQPortal(grid->getGridCellSize(), xy, pair->getPairPortalType());
+        
+        node->pairWith(pair);
+        pair->pairWith(node);
+        unpairedPortals.pop_back();
 
-bool Sequence::placePlayhead(const UIPoint<int>& xy) noexcept(false)
-{
-    if (table.contains(xy.x, xy.y))
-        return false;
-    
-    SQPlayhead & node = playheads.include(grid->getGridCellSize(), xy, 0, 1);
-    
+        table.set(std::shared_ptr<SQPortal>(node), xy.x, xy.y);
+    }
+
+    else
+    {
+        SQPortal* node = new SQPortal(grid->getGridCellSize(), xy, PortalType::A);
+        
+        unpairedPortals.push_back(node);
+        
+        table.set(std::shared_ptr<SQPortal>(node), xy.x, xy.y);
+    }
+
     return true;
 }
 
@@ -105,72 +99,34 @@ bool Sequence::placeRedirect(Redirection type, const UIPoint<int>& xy) noexcept
     if (table.contains(xy.x, xy.y))
         return false;
     
-    SQRedirect & node = redirects.include(grid->getGridCellSize(), xy, type);
-    table.set(&node, xy.x, xy.y);
-    
+    SQRedirect* node = new SQRedirect(grid->getGridCellSize(), xy, type);
+
+    table.set(std::shared_ptr<SQNode>(node), xy.x, xy.y);
+
     return true;
 }
 
 void Sequence::eraseFromPosition(const UIPoint<int>& xy) noexcept(false)
 {
-    if (!table.contains(xy.x, xy.y))
-        return;
+    if (!table.contains(xy.x, xy.y)) return;
 
-    SQNode* node = table.get(xy.x, xy.y);
-    table.erase(xy.x, xy.y);
+    auto node = table.get(xy.x, xy.y);
 
-    switch (node->nodeType)
+    if (node->get()->nodeType == SQNodeType::Portal)
     {
-        case SQNodeType::Note:
-        {
-            SQNote* cast = static_cast<SQNote*>(node);
-            SQNote* node = notes.swapAndErase(cast);
-            
-            if (node != nullptr)
-                table.set(node, node->xy.x, node->xy.y);
-            
-            return;
-        }
+        SQPortal* portal = static_cast<SQPortal*>(node->get());
 
-        case SQNodeType::Portal:
+        if (portal->isPaired())
         {
-            SQPortal* cast = static_cast<SQPortal*>(node);
-            nextPortalType = cast->getPortalType();
-            SQPortal* node = portals.swapAndErase(cast);
-            
-            if (node != nullptr)
-            {
-                table.set(node, node->xy.x, node->xy.y);
-                
-                if (node->getPair() != nullptr)
-                    node->getPair()->pairWith(*node);
-            }
-            
-            return;
+            unpairedPortals.push_back(portal->getPair());
         }
-            
-        case SQNodeType::Redirect:
+        
+        else
         {
-            SQRedirect* cast = static_cast<SQRedirect*>(node);
-            SQRedirect* node = redirects.swapAndErase(cast);
-            
-            if (node != nullptr)
-                table.set(node, node->xy.x, node->xy.y);
-            
-            return;
-        }
-            
-        case SQNodeType::Playhead:
-        {
-            SQPlayhead* cast = static_cast<SQPlayhead*>(node);
-            SQPlayhead* node = playheads.swapAndErase(cast);
-            
-            if (node != nullptr)
-                table.set(node, node->xy.x, node->xy.y);
-            
-            return;
+            auto & nodes = unpairedPortals;
+            nodes.erase(std::remove(nodes.begin(), nodes.end(), node->get()), nodes.end());
         }
     }
+
+    table.erase(xy.x, xy.y);
 }
-
-

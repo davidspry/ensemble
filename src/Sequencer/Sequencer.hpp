@@ -29,6 +29,9 @@ public:
     
 public:
     void moveCursor(Direction direction) noexcept;
+    void setCursorOctave(const int octave) noexcept;
+    
+public:
     void placeNote(uint8_t noteNumber) noexcept;
     void placePortal() noexcept;
     void placePlayhead() noexcept;

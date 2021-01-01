@@ -63,7 +63,6 @@
 		14268C1C259CA72D00D00121 /* MIDIServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIServer.h; sourceTree = "<group>"; };
 		14268C1D259CAC0000D00121 /* CircularQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularQueue.h; sourceTree = "<group>"; };
 		14268C1E259CB51700D00121 /* SQNote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQNote.h; sourceTree = "<group>"; };
-		14268C1F259CD53B00D00121 /* Array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
 		1462C670258F434E0088A705 /* Sequencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sequencer.cpp; sourceTree = "<group>"; };
 		1462C671258F434E0088A705 /* Sequencer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sequencer.hpp; sourceTree = "<group>"; };
 		1462C674258F4B2E0088A705 /* UIRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIRect.h; sourceTree = "<group>"; };
@@ -99,6 +98,7 @@
 		14D7F081258E7441006A79BD /* Ensemble.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ensemble.h; sourceTree = "<group>"; };
 		14D7F083258E75B3006A79BD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		14D7F084258E75DF006A79BD /* KeyCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyCodes.h; sourceTree = "<group>"; };
+		14F4FE32259ED6BA00E318A8 /* MIDISettingsValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDISettingsValues.h; sourceTree = "<group>"; };
 		15F2C6477A769C03A56D1401 /* ofxSlider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxSlider.cpp; path = ../../../addons/ofxGui/src/ofxSlider.cpp; sourceTree = SOURCE_ROOT; };
 		17C796C6D5D165CAF7D72DDE /* Commander.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Commander.cpp; path = src/Commander.cpp; sourceTree = SOURCE_ROOT; };
 		17E65988300FBD9AAA2CD0CA /* ofxGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGui.h; path = ../../../addons/ofxGui/src/ofxGui.h; sourceTree = SOURCE_ROOT; };
@@ -352,7 +352,6 @@
 			children = (
 				14268C1B259C940500D00121 /* Table.h */,
 				14268C1D259CAC0000D00121 /* CircularQueue.h */,
-				14268C1F259CD53B00D00121 /* Array.h */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -400,6 +399,7 @@
 			children = (
 				1462C67E258F9CC80088A705 /* MIDINote.h */,
 				1462C67D258F9C5C0088A705 /* MIDISettings.h */,
+				14F4FE32259ED6BA00E318A8 /* MIDISettingsValues.h */,
 			);
 			path = Types;
 			sourceTree = "<group>";

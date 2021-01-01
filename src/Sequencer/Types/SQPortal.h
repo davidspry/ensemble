@@ -48,37 +48,49 @@ public:
 public:
     inline void draw() override
     {
+        const int x = origin.x + margins.l + screenPosition.x;
+        const int y = origin.y + margins.t + screenPosition.y;
+
         if (shouldRedraw)
         {
             path.clear();
             path.rectangle(0, 0, size.w, size.h);
             path.setColor(getPortalColour());
+            text.setPositionWithOrigin(x, y);
             shouldRedraw = false;
-
-            text.setPositionWithOrigin(origin.x + margins.l + screenPosition.x,
-                                       origin.y + margins.t + screenPosition.y);
         }
         
-        path.draw(origin.x + margins.l + screenPosition.x,
-                  origin.y + margins.t + screenPosition.y);
-        
+        path.draw(x, y);
         text.draw();
     }
 
 public:
     /// @brief Pair the portal with another portal node.
     /// @param portal The portal to be paired.
-    /// @throw An exception will be thrown in the case where the SQPortal is already paired.
+    /// @throw An exception will be thrown in the case where the SQPortal is already paired or
+    ///        the proposed pair has the same type.
 
-    inline void pairWith(SQPortal& portal) noexcept(false)
+    inline void pairWith(SQPortal* portal) noexcept(false)
     {
         if (pair != nullptr)
             throw std::invalid_argument("A paired SQPortal cannot be paired with a new SQPortal.");
         
-        else if (type == portal.type)
+        else if (type == portal->type)
             throw std::invalid_argument("Paired SQPortals must have different types.");
             
-        else pair = &portal;
+        else pair = portal;
+        
+        setShouldRedraw();
+    }
+
+    /// @brief Pair the portal with another portal node.
+    /// @param portal The portal to be paired.
+    /// @throw An exception will be thrown in the case where the SQPortal is already paired or
+    ///        the proposed pair has the same type.
+
+    inline void pairWith(SQPortal& portal) noexcept(false)
+    {
+        this->pairWith(&portal);
     }
 
     /// @brief A function that should be called when the portal nodes pair disconnects.
@@ -86,6 +98,8 @@ public:
     inline void pairDidBreak() noexcept
     {
         pair = nullptr;
+
+        setShouldRedraw();
     }
     
     /// @brief Indicate whether the SQPortal can be paired with the given portal.
@@ -137,7 +151,7 @@ private:
     {
         if (pair == nullptr)
             return;
-        
+
         pair->pairDidBreak();
     }
     
@@ -145,10 +159,15 @@ private:
 
     inline const ofColor& getPortalColour() const noexcept
     {
+        if (!isPaired())
+        {
+            return ofxRisographColours::crimson;
+        }
+
         switch (type)
         {
             case PortalType::A: return ofxRisographColours::lake;
-            case PortalType::B: return ofxRisographColours::crimson;
+            case PortalType::B: return ofxRisographColours::lake;
         }
     }
     

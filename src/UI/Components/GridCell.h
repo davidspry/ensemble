@@ -71,6 +71,13 @@ public:
     {
         return xy;
     }
+    
+    /// @brief Get the cell's screen position relative to the origin point and margins.
+    
+    inline const UIPoint<int>& getScreenPosition() const noexcept
+    {
+        return screenPosition;
+    }
 
     void draw() override
     {

@@ -38,7 +38,19 @@ enum KeyCodes
     K_LowerV        = 118,
     K_LowerR        = 114,
     
-    K_LowerP        = 112
+    K_LowerP        = 112,
+    
+    K_Tilde         = 96,
+    K_NRow0         = 48,
+    K_NRow1         = 49,
+    K_NRow2         = 50,
+    K_NRow3         = 51,
+    K_NRow4         = 52,
+    K_NRow5         = 53,
+    K_NRow6         = 54,
+    K_NRow7         = 55,
+    K_NRow8         = 56,
+    K_NRow9         = 57
 };
 
 #endif

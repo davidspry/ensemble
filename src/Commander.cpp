@@ -58,6 +58,15 @@ void Commander::keyPressed(int key)
         case K_LowerR: { return sequencer.placeRedirect(Redirection::Random); }
             
         case K_LowerP: { return sequencer.placePortal(); }
+            
+        case K_Tilde:
+        case K_NRow0:  { return sequencer.setCursorOctave(0); }
+        case K_NRow1:  { return sequencer.setCursorOctave(1); }
+        case K_NRow2:  { return sequencer.setCursorOctave(2); }
+        case K_NRow3:  { return sequencer.setCursorOctave(3); }
+        case K_NRow4:  { return sequencer.setCursorOctave(4); }
+        case K_NRow5:  { return sequencer.setCursorOctave(5); }
+        case K_NRow6:  { return sequencer.setCursorOctave(6); }
 
         default: return;
     }

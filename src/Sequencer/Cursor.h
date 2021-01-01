@@ -49,6 +49,15 @@ public:
         return midi;
     }
     
+    /// @brief Set the octave of the cursor's MIDI settings.
+    /// @param octave The desired octave number in the range [0, 6].
+    /// @note The given octave value will be bound by the range [0, 6]
+
+    void setOctave(const int octave) noexcept
+    {
+        midi.octave = Utilities::boundBy(0, 6, octave);
+    }
+    
 public:
     void draw() override
     {

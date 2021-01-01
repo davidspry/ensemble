@@ -13,7 +13,7 @@ public:
     UIComponent(), SPACE(20)
     {
         grid.setFilled(false);
-        grid.setStrokeWidth(1.5f);
+        grid.setStrokeWidth(2.0f);
         updateGridDimensions();
     }
 

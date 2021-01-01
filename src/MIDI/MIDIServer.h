@@ -27,8 +27,6 @@ public:
 
     inline void broadcast(const MIDINote& note) noexcept
     {
-        int noteNumber = 12 * (note.midi.octave + 1) + (note.note % 12);
-        
         notes.enqueue(note);
         midiOut.sendNoteOn(note.midi.channel, note.note, note.midi.velocity);
     }

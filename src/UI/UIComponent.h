@@ -138,6 +138,13 @@ public:
         return centre;
     }
     
+    /// \brief Get the component's margins.
+
+    [[nodiscard]] inline const UIMargins<int>& getMargins() const noexcept
+    {
+        return margins;
+    }
+    
     /// \brief Set the component's position and size using the given bounds rectangle.
     /// \param bounds The desired bounds rectangle.
 
@@ -203,6 +210,7 @@ public:
     {
         size.w = static_cast<int>(width);
         size.h = static_cast<int>(height);
+        setPositionWithOrigin(origin);
 
         setShouldRedraw();
     }
@@ -213,8 +221,11 @@ public:
 
     virtual inline void setSizeFromCentre(const float width, const float height)
     {
-        setSize(width, height);
-        setPositionWithCentre(centre.x, centre.y);
+        size.w = static_cast<int>(width);
+        size.h = static_cast<int>(height);
+        setPositionWithCentre(centre);
+
+        setShouldRedraw();
     }
     
     /// \brief Set each of the component's margins to the given value and flag the component for redrawing.

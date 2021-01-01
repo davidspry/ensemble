@@ -99,6 +99,11 @@ void Sequencer::moveCursor(Direction direction) noexcept
     cursor.move(direction, grid.getGridDimensions());
 }
 
+void Sequencer::setCursorOctave(const int octave) noexcept
+{
+    cursor.setOctave(octave);
+}
+
 void Sequencer::placeNote(uint8_t noteNumber) noexcept
 {
     const MIDINote note = { noteNumber, cursor.getMIDISettings() };

@@ -4,6 +4,7 @@
 #ifndef MIDITYPES_H
 #define MIDITYPES_H
 
+#include "MIDISettingsValues.h"
 #include "MIDISettings.h"
 #include "MIDINote.h"
 

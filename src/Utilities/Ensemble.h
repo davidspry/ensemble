@@ -13,6 +13,7 @@
 #include "Themes.h"
 #include "KeyCodes.h"
 #include "Constants.h"
+#include "Utilities.h"
 
 #include "UITypes.h"
 #include "UIWindow.h"
@@ -28,7 +29,6 @@
 #include "SQTypes.h"
 
 #include "Table.h"
-#include "Array.h"
 #include "CircularQueue.h"
 
 #endif
