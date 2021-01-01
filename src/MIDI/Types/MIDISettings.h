@@ -4,6 +4,8 @@
 #ifndef MIDISETTINGS_H
 #define MIDISETTINGS_H
 
+#include "MIDISettingsValues.h"
+
 /// @brief The properties of a MIDI note that can be specified on the Ensemble sequencer.
 
 struct MIDISettings
@@ -25,8 +27,8 @@ struct MIDISettings
 
     void set(uint8_t octave, uint8_t channel, uint8_t duration, uint8_t velocity)
     {
-        this->octave = octave;
-        this->channel = channel;
+        this->octave   = octave;
+        this->channel  = channel;
         this->duration = duration;
         this->velocity = velocity;
     }

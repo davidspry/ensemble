@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */; };
 		1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */; };
-		14268C19259C8CDA00D00121 /* Sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A95EBB2595C9FD0082168E /* Sequence.cpp */; };
 		1462C672258F434E0088A705 /* Sequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C670258F434E0088A705 /* Sequencer.cpp */; };
 		1462C676258F4CC40088A705 /* UIRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C675258F4CC40088A705 /* UIRect.cpp */; };
 		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
@@ -89,8 +88,6 @@
 		146AF2B6259251CC0008F8C6 /* SQPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQPortal.h; sourceTree = "<group>"; };
 		146AF2B7259383EE0008F8C6 /* GridCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
 		14A16FAC2596D1B400B90B49 /* ClockTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockTypes.h; sourceTree = "<group>"; };
-		14A95EBB2595C9FD0082168E /* Sequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sequence.cpp; sourceTree = "<group>"; };
-		14A95EBC2595C9FD0082168E /* Sequence.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sequence.hpp; sourceTree = "<group>"; };
 		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
 		14D7F07D258E6E5A006A79BD /* UIComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponent.h; sourceTree = "<group>"; };
 		14D7F07E258E715B006A79BD /* UITypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITypes.h; sourceTree = "<group>"; };
@@ -363,8 +360,6 @@
 				1462C68925906CF00088A705 /* SQTypes.h */,
 				1462C670258F434E0088A705 /* Sequencer.cpp */,
 				1462C671258F434E0088A705 /* Sequencer.hpp */,
-				14A95EBB2595C9FD0082168E /* Sequence.cpp */,
-				14A95EBC2595C9FD0082168E /* Sequence.hpp */,
 				1462C67B258F98B30088A705 /* Cursor.h */,
 			);
 			path = Sequencer;
@@ -1081,7 +1076,6 @@
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,
 				5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */,
 				853E0BA2F448076739446874 /* ofxColorPicker.cpp in Sources */,
-				14268C19259C8CDA00D00121 /* Sequence.cpp in Sources */,
 				B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */,
 				852E0891794923EE7583C621 /* ofxInputField.cpp in Sources */,
 				483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */,

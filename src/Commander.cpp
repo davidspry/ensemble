@@ -33,32 +33,32 @@ void Commander::keyPressed(int key)
         case K_Space:  { return sequencer.toggleClock(); }
         case K_Delete: { return sequencer.eraseFromCurrentPosition(); }
         
-        case K_Plus:   { return sequencer.placePlayhead(); }
+        case K_Plus:   { return sequencer.placePlayhead(Direction::S); }
             
-        case K_LowerA: { return sequencer.placeNote(9);  }
-        case K_LowerB: { return sequencer.placeNote(11); }
-        case K_LowerC: { return sequencer.placeNote(0);  }
-        case K_LowerD: { return sequencer.placeNote(2);  }
-        case K_LowerE: { return sequencer.placeNote(4);  }
-        case K_LowerF: { return sequencer.placeNote(5);  }
-        case K_LowerG: { return sequencer.placeNote(7);  }
+        case K_LowerA: { sequencer.placeNote(0x9); return; }
+        case K_LowerB: { sequencer.placeNote(0xB); return; }
+        case K_LowerC: { sequencer.placeNote(0x0); return; }
+        case K_LowerD: { sequencer.placeNote(0x2); return; }
+        case K_LowerE: { sequencer.placeNote(0x4); return; }
+        case K_LowerF: { sequencer.placeNote(0x5); return; }
+        case K_LowerG: { sequencer.placeNote(0x7); return; }
             
-        case K_UpperA: { return sequencer.placeNote(10); }
-        case K_UpperB: { return sequencer.placeNote(12); }
-        case K_UpperC: { return sequencer.placeNote(1);  }
-        case K_UpperD: { return sequencer.placeNote(3);  }
-        case K_UpperE: { return sequencer.placeNote(5);  }
-        case K_UpperF: { return sequencer.placeNote(6);  }
-        case K_UpperG: { return sequencer.placeNote(8);  }
+        case K_UpperA: { sequencer.placeNote(0xA); return; }
+        case K_UpperB: { sequencer.placeNote(0xC); return; }
+        case K_UpperC: { sequencer.placeNote(0x1); return; }
+        case K_UpperD: { sequencer.placeNote(0x3); return; }
+        case K_UpperE: { sequencer.placeNote(0x5); return; }
+        case K_UpperF: { sequencer.placeNote(0x6); return; }
+        case K_UpperG: { sequencer.placeNote(0x8); return; }
 
-        case K_LowerX: { return sequencer.placeRedirect(Redirection::X); }
-        case K_LowerY: { return sequencer.placeRedirect(Redirection::Y); }
-        case K_LowerV: { return sequencer.placeRedirect(Redirection::Alternating); }
-        case K_LowerL: { return sequencer.placeRedirect(Redirection::Diagonal); }
-        case K_LowerR: { return sequencer.placeRedirect(Redirection::Random); }
-            
-        case K_LowerP: { return sequencer.placePortal(); }
-            
+        case K_LowerX: { sequencer.placeRedirect(Redirection::X); return; }
+        case K_LowerY: { sequencer.placeRedirect(Redirection::Y); return; }
+        case K_LowerV: { sequencer.placeRedirect(Redirection::Alternating); return; }
+        case K_LowerL: { sequencer.placeRedirect(Redirection::Diagonal); return; }
+        case K_LowerR: { sequencer.placeRedirect(Redirection::Random); return; }
+        
+        case K_LowerP: { sequencer.placePortal(); return; }
+        
         case K_Tilde:
         case K_NRow0:  { return sequencer.setCursorOctave(0); }
         case K_NRow1:  { return sequencer.setCursorOctave(1); }

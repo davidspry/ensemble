@@ -15,34 +15,41 @@ public:
     SQRedirect(unsigned int cellSize):
     SQNode(cellSize, Redirect)
     {
-        initialisePath();
+        updateLabelText(redirection);
     }
     
     SQRedirect(unsigned int cellSize, const UIPoint<int>& position):
     SQNode(cellSize, position, Redirect)
     {
-        initialisePath();
+        updateLabelText(redirection);
     }
     
     SQRedirect(unsigned int cellSize, const UIPoint<int>& position, Redirection type):
-    SQNode(cellSize, position, Redirect)
+    SQNode(cellSize, position, Redirect),
+    redirection(type)
     {
-        initialisePath();
-        setRedirectionType(type);
-    }
+        const auto r = determineBasicRedirectionType();
 
-protected:
-    inline void initialisePath() override
-    {
-        GridCell::initialisePath();
+        updateLabelText(r);
     }
 
 public:
-    void draw() override
+    inline void draw() override
     {
-        path.setColor(getRedirectionTypeColour());
+        const int x = origin.x + margins.l + screenPosition.x;
+        const int y = origin.y + margins.t + screenPosition.y;
 
-        GridCell::draw();
+        if (shouldRedraw)
+        {
+            path.clear();
+            path.rectangle(0, 0, size.w, size.h);
+            path.setColor(getRedirectionTypeColour());
+            text.setPositionWithOrigin(x, y);
+            shouldRedraw = false;
+        }
+        
+        path.draw(x, y);
+        text.draw();
     }
 
 public:
@@ -87,7 +94,7 @@ public:
         if (node.delta.x == 0 && node.delta.y == 0)
             return;
 
-        switch (determineBasicRedirection())
+        switch (determineBasicRedirectionType())
         {
             case Redirection::X:
             {
@@ -125,7 +132,7 @@ private:
     /// @brief Determine whether the redirection type is currently X, Y, or Diagonal.
     /// @note  This should only be called when an interaction occurs.
 
-    inline Redirection determineBasicRedirection() noexcept
+    inline Redirection determineBasicRedirectionType() noexcept
     {
         switch (redirection)
         {
@@ -138,15 +145,34 @@ private:
                 
             case Redirection::Alternating:
             {
-                state = !state;
-                return static_cast<Redirection>(static_cast<int>(state));
+                const Redirection r = static_cast<Redirection>(static_cast<int>(state));
+                const Redirection t = static_cast<Redirection>(static_cast<int>((state = !state)));
+                updateLabelText(r);
+                return t;
             }
                 
             case Redirection::Random:
             {
-                const int choice = ofRandom(3);
-                return static_cast<Redirection>(choice);
+                const Redirection type = static_cast<Redirection>(static_cast<int>(choice));
+                choice = ofRandom(3);
+                updateLabelText(static_cast<Redirection>(choice));
+                return type;
             }
+        }
+    }
+    
+private:
+    /// @brief Update the node's text label to match its redirection type.
+    /// @param type The node's basic redirection type (i.e., X, Y, or Diagonal).
+
+    inline void updateLabelText(Redirection type) noexcept
+    {
+        switch (type)
+        {
+            case Redirection::X: { return text.setText("X"); }
+            case Redirection::Y: { return text.setText("Y"); }
+            case Redirection::Diagonal: { return text.setText("Z"); }
+            default: { return text.setText("?"); }
         }
     }
 
@@ -212,7 +238,13 @@ private:
     Redirection redirection;
     
 private:
-    bool state;
+    /// @brief The alternating state of an Alternating redirect node.
+
+    bool    state;
+    
+    /// @brief The current redirection type of a Random redirect node.
+
+    uint8_t choice = 0;
 };
 
 #endif

@@ -86,7 +86,7 @@ public:
         if (shouldRedraw)
         {
             path.clear();
-            path.circle(centre.x, centre.y, static_cast<int>(0.4f * size.w));
+            path.circle(centre.x, centre.y, static_cast<int>(0.35f * size.w));
             shouldRedraw = false;
         }
 

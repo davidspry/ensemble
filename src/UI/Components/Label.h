@@ -90,10 +90,10 @@ public:
 public:
     /// @brief Set the label's text component.
     /// @param string The desired text.
-
-    inline void setText(const char * string) noexcept
+ 
+    inline void setText(std::string_view string) noexcept
     {
-        text = std::string(string);
+        text = string;
 
         if (font != nullptr)
         {

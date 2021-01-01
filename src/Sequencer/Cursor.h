@@ -25,6 +25,21 @@ public:
     }
 
 public:
+    void draw() override
+    {
+        const int x = origin.x + margins.l + screenPosition.x;
+        const int y = origin.y + margins.t + screenPosition.y;
+
+        if (shouldRedraw)
+        {
+            path.clear();
+            path.rectangle(0, 0, size.w, size.h);
+            path.setColor(colours->foregroundColour);
+        }
+
+        path.draw(x, y);
+    }
+    
     /// @brief Move the cursor on the sequencer in the given direction.
     /// @param direction The direction in which the cursor should be moved.
     /// @param gridSize The dimensions of the sequencer grid in rows and columns.
@@ -42,6 +57,10 @@ public:
         moveToGridPosition(xy);
     }
     
+// MARK: - MIDI Settings
+
+public:
+    
     /// @brief Return the current MIDI settings.
 
     [[nodiscard]] inline const MIDISettings& getMIDISettings() const noexcept
@@ -58,18 +77,9 @@ public:
         midi.octave = Utilities::boundBy(0, 6, octave);
     }
     
-public:
-    void draw() override
+    void setChannel(const int channel) noexcept
     {
-        if (shouldRedraw)
-        {
-            path.clear();
-            path.rectangle(0, 0, size.w, size.h);
-            path.setColor(colours->foregroundColour);
-        }
-
-        path.draw(origin.x + margins.l + screenPosition.x,
-                  origin.y + margins.t + screenPosition.y);
+        midi.channel = Utilities::boundBy(1, 16, channel);
     }
 
 private:

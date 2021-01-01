@@ -4,6 +4,4 @@
 #ifndef MIDISETTINGSVALUES_H
 #define MIDISETTINGSVALUES_H
 
-
-
 #endif
