@@ -31,7 +31,11 @@ public:
 public:
     void draw() override
     {
-        path.setColor(getNoteColour());
+        if (shouldRedraw)
+        {
+            auto colour = getNoteColour();
+            path.setColor(colour);
+        }
 
         GridCell::draw();
     }
@@ -53,7 +57,7 @@ protected:
     {
         // TODO: Differentiate note channels by colour (or something similar)
 
-        return ofxRisographColours::cornflower;
+        return colours->secondaryForegroundColour;
     }
 
 private:
