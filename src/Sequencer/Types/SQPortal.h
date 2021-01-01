@@ -14,22 +14,13 @@ enum  PortalType { A, B };
 
 class SQPortal: public SQNode
 {
-    /**
-     [OVERVIEW]
-     - Portal placement alternates between two subtypes.
-     - Portals are paired together. The first portal pairs with the second, the third pairs with the four, etc.
-     - If a portal is deleted, it becomes paired with the next portal that's placed on the sequencer.
-     - Unpaired portals send incoming nodes back to the beginning of their row or column, depending on their direction.
-     - Nodes maintain their direction when travelling through a portal.
-     */
-
 public:
     SQPortal(unsigned int cellSize, PortalType portalType):
     SQNode(cellSize, Portal),
     type(portalType),
     pair(nullptr)
     {
-        text.setText(portalType == PortalType::A ? "PX" : "PY");
+        text.setText("P");
     }
     
     SQPortal(unsigned int cellSize, const UIPoint<int>& position, PortalType portalType):
@@ -37,7 +28,7 @@ public:
     type(portalType),
     pair(nullptr)
     {
-        text.setText(portalType == PortalType::A ? "PX" : "PY");
+        text.setText("P");
     }
     
     ~SQPortal()
@@ -73,7 +64,7 @@ public:
     inline void pairWith(SQPortal* portal) noexcept(false)
     {
         if (pair != nullptr)
-            throw std::invalid_argument("A paired SQPortal cannot be paired with a new SQPortal.");
+            throw std::invalid_argument("`pairWith` was called on a paired SQPortal.");
         
         else if (type == portal->type)
             throw std::invalid_argument("Paired SQPortals must have different types.");
@@ -107,9 +98,7 @@ public:
 
     inline bool canPairWith(SQPortal & portal) const noexcept
     {
-        return pair == nullptr &&
-              !portal.isPaired() &&
-               type != portal.type;
+        return pair == nullptr && !portal.isPaired() && type != portal.type;
     }
     
     /// @brief Get the portal's pair (or nullptr if the portal is unpaired).
@@ -130,9 +119,11 @@ public:
 
     [[nodiscard]] inline PortalType getPairPortalType() const noexcept
     {
-        if (type == PortalType::A) return PortalType::B;
-        if (type == PortalType::B) return PortalType::A;
-        else                       return PortalType::A;
+        switch (type)
+        {
+            case PortalType::A: return PortalType::B;
+            case PortalType::B: return PortalType::A;
+        }
     }
 
     /// @brief Indicate if the portal is currently paired.

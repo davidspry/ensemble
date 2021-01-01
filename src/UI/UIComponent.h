@@ -44,7 +44,7 @@ public:
     
     // MARK: - UIColourScheme
     
-    /// \brief Get the component's background colour.
+    /// \brief Get the component's colour scheme.
     
     [[nodiscard]] const UIColourScheme& getColourScheme() const noexcept
     {

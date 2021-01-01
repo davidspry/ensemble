@@ -15,8 +15,7 @@ int main()
     ofxWindowOptions::setResizable(false);
     
     ofSetWindowPosition(35, 65); 
-    ofSetCircleResolution(256);
-    ofDisableAlphaBlending();
+    ofSetCircleResolution(128);
     ofEnableAntiAliasing();
     ofEnableSmoothing();
     ofSetFrameRate(60);

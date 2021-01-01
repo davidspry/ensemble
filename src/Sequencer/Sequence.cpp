@@ -13,7 +13,7 @@ table(grid.getGridDimensions().height,
 
 void Sequence::tick()
 {
-    server->release();
+    server->releaseAllNotes();
     
     const auto dimensions = grid->getGridDimensions();
 

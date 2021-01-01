@@ -20,42 +20,49 @@ public:
     {
         midiOut.closePort();
     }
-    
+
 public:
     /// @brief Broadcast the given note.
     /// @param note The MIDI note to broadcast.
 
     inline void broadcast(const MIDINote& note) noexcept
     {
-        notes.enqueue(note);
-        midiOut.sendNoteOn(note.midi.channel, note.note, note.midi.velocity);
+        if (notes.full())
+        {
+            release(notes.dequeue());
+        }
+        
+        if (notes.enqueue(note))
+        {
+            midiOut.sendNoteOn(note.midi.channel, note.note, note.midi.velocity);
+        }
     }
     
     /// @brief Release all notes pending release.
 
-    inline void release() noexcept
+    inline void releaseAllNotes() noexcept
     {
         while (notes.isNotEmpty())
         {
-            MIDINote release = notes.dequeue();
-            midiOut.sendNoteOff(release.midi.channel, release.note, 0);
+            release(notes.dequeue());
         }
     }
     
 public:
     /// @brief Close the current MIDI port and open the given MIDI port.
     /// @param port The number of the port to be opened.
+    /// @return A Boolean value indicating whether the given port was successfully opened or not.
 
-    inline void selectMIDIPort(unsigned int port) noexcept
+    inline bool selectMIDIPort(unsigned int port) noexcept
     {
         if (port == midiOut.getPort())
-            return;
+            return true;
         
         if (port >= midiOut.getNumOutPorts())
-            return;
+            return false;
         
         midiOut.closePort();
-        midiOut.openPort(port);
+        return midiOut.openPort(port);
     }
     
     /// @brief Open the next available MIDI port.
@@ -74,6 +81,15 @@ public:
         const int port  = midiOut.getPort();
         const int ports = midiOut.getNumOutPorts();
         selectMIDIPort((port - 1 + ports) % ports);
+    }
+    
+private:
+    /// @brief Send a note off message for the given MIDI note.
+    /// @param note The note to be released.
+
+    inline void release(const MIDINote & note) noexcept
+    {
+        midiOut.sendNoteOff(note.midi.channel, note.note, 0);
     }
     
 private:

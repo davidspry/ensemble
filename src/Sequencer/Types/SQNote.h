@@ -13,21 +13,21 @@ public:
     SQNote(unsigned int cellSize):
     SQNode(cellSize, Note)
     {
-        initialisePath();
+        
     }
     
     SQNote(unsigned int cellSize, const UIPoint<int>& position):
     SQNode(cellSize, position, Note)
     {
-        initialisePath();
+        
     }
     
     SQNote(unsigned int cellSize, const UIPoint<int>& position, MIDINote midiNote):
     SQNode(cellSize, position, Note), note(midiNote)
     {
-        initialisePath();
+        
     }
-    
+
 public:
     void draw() override
     {
@@ -51,6 +51,8 @@ protected:
 
     inline ofColor getNoteColour() noexcept
     {
+        // TODO: Differentiate note channels by colour (or something similar)
+
         return ofxRisographColours::cornflower;
     }
 

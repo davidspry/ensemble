@@ -14,21 +14,18 @@ public:
     SQPlayhead(unsigned int cellSize):
     SQNode(cellSize, Playhead)
     {
-        initialisePath();
         delta.set(0, 1);
     }
     
     SQPlayhead(unsigned int cellSize, const UIPoint<int>& position):
     SQNode(cellSize, position, Playhead)
     {
-        initialisePath();
         delta.set(0, 1);
     }
     
     SQPlayhead(unsigned int cellSize, const UIPoint<int>& position, int deltaX, int deltaY):
     SQNode(cellSize, position, Playhead)
     {
-        initialisePath();
         delta.set(deltaX, deltaY);
     }
 

@@ -36,7 +36,8 @@ public:
 
         ofSetColor(colours->textColour);
         ofTranslate(origin.x, origin.y);
-        font->drawString(text, textOrigin.x, textOrigin.y);
+//        font->drawString(text, textOrigin.x, textOrigin.y);
+        ofDrawBitmapString(text, textOrigin.x, textOrigin.y);
         
         ofPopMatrix();
         ofPopStyle();

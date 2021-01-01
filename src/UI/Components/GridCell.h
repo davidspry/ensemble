@@ -38,8 +38,7 @@ protected:
     virtual inline void initialisePath()
     {
         path.setFilled(true);
-        path.setStrokeWidth(0.0f);
-        path.setCircleResolution(256);
+        path.setCircleResolution(128);
         path.setColor(colours->foregroundColour);
         path.clear();
     }
@@ -81,15 +80,17 @@ public:
 
     void draw() override
     {
+        const int x = origin.x + margins.l + screenPosition.x;
+        const int y = origin.y + margins.t + screenPosition.y;
+
         if (shouldRedraw)
         {
             path.clear();
-            path.circle(0.5f * size.w, 0.5f * size.h, 0.4f * size.w);
+            path.circle(centre.x, centre.y, static_cast<int>(0.4f * size.w));
             shouldRedraw = false;
         }
-        
-        path.draw(origin.x + margins.l + screenPosition.x,
-                  origin.y + margins.t + screenPosition.y);
+
+        path.draw(x, y);
     }
 
 protected:

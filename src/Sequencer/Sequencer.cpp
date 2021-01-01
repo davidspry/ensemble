@@ -25,7 +25,7 @@ sequence(grid, midiServer)
 
 Sequencer::~Sequencer()
 {
-    midiServer.release();
+    midiServer.releaseAllNotes();
 }
 
 // MARK: - UIComponent Drawing
@@ -91,7 +91,7 @@ void Sequencer::setMargins(const int top, const int left, const int right, const
 void Sequencer::toggleClock() noexcept
 {
     clock.toggleClock();
-    midiServer.release();
+    midiServer.releaseAllNotes();
 }
 
 void Sequencer::moveCursor(Direction direction) noexcept
