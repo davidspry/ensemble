@@ -140,6 +140,33 @@ void Sequencer::tick()
 void Sequencer::moveCursor(Direction direction) noexcept
 {
     cursor.move(direction, grid.getGridDimensions());
+    updateHoverDescriptionString();
+}
+
+void Sequencer::moveCursorToScreenPosition(const int x, const int y) noexcept
+{
+    UIPoint<int> xy;
+    xy.x = (x - origin.x - margins.l) / grid.getGridCellSize();
+    xy.y = (y - origin.y - margins.t) / grid.getGridCellSize();
+    xy.x = Utilities::boundBy(0, grid.getGridDimensions().w - 1, xy.x);
+    xy.y = Utilities::boundBy(0, grid.getGridDimensions().h - 1, xy.y);
+
+    cursor.moveToGridPosition(xy.y, xy.x);
+    updateHoverDescriptionString();
+}
+
+void Sequencer::updateHoverDescriptionString() noexcept
+{
+    if (table.contains(cursor.xy.x, cursor.xy.y))
+    {
+        const auto node  = table.get(cursor.xy.x, cursor.xy.y)->get();
+        hoverDescription = node->describe();
+    }
+    
+    else
+    {
+        hoverDescription = "";
+    }
 }
 
 void Sequencer::setCursorOctave(const int octave) noexcept
@@ -159,6 +186,8 @@ bool Sequencer::placeNote(uint8_t noteIndex) noexcept(false)
     SQNote* node = new SQNote(grid.getGridCellSize(), xy, note);
 
     table.set(std::shared_ptr<SQNode>(node), xy.x, xy.y);
+    
+    updateHoverDescriptionString();
     
     return true;
 }
@@ -190,6 +219,8 @@ bool Sequencer::placePortal() noexcept(false)
 
         table.set(std::shared_ptr<SQPortal>(node), xy.x, xy.y);
     }
+    
+    updateHoverDescriptionString();
 
     return true;
 }
@@ -212,6 +243,8 @@ bool Sequencer::placeRedirect(Redirection type) noexcept(false)
     SQRedirect* node = new SQRedirect(grid.getGridCellSize(), xy, type);
 
     table.set(std::shared_ptr<SQNode>(node), xy.x, xy.y);
+    
+    updateHoverDescriptionString();
 
     return true;
 }
@@ -242,6 +275,8 @@ void Sequencer::eraseFromCurrentPosition() noexcept(false)
     }
 
     table.erase(xy.x, xy.y);
+    
+    updateHoverDescriptionString();
 }
 
 void Sequencer::gridDimensionsDidUpdate() noexcept(false)

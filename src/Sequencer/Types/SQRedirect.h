@@ -126,6 +126,18 @@ public:
         const int row = (xy.y + node.delta.y + gridSize.h) % gridSize.h;
         const int col = (xy.x + node.delta.x + gridSize.w) % gridSize.w;
         node.moveToGridPosition(row, col);
+        updateRedirectionIfNeeded();
+    }
+    
+    inline std::string describe() noexcept override
+    {
+        switch (determineBasicRedirectionType())
+        {
+            case Redirection::X: return "REDIRECT X";
+            case Redirection::Y: return "REDIRECT Y";
+            case Redirection::Diagonal: return "REDIRECT DIAGONAL";
+            default: return "REDIRECT";
+        }
     }
 
 private:
@@ -145,19 +157,38 @@ private:
                 
             case Redirection::Alternating:
             {
-                const Redirection r = static_cast<Redirection>(static_cast<int>(state));
-                const Redirection t = static_cast<Redirection>(static_cast<int>((state = !state)));
-                updateLabelText(r);
-                return t;
+                return static_cast<Redirection>(static_cast<int>(state));
             }
                 
             case Redirection::Random:
             {
-                const Redirection type = static_cast<Redirection>(static_cast<int>(choice));
-                choice = ofRandom(3);
-                updateLabelText(static_cast<Redirection>(choice));
-                return type;
+                return static_cast<Redirection>(static_cast<int>(choice));
             }
+        }
+    }
+    
+    /// @brief Update the redirection if it has a dynamic type.
+    /// @note  This should be called when an interaction occurs.
+
+    inline void updateRedirectionIfNeeded() noexcept
+    {
+        switch (redirection)
+        {
+            case Redirection::Alternating:
+            {
+                state = !state;
+                const Redirection r = static_cast<Redirection>(static_cast<int>(state));
+                return updateLabelText(r);
+            }
+                
+            case Redirection::Random:
+            {
+                choice = ofRandom(3);
+                const Redirection r = static_cast<Redirection>(choice);
+                return updateLabelText(r);
+            }
+
+            default: return;
         }
     }
     
@@ -240,7 +271,7 @@ private:
 private:
     /// @brief The alternating state of an Alternating redirect node.
 
-    bool    state;
+    bool state;
     
     /// @brief The current redirection type of a Random redirect node.
 

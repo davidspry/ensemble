@@ -6,6 +6,8 @@
 
 #include "Ensemble.h"
 
+/// @brief A grid of squares.
+
 class Grid: public UIComponent
 {
 public:

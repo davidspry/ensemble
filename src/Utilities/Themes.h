@@ -12,7 +12,7 @@ namespace Themes
 
 static UIColourScheme light00 =
 {
-    {195},
+    {215},
     {15},
     {55},
     {246, 160, 77},
@@ -32,7 +32,7 @@ static UIColourScheme dark00 =
 
 /// @brief The active colour scheme.
 
-static UIColourScheme & theme = dark00;
+static UIColourScheme & theme = light00;
 };
 
 #endif

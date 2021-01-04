@@ -87,6 +87,7 @@
 		1462C6942590CB2A0088A705 /* Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Label.h; sourceTree = "<group>"; };
 		146AF2B6259251CC0008F8C6 /* SQPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQPortal.h; sourceTree = "<group>"; };
 		146AF2B7259383EE0008F8C6 /* GridCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
+		14869AC725A2E66A00C6A5D8 /* UIFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFont.h; sourceTree = "<group>"; };
 		14A16FAC2596D1B400B90B49 /* ClockTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockTypes.h; sourceTree = "<group>"; };
 		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
 		14D7F07D258E6E5A006A79BD /* UIComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponent.h; sourceTree = "<group>"; };
@@ -373,6 +374,7 @@
 				1462C675258F4CC40088A705 /* UIRect.cpp */,
 				1462C677258F580D0088A705 /* UIPoint.h */,
 				1462C678258F58160088A705 /* UISize.h */,
+				14869AC725A2E66A00C6A5D8 /* UIFont.h */,
 				1462C67A258F6E640088A705 /* UIMargins.h */,
 				1462C688259067480088A705 /* UIColourScheme.h */,
 			);

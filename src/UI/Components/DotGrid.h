@@ -7,6 +7,8 @@
 #include "Ensemble.h"
 #include "Grid.h"
 
+/// @brief A grid of dots.
+
 class DotGrid: public Grid
 {
 public:

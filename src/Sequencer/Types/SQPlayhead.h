@@ -39,6 +39,11 @@ public:
     {
         
     }
+    
+    inline std::string describe() noexcept override
+    {
+        return "";
+    }
 };
 
 #endif

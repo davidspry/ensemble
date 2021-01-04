@@ -37,6 +37,10 @@ public:
 
     virtual void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept = 0;
 
+    /// @brief Provide a textual description of the node.
+    
+    virtual std::string describe() noexcept = 0;
+
     /// @brief Update the node's position on the sequencer.
     /// @param gridSize The dimensions of the sequencer grid in rows and columns.
 

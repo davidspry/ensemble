@@ -54,6 +54,13 @@ public:
         path.draw(x, y);
         text.draw();
     }
+    
+    inline std::string describe() noexcept override
+    {
+        if (isPaired())
+             return "PORTAL PAIRED";
+        else return "PORTAL UNPAIRED";
+    }
 
 public:
     /// @brief Pair the portal with another portal node.

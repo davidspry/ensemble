@@ -22,13 +22,22 @@ public:
     void setSizeFromCentre(const float width, const float height) override;
     void setSize(const float width, const float height) override;
     void setMargins(const int top, const int left, const int right, const int bottom) override;
-    
+
 public:
     void tick() override;
     void toggleClock() noexcept;
     
 public:
+    /// @brief Return a textual description of the sequencer's contents at the cursor's current position.
+
+    inline std::string_view getHoverDescription() noexcept
+    {
+        return hoverDescription;
+    }
+
+public:
     void moveCursor(Direction direction) noexcept;
+    void moveCursorToScreenPosition(const int x, const int y) noexcept;
     void setCursorOctave(const int octave) noexcept;
     
 public:
@@ -66,6 +75,10 @@ private:
     /// @brief Update the underlying data structures to reflect a change in the size of the sequencer grid.
 
     void gridDimensionsDidUpdate() noexcept(false);
+    
+    /// @brief Update the string that describes the contents of the sequencer at the cursor's current position.
+
+    void updateHoverDescriptionString() noexcept;
 
 private:
     Clock      clock;
@@ -74,8 +87,14 @@ private:
     MIDIServer midiServer;
     
 private:
+    /// @brief A textual description of the sequence's contents at the cursor's current position.
+
+    std::string hoverDescription;
+    
+private:
     std::vector<SQPlayhead> playheads;
     std::vector<SQPortal *> unpairedPortals;
+    
     Table<std::shared_ptr<SQNode>> table;
 };
 

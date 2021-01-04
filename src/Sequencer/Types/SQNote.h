@@ -50,6 +50,11 @@ public:
         server.broadcast(note);
     }
     
+    inline std::string describe() noexcept override
+    {
+        return note.description();
+    }
+    
 protected:
     /// @brief Get the ofColor corresponding to the SQNote's underlying MIDI note.
 

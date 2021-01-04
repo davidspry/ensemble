@@ -5,6 +5,7 @@
 #define LABEL_H
 
 #include "ofMain.h"
+#include "UIFont.h"
 #include "Constants.h"
 #include "UIComponent.h"
 
@@ -15,9 +16,9 @@ public:
     UIComponent()
     {
         setSize(50, 25);
-        setFont("JetBrainsMono-Medium.ttf", 10);
+//        setFont("JetBrainsMono-Medium.ttf", 10);
+        setUseBitmapFont();
         setText("Label");
-        setTextAlignment(HorizontalAlignment::Centre, VerticalAlignment::Centre);
     }
 
 public:
@@ -25,7 +26,12 @@ public:
     {
         ofPushStyle();
         ofPushMatrix();
-        ofSetColor(colours->textColour);
+        
+        if (shouldRedraw)
+        {
+            setTextAlignment(horizontalTextAlignment, verticalTextAlignment);
+            shouldRedraw = false;
+        }
         
         if (shouldFillBackground)
         {
@@ -36,18 +42,18 @@ public:
 
         ofSetColor(colours->textColour);
         ofTranslate(origin.x, origin.y);
-//        font->drawString(text, textOrigin.x, textOrigin.y);
-        ofDrawBitmapString(text, textOrigin.x, textOrigin.y);
+        
+        font.drawString(text, textOrigin.x, textOrigin.y);
         
         ofPopMatrix();
         ofPopStyle();
     }
-    
+
     /// @brief Match the size of the label to the size of the label's text
 
     void shrinkToFitText() noexcept
     {
-        const auto bounds = font->getStringBoundingBox(text, 0, 0);
+        const auto bounds = font.getStringBoundingBox(text, 0, 0);
 
         setSize(bounds.width, bounds.height);
     }
@@ -56,16 +62,12 @@ public:
     {
         UIComponent::setSize(width, height);
 
-        setTextAlignment(horizontalTextAlignment, verticalTextAlignment);
-
         setShouldRedraw();
     }
     
     inline void setSizeFromCentre(const float width, const float height) override
     {
         UIComponent::setSizeFromCentre(width, height);
-        
-        setTextAlignment(horizontalTextAlignment, verticalTextAlignment);
 
         setShouldRedraw();
     }
@@ -83,10 +85,10 @@ public:
     inline void setMargins(const int top, const int left, const int right, const int bottom) override
     {
         UIComponent::setMargins(top, left, right, bottom);
-        setTextAlignment(horizontalTextAlignment, verticalTextAlignment);
+        
+        setShouldRedraw();
     }
-    
-    
+
 public:
     /// @brief Set the label's text component.
     /// @param string The desired text.
@@ -95,10 +97,7 @@ public:
     {
         text = string;
 
-        if (font != nullptr)
-        {
-            setTextAlignment(horizontalTextAlignment, verticalTextAlignment);
-        }
+        setShouldRedraw();
     }
 
     /// @brief Get the label's text component.
@@ -114,6 +113,7 @@ public:
     inline void setShouldFillBackground(bool fillBackground) noexcept
     {
         shouldFillBackground = fillBackground;
+
         setShouldRedraw();
     }
     
@@ -123,7 +123,18 @@ public:
 
     inline void setFont(const char * filepath, int pointSize) noexcept(false)
     {
-        font = UIFontLibrary::get(filepath, pointSize);
+        font.setTrueTypeFont(filepath, pointSize);
+        
+        setShouldRedraw();
+    }
+    
+    /// @brief Use the default bitmap font as the label's font.
+
+    inline void setUseBitmapFont() noexcept
+    {
+        font.setBitmapFont();
+        
+        setShouldRedraw();
     }
     
     /// @brief Set the label text's alignment in terms of its horizontal and veritcal positions.
@@ -132,7 +143,7 @@ public:
 
     inline void setTextAlignment(HorizontalAlignment horizontal, VerticalAlignment vertical) noexcept
     {
-        const ofRectangle bounds = font->getStringBoundingBox(text, 0, 0);
+        const ofRectangle bounds = font.getStringBoundingBox(text, 0, 0);
 
         using H = HorizontalAlignment;
         switch (horizontal)
@@ -165,8 +176,8 @@ private:
     std::string text;
     
     /// @brief The label's font.
-
-    ofTrueTypeFont * font;
+    
+    UIFont font;
     
     /// @brief The origin point of the label's text.
     /// @note  ofTrueTypeFont uses the bottom-left corner as the origin point.
@@ -175,11 +186,11 @@ private:
     
     /// @brief The horizontal alignment of the label's text.
     
-    HorizontalAlignment horizontalTextAlignment;
+    HorizontalAlignment horizontalTextAlignment = HorizontalAlignment::Centre;
     
     /// @brief The vertical alignment of the label's text.
     
-    VerticalAlignment verticalTextAlignment;
+    VerticalAlignment verticalTextAlignment = VerticalAlignment::Centre;
 };
 
 #endif

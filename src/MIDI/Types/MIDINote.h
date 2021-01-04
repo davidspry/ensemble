@@ -28,6 +28,30 @@ struct MIDINote
         note = 12 * (settings.octave + 1) + (noteIndex % 12);
         midi = settings;
     }
+    
+    /// @brief Return the MIDI note's note name.
+
+    inline std::string notename() noexcept
+    {
+        const std::array<std::string, 12> notes =
+        {
+            "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
+        };
+
+        return notes[note % 12] + std::to_string(midi.octave - 1);
+    }
+    
+    /// @brief Compute a textual description of the note and its MIDI settings.
+
+    inline std::string description() noexcept
+    {
+        const auto channel  = std::to_string(midi.channel);
+        const auto velocity = std::to_string(midi.velocity);
+
+        return "NOTE "      + notename()
+             + " CHANNEL "  + channel
+             + " VELOCITY " + velocity;
+    }
 };
 
 #endif

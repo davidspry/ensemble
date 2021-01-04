@@ -12,7 +12,7 @@ void Commander::setup()
 
 void Commander::update()
 {
-    
+
 }
 
 void Commander::draw()
@@ -94,7 +94,7 @@ void Commander::mouseMoved(int x, int y)
 
 void Commander::mousePressed(int x, int y, int button)
 {
-    
+    sequencer.moveCursorToScreenPosition(x, y);
 }
 
 void Commander::mouseReleased(int x, int y, int button)
@@ -104,7 +104,7 @@ void Commander::mouseReleased(int x, int y, int button)
 
 void Commander::mouseDragged(int x, int y, int button)
 {
-    
+    sequencer.moveCursorToScreenPosition(x, y);
 }
 
 void Commander::windowResized(int w, int h)

@@ -7,7 +7,7 @@
 #include "UIPoint.h"
 #include "Label.h"
 
-/// @brief A component whose position is defined in grid cell indices.
+/// @brief A component whose position is defined in grid indices.
 
 class GridCell: public UIComponent
 {
