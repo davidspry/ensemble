@@ -5,8 +5,8 @@
 #define SEQUENCER_HPP
 
 #include "Ensemble.h"
-#include "Cursor.h"
 #include "DotGrid.h"
+#include "Cursor.h"
 
 class Sequencer: public UIComponent, public ClockListener
 {
@@ -17,8 +17,8 @@ public:
 
 public:
     void draw() override;
-    void setPositionWithOrigin(const float x, const float y) override;
-    void setPositionWithCentre(const float x, const float y) override;
+    void setPositionWithOrigin(const int x, const int y) override;
+    void setPositionWithCentre(const int x, const int y) override;
     void setSizeFromCentre(const float width, const float height) override;
     void setSize(const float width, const float height) override;
     void setMargins(const int top, const int left, const int right, const int bottom) override;

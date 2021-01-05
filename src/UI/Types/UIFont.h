@@ -4,7 +4,6 @@
 #ifndef UIFONT_H
 #define UIFONT_H
 
-#include "ofMain.h"
 #include "UIFontLibrary.h"
 
 /// @brief Constants defining the available UIFont types.

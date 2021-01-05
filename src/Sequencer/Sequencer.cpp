@@ -9,6 +9,7 @@ cursor(grid.getGridCellSize())
 {
     const int cellSize = grid.getGridCellSize() * 2;
     setMargins(cellSize, cellSize, cellSize, 0);
+    
     clock.connect(this);
 }
 
@@ -18,6 +19,7 @@ cursor(grid.getGridCellSize())
 {
     const int cellSize = grid.getGridCellSize() * 2;
     setMargins(cellSize, cellSize, cellSize, 0);
+    
     clock.connect(this);
 }
 
@@ -46,7 +48,7 @@ void Sequencer::draw()
     cursor.draw();
 }
 
-void Sequencer::setPositionWithOrigin(const float x, const float y)
+void Sequencer::setPositionWithOrigin(const int x, const int y)
 {
     UIComponent::setPositionWithOrigin(x, y);
     
@@ -54,7 +56,7 @@ void Sequencer::setPositionWithOrigin(const float x, const float y)
     cursor.setPositionWithOrigin(x, y);
 }
 
-void Sequencer::setPositionWithCentre(const float x, const float y)
+void Sequencer::setPositionWithCentre(const int x, const int y)
 {
     UIComponent::setPositionWithCentre(x, y);
     

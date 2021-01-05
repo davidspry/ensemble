@@ -15,7 +15,7 @@ public:
     /// @brief The callback that's executed when a keyboard key is pressed.
     /// @param key The ASCII key code.
 
-    virtual void keyPressed (int key)
+    virtual void keyPressed (int key) noexcept
     {
         
     }
@@ -23,7 +23,7 @@ public:
     /// @brief The callback that's executed when a pressed key is released.
     /// @param key The ASCII key code.
 
-    virtual void keyReleased(int key)
+    virtual void keyReleased(int key) noexcept
     {
         
     }
@@ -41,7 +41,7 @@ public:
     /// @param x The x-coordinate of the mouse cursor's screen position.
     /// @param y The y-coordinate of the mouse cursor's screen position.
     
-    virtual void mouseEntered(int x, int y)
+    virtual void mouseEntered(int x, int y) noexcept
     {
         
     }
@@ -50,7 +50,7 @@ public:
     /// @param x The x-coordinate of the mouse cursor's screen position.
     /// @param y The y-coordinate of the mouse cursor's screen position.
     
-    virtual void mouseExited(int x, int y)
+    virtual void mouseExited(int x, int y) noexcept
     {
         
     }
@@ -59,7 +59,7 @@ public:
     /// @param x The x-coordinate of the mouse cursor's screen position.
     /// @param y The y-coordinate of the mouse cursor's screen position.
 
-    virtual void mouseMoved(int x, int y)
+    virtual void mouseMoved(int x, int y) noexcept
     {
         
     }
@@ -69,7 +69,7 @@ public:
     /// @param y The y-coordinate of the mouse cursor's screen position.
     /// @param buttonIndex A number representing the index of the pressed mouse button.
     
-    virtual void mousePressed (int x, int y, int buttonIndex)
+    virtual void mousePressed (int x, int y, int buttonIndex) noexcept
     {
         
     }
@@ -79,7 +79,7 @@ public:
     /// @param y The y-coordinate of the mouse cursor's screen position.
     /// @param buttonIndex A number representing the index of the released mouse button.
     
-    virtual void mouseReleased(int x, int y, int buttonIndex)
+    virtual void mouseReleased(int x, int y, int buttonIndex) noexcept
     {
         
     }
@@ -89,7 +89,7 @@ public:
     /// @param y The y-coordinate of the mouse cursor's screen position.
     /// @param buttonIndex A number representing the index of the pressed mouse button.
 
-    virtual void mouseDragged (int x, int y, int buttonIndex)
+    virtual void mouseDragged (int x, int y, int buttonIndex) noexcept
     {
         
     }

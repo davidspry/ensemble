@@ -32,12 +32,12 @@ private:
     
     
 private:
-    Label position;
-    Label polyphony;
-    Label midiInPort;
-    Label midiOutPort;
-    Label description;
-    Label cursorMidiSettings;
+//    Label position;
+//    Label polyphony;
+//    Label midiInPort;
+//    Label midiOutPort;
+//    Label description;
+//    Label cursorMidiSettings;
 };
 
 #endif

@@ -5,8 +5,13 @@
 #define UICOMPONENT_H
 
 #include "ofMain.h"
+
 #include "Themes.h"
-#include "UITypes.h"
+#include "UISize.h"
+#include "UIRect.h"
+#include "UIPoint.h"
+#include "UIMargins.h"
+#include "UIColourScheme.h"
 
 /// @brief A component with a rectangular shape that can be drawn to the screen.
 
@@ -40,65 +45,6 @@ public:
     inline void setShouldRedraw()
     {
         shouldRedraw = true;
-    }
-    
-    // MARK: - UIColourScheme
-    
-    /// \brief Get the component's colour scheme.
-    
-    [[nodiscard]] const UIColourScheme& getColourScheme() const noexcept
-    {
-        return *colours;
-    }
-    
-    /// \brief Set the component's colour scheme and flag the component for redrawing.
-    /// \param scheme The desired colour scheme.
-
-    virtual inline void setColourScheme(UIColourScheme scheme)
-    {
-        colours = &scheme;
-
-        setShouldRedraw();
-    }
-    
-    /// \brief Set the component's background colour and flag the component for redrawing.
-    /// \param colour The desired background colour.
-
-    virtual inline void setBackgroundColour(ofColor colour)
-    {
-        (*colours).backgroundColour = colour;
-        
-        setShouldRedraw();
-    }
-    
-    /// \brief Set the component's foreground colour and flag the component for redrawing.
-    /// \param colour The desired foreground colour.
-
-    virtual inline void setForegroundColour(ofColor colour)
-    {
-        (*colours).foregroundColour = colour;
-        
-        setShouldRedraw();
-    }
-    
-    /// \brief Set the component's accent colour and flag the component for redrawing.
-    /// \param colour The desired accent colour.
-
-    virtual inline void setAccentColour(ofColor colour)
-    {
-        (*colours).accentColour = colour;
-        
-        setShouldRedraw();
-    }
-    
-    /// \brief Set the component's text colour and flag the component for redrawing.
-    /// \param colour The desired text colour.
-
-    virtual inline void setTextColour(ofColor colour)
-    {
-        (*colours).textColour = colour;
-        
-        setShouldRedraw();
     }
     
     // MARK: - Geometry
@@ -161,22 +107,19 @@ public:
 
     virtual inline void setPositionWithOrigin(UIPoint<int>& position)
     {
-        origin.x = position.x;
-        origin.y = position.y;
-        centre.x = static_cast<int>((float) position.x + (float) size.w * 0.5f);
-        centre.y = static_cast<int>((float) position.y + (float) size.h * 0.5f);
+        this->setPositionWithOrigin(position.x, position.y);
     }
     
     /// \brief Set the component's position to the given origin point.
     /// \param x The x-coordinate of the desired origin point.
     /// \param y The y-coordinate of the desired origin point.
 
-    virtual inline void setPositionWithOrigin(const float x, const float y)
+    virtual inline void setPositionWithOrigin(const int x, const int y)
     {
-        origin.x = static_cast<int>(x);
-        origin.y = static_cast<int>(y);
-        centre.x = static_cast<int>(x + (float) size.w * 0.5f);
-        centre.y = static_cast<int>(y + (float) size.h * 0.5f);
+        origin.x = x;
+        origin.y = y;
+        centre.x = x + static_cast<int>((float) size.w * 0.5f);
+        centre.y = y + static_cast<int>((float) size.h * 0.5f);
     }
 
     /// \brief Set the component's position using the given centre point.
@@ -184,22 +127,19 @@ public:
 
     virtual inline void setPositionWithCentre(UIPoint<int>& centrePoint)
     {
-        centre.x = centrePoint.x;
-        centre.y = centrePoint.y;
-        origin.x = static_cast<int>((float) centrePoint.x - (float) size.w * 0.5f);
-        origin.y = static_cast<int>((float) centrePoint.y - (float) size.h * 0.5f);
+        this->setPositionWithCentre(centrePoint.x, centrePoint.y);
     }
     
     /// \brief Set the component's position using the given centre point.
     /// \param x The x-coordinate of the desired centre point.
     /// \param y The y-coordinate of the desired centre point.
 
-    virtual inline void setPositionWithCentre(const float x, const float y)
+    virtual inline void setPositionWithCentre(const int x, const int y)
     {
-        centre.x = static_cast<int>(x);
-        centre.y = static_cast<int>(y);
-        origin.x = static_cast<int>(x - (float) size.w * 0.5f);
-        origin.y = static_cast<int>(y - (float) size.h * 0.5f);
+        centre.x = x;
+        centre.y = y;
+        origin.x = x - static_cast<int>((float) size.w * 0.5f);
+        origin.y = y - static_cast<int>((float) size.h * 0.5f);
     }
 
     /// \brief Set the component's size and flag the component for redrawing.

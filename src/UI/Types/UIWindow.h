@@ -4,7 +4,6 @@
 #ifndef UIWINDOW_H
 #define UIWINDOW_H
 
-#include "ofMain.h"
 #include "UIComponent.h"
 
 /// @brief A UIComponent with child components who are drawn into a frame buffer.
@@ -18,12 +17,18 @@ public:
         const int W = ofGetWidth();
         const int H = ofGetHeight();
 
+        setSize(W, H);
+        setPositionWithOrigin(0, 0);
+
         buffer.allocate(W, H, GL_RGBA, buffer.maxSamples());
     }
     
     UIWindow(int x, int y, int width, int height):
     UIComponent(x, y, width, height)
     {
+        setSize(width, height);
+        setPositionWithOrigin(x, y);
+
         buffer.allocate(width, height, GL_RGBA, buffer.maxSamples());
     }
 
@@ -48,6 +53,21 @@ public:
         buffer.draw(origin.x, origin.y, size.w, size.h);
         ofPopStyle();
     }
+    
+    inline void setSize(const float width, const float height) override
+    {
+        UIComponent::setSize(width, height);
+        
+        buffer.allocate(width, height, GL_RGBA, buffer.maxSamples());
+    }
+    
+    inline void setSizeFromCentre(const float width, const float height) override
+    {
+        UIComponent::setSizeFromCentre(width, height);
+        
+        buffer.allocate(width, height, GL_RGBA, buffer.maxSamples());
+    }
+    
 
 public:
     /// @brief Add a child UIComponent to the UIWindow.

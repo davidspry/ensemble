@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Ensemble.h"
-#include "Sequencer.hpp"
+#include "SequencerWindow.hpp"
 #include "InformationWindow.hpp"
 
 class Commander: public ofBaseApp
@@ -36,9 +36,8 @@ public:
 private:
     UISize <int> size;
     UIPoint<int> centre;
-    UIWindow ui;
 
 private:
-    InformationWindow   display;
-    Sequencer sequencer;
+    SequencerWindow   sequencerWindow;
+    InformationWindow informationWindow;
 };

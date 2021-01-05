@@ -27,12 +27,22 @@ public:
     
     UIRect(float x, float y, float width, float height);
     
+    /// @brief Construct a UIRect with the given size at origin point zero.
+    /// @param size The desired size.
+    
+    template <typename T>
+    UIRect(const UISize<T>& size):
+    ofRectangle(0, 0, size.w, size.h)
+    {
+        
+    }
+
     /// @brief Construct a UIRect at the given origin point with the given size.
     /// @param origin The desired origin point.
     /// @param size The desired size.
 
     template <typename T, typename M>
-    UIRect(UIPoint<T> origin, UISize<M> size):
+    UIRect(const UIPoint<T>& origin, const UISize<M>& size):
     ofRectangle(origin.x, origin.y, size.w, size.h)
     {
         
