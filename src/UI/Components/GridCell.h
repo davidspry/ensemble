@@ -5,7 +5,6 @@
 #define GRIDCELL_H
 
 #include "UIPoint.h"
-#include "Label.h"
 
 /// @brief A component whose position is defined in grid indices.
 
@@ -18,8 +17,6 @@ public:
         setSize(cellSize, cellSize);
         moveToGridPosition(0, 0);
         initialisePath();
-        
-        text.setSize(cellSize, cellSize);
     }
     
     GridCell(unsigned int cellSize, UIPoint<int> position):
@@ -28,8 +25,6 @@ public:
         setSize(cellSize, cellSize);
         moveToGridPosition(position);
         initialisePath();
-        
-        text.setSize(cellSize, cellSize);
     }
     
 protected:
@@ -94,7 +89,6 @@ public:
     }
 
 protected:
-    Label  text;
     UIPath path;
 
 public:

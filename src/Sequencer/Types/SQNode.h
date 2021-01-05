@@ -4,6 +4,7 @@
 #ifndef SQNODE_H
 #define SQNODE_H
 
+#include "Label.h"
 #include "GridCell.h"
 #include "MIDIServer.h"
 #include "ofxRisographColours.hpp"
@@ -20,13 +21,13 @@ public:
     SQNode(unsigned int cellSize, SQNodeType type):
     GridCell(cellSize), nodeType(type)
     {
-        
+        text.setSize(cellSize, cellSize);
     }
     
     SQNode(unsigned int cellSize, const UIPoint<int>& position, SQNodeType type):
     GridCell(cellSize, position), nodeType(type)
     {
-        
+        text.setSize(cellSize, cellSize);
     }
     
 public:
@@ -67,6 +68,9 @@ public:
     /// @brief The node's type.
 
     SQNodeType nodeType;
+    
+protected:
+    Label text;
 };
 
 #endif
