@@ -7,6 +7,10 @@
 #include "SQNode.h"
 #include "Constants.h"
 
+/// @brief Constants defining the different types of redirection nodes.
+
+enum  Redirection { X, Y, Diagonal, Alternating, Random };
+
 /// @brief A node that redirects moving nodes.
 
 class SQRedirect: public SQNode

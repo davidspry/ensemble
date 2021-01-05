@@ -2,6 +2,7 @@
 
 #include "Ensemble.h"
 #include "Sequencer.hpp"
+#include "InformationWindow.hpp"
 
 class Commander: public ofBaseApp
 {
@@ -38,5 +39,6 @@ private:
     UIWindow ui;
 
 private:
+    InformationWindow   display;
     Sequencer sequencer;
 };

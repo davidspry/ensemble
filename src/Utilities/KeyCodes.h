@@ -4,12 +4,15 @@
 #ifndef KEYCODES_H
 #define KEYCODES_H
 
+// TODO: Add modifier key listener and combinations (e.g. CMD + key, Shift + key, etc.)
+
 enum KeyCodes
 {
     K_UArrow        = 57357,
     K_DArrow        = 57359,
     K_LArrow        = 57356,
     K_RArrow        = 57358,
+    
     K_Space         = 32,
     K_Delete        = 8,
     
@@ -24,6 +27,7 @@ enum KeyCodes
     K_UpperF        = 70,
     K_UpperG        = 71,
 
+    K_Tilde         = 96,
     K_LowerA        = 97,
     K_LowerB        = 98,
     K_LowerC        = 99,
@@ -32,15 +36,13 @@ enum KeyCodes
     K_LowerF        = 102,
     K_LowerG        = 103,
 
+    K_LowerL        = 108,
+    K_LowerP        = 112,
+    K_LowerR        = 114,
+    K_LowerV        = 118,
     K_LowerX        = 120,
     K_LowerY        = 121,
-    K_LowerL        = 108,
-    K_LowerV        = 118,
-    K_LowerR        = 114,
-    
-    K_LowerP        = 112,
-    
-    K_Tilde         = 96,
+
     K_NRow0         = 48,
     K_NRow1         = 49,
     K_NRow2         = 50,

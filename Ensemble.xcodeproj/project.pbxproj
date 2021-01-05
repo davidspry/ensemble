@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */; };
 		1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */; };
+		1427F83525A4A6A100E07334 /* InformationWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1427F83325A4A6A100E07334 /* InformationWindow.cpp */; };
+		1427F83825A4AA6600E07334 /* SequencerWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1427F83625A4AA6600E07334 /* SequencerWindow.cpp */; };
 		1462C672258F434E0088A705 /* Sequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C670258F434E0088A705 /* Sequencer.cpp */; };
 		1462C676258F4CC40088A705 /* UIRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C675258F4CC40088A705 /* UIRect.cpp */; };
 		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
@@ -62,6 +64,11 @@
 		14268C1C259CA72D00D00121 /* MIDIServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIServer.h; sourceTree = "<group>"; };
 		14268C1D259CAC0000D00121 /* CircularQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularQueue.h; sourceTree = "<group>"; };
 		14268C1E259CB51700D00121 /* SQNote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQNote.h; sourceTree = "<group>"; };
+		1427F83325A4A6A100E07334 /* InformationWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InformationWindow.cpp; sourceTree = "<group>"; };
+		1427F83425A4A6A100E07334 /* InformationWindow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InformationWindow.hpp; sourceTree = "<group>"; };
+		1427F83625A4AA6600E07334 /* SequencerWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SequencerWindow.cpp; sourceTree = "<group>"; };
+		1427F83725A4AA6600E07334 /* SequencerWindow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SequencerWindow.hpp; sourceTree = "<group>"; };
+		1427F83925A4AB3F00E07334 /* Commandable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Commandable.h; sourceTree = "<group>"; };
 		1462C670258F434E0088A705 /* Sequencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sequencer.cpp; sourceTree = "<group>"; };
 		1462C671258F434E0088A705 /* Sequencer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sequencer.hpp; sourceTree = "<group>"; };
 		1462C674258F4B2E0088A705 /* UIRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIRect.h; sourceTree = "<group>"; };
@@ -464,8 +471,9 @@
 			children = (
 				14268C1A259C935800D00121 /* Data Structures */,
 				14D7F081258E7441006A79BD /* Ensemble.h */,
-				14D7F083258E75B3006A79BD /* Constants.h */,
 				14D7F084258E75DF006A79BD /* KeyCodes.h */,
+				14D7F083258E75B3006A79BD /* Constants.h */,
+				1427F83925A4AB3F00E07334 /* Commandable.h */,
 				14061DEC2594888A00F8AC65 /* Themes.h */,
 				1462C68F2590A6FD0088A705 /* Utilities.h */,
 			);
@@ -932,6 +940,10 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.mm */,
 				17C796C6D5D165CAF7D72DDE /* Commander.cpp */,
 				B79F49B29DD12A9CEEDB37DE /* Commander.hpp */,
+				1427F83625A4AA6600E07334 /* SequencerWindow.cpp */,
+				1427F83725A4AA6600E07334 /* SequencerWindow.hpp */,
+				1427F83325A4A6A100E07334 /* InformationWindow.cpp */,
+				1427F83425A4A6A100E07334 /* InformationWindow.hpp */,
 				14D7F07C258E6E4B006A79BD /* UI */,
 				1462C67C258F9C060088A705 /* MIDI */,
 				1462C68B25908F170088A705 /* Clock */,
@@ -1091,6 +1103,7 @@
 				3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */,
 				1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */,
 				63F9FE1D90234FA6DE6F509E /* ofxMidi.cpp in Sources */,
+				1427F83825A4AA6600E07334 /* SequencerWindow.cpp in Sources */,
 				1462C672258F434E0088A705 /* Sequencer.cpp in Sources */,
 				881AF887EC2124F4105DE9E1 /* ofxMidiClock.cpp in Sources */,
 				0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */,
@@ -1098,6 +1111,7 @@
 				83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */,
 				1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */,
 				99779C37E7F089888D850542 /* ofxRisographColours.cpp in Sources */,
+				1427F83525A4A6A100E07334 /* InformationWindow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

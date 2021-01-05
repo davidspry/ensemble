@@ -27,7 +27,7 @@ public:
         buffer.allocate(width, height, GL_RGBA, buffer.maxSamples());
     }
 
-    ~UIWindow()
+    virtual ~UIWindow()
     {
         
     }
