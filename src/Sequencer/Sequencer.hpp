@@ -22,6 +22,7 @@ public:
     void setSizeFromCentre(const float width, const float height) override;
     void setSize(const float width, const float height) override;
     void setMargins(const int top, const int left, const int right, const int bottom) override;
+    [[nodiscard]] const UIMargins<int>& getMargins() const noexcept override;
 
 public:
     void tick() override;

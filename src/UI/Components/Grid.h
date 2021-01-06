@@ -63,11 +63,6 @@ public:
         updateGridDimensions();
     }
 
-    void setMargins(UIMargins<int>& margins) override
-    {
-        this->setMargins(margins.t, margins.l, margins.r, margins.b);
-    }
-    
     void setMargins(const int top, const int left, const int right, const int bottom) override
     {
         UIComponent::setMargins(top, left, right, bottom);

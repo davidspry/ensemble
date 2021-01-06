@@ -86,7 +86,7 @@ public:
     
     /// \brief Get the component's margins.
 
-    [[nodiscard]] inline const UIMargins<int>& getMargins() const noexcept
+    [[nodiscard]] virtual inline const UIMargins<int>& getMargins() const noexcept
     {
         return margins;
     }
@@ -179,7 +179,7 @@ public:
     /// \brief Set the component's margins and flag the component for redrawing.
     /// \param margins The desired margins.
 
-    virtual inline void setMargins(UIMargins<int>& margins)
+    virtual inline void setMargins(const UIMargins<int>& margins)
     {
         this->setMargins(margins.t, margins.l, margins.r, margins.b);
     }

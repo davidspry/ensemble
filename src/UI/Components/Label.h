@@ -7,6 +7,7 @@
 #include "ofMain.h"
 #include "UIFont.h"
 #include "Constants.h"
+#include "Utilities.h"
 #include "UIComponent.h"
 
 class Label: public UIComponent
@@ -16,9 +17,10 @@ public:
     UIComponent()
     {
         setSize(50, 25);
-//        setFont("JetBrainsMono-Medium.ttf", 10);
+//        setFont("JetBrainsMono-Regular.ttf", 10);
         setUseBitmapFont();
         setText("Label");
+        UIComponent::setMargins(3);
     }
 
 public:
@@ -35,7 +37,7 @@ public:
         
         if (shouldFillBackground)
         {
-            const UIRect r = getInnerBounds();
+            const UIRect r = getBounds();
             ofSetColor(colours->accentColour);
             ofDrawRectangle(r);
         }
@@ -54,8 +56,10 @@ public:
     void shrinkToFitText() noexcept
     {
         const auto bounds = font.getStringBoundingBox(text, 0, 0);
+        const auto width  = bounds.width  + margins.l + margins.r;
+        const auto height = bounds.height + margins.t + margins.b;
 
-        setSize(bounds.width, bounds.height);
+        setSize(width, height);
     }
     
     inline void setSize(const float width, const float height) override
@@ -70,16 +74,6 @@ public:
         UIComponent::setSizeFromCentre(width, height);
 
         setShouldRedraw();
-    }
-    
-    inline void setMargins(const int marginSize) override
-    {
-        this->setMargins(marginSize, marginSize, marginSize, marginSize);
-    }
-    
-    inline void setMargins(UIMargins<int>& margins) override
-    {
-        this->setMargins(margins.t, margins.l, margins.r, margins.b);
     }
     
     inline void setMargins(const int top, const int left, const int right, const int bottom) override
@@ -143,25 +137,34 @@ public:
 
     inline void setTextAlignment(HorizontalAlignment horizontal, VerticalAlignment vertical) noexcept
     {
-        const ofRectangle bounds = font.getStringBoundingBox(text, 0, 0);
+        const auto lineHeight = font.getLineHeight();
+        const auto bounds = font.getStringBoundingBox(text, 0, 0);
 
         using H = HorizontalAlignment;
         switch (horizontal)
         {
             case H::Left:   { textOrigin.x = margins.l; break; }
-            case H::Centre: { textOrigin.x = (size.w - bounds.width) * 0.5f; break; }
-            case H::Right:  { textOrigin.x = size.w - margins.r; break; }
+            case H::Right:  { textOrigin.x = size.w - margins.r - bounds.width; break; }
+            case H::Centre: {
+                const int frame = size.w - margins.l - margins.r;
+                textOrigin.x = margins.l + (frame - bounds.width) * 0.5f;
+                break;
+            }
         }
 
         using V = VerticalAlignment;
         switch (vertical)
         {
-            case V::Top:    { textOrigin.y = margins.t + bounds.height; break; }
-            case V::Centre: { textOrigin.y = (size.h + bounds.height) * 0.5f; break; }
-            case V::Bottom: { textOrigin.y = size.h - margins.b; break; }
+            case V::Top:    { textOrigin.y = margins.t + lineHeight; break; }
+            case V::Bottom: { textOrigin.y = size.h - margins.b - bounds.height + lineHeight; break; }
+            case V::Centre: {
+                const int frame = size.h - margins.t - margins.b;
+                textOrigin.y = margins.t + (frame - bounds.height) * 0.5f + lineHeight;
+                break;
+            }
         }
 
-        verticalTextAlignment = vertical;
+        verticalTextAlignment   = vertical;
         horizontalTextAlignment = horizontal;
     }
 
@@ -184,13 +187,13 @@ private:
 
     UIPoint<int> textOrigin;
     
-    /// @brief The horizontal alignment of the label's text.
-    
-    HorizontalAlignment horizontalTextAlignment = HorizontalAlignment::Centre;
-    
     /// @brief The vertical alignment of the label's text.
     
     VerticalAlignment verticalTextAlignment = VerticalAlignment::Centre;
+    
+    /// @brief The horizontal alignment of the label's text.
+    
+    HorizontalAlignment horizontalTextAlignment = HorizontalAlignment::Centre;
 };
 
 #endif

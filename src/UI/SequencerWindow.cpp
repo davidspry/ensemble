@@ -48,6 +48,11 @@ void SequencerWindow::setPositionWithCentre(const int x, const int y)
     sequencer.setPositionWithCentre(x, y);
 }
 
+const UIMargins<int>& SequencerWindow::getMargins() const noexcept
+{
+    return sequencer.getMargins();
+}
+
 // MARK: - Commandable callbacks
 
 void SequencerWindow::keyPressed(int key) noexcept

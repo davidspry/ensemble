@@ -4,6 +4,7 @@
 #ifndef UIFONT_H
 #define UIFONT_H
 
+#include "Utilities.h"
 #include "UIFontLibrary.h"
 
 /// @brief Constants defining the available UIFont types.
@@ -54,6 +55,26 @@ public:
         ttf = UIFontLibrary::get(filepath, pointSize);
     }
     
+    /// @brief Get the height of each line of text in pixels.
+
+    inline float getLineHeight() const noexcept
+    {
+        switch (fontType)
+        {
+            case UIFontType::TTF:
+            {
+                return ttf->getLineHeight();
+            }
+
+            case UIFontType::BMP:
+            {
+                constexpr float fontSize = 8.0f;
+                constexpr float leading  = 1.7f;
+                return fontSize * leading - 1.0f;
+            }
+        }
+    }
+    
     /// @brief Using the selected font, get the bounding box of the given string at the given position.
     /// @param string The string whose bounding box should be computed.
     /// @param x The x-coordinate of the desired text position.
@@ -65,13 +86,21 @@ public:
         {
             case UIFontType::TTF:
             {
-                return ttf->getStringBoundingBox(string, x, y);
+                ofRectangle box = ttf->getStringBoundingBox(string, x, y);
+                const int lines = Utilities::numberOfLines(string);
+                const int delta = 0 - getLineHeight();
+                const int height = lines * getLineHeight();
+
+                box.setPosition(x, y);
+                box.translateY(delta);
+                box.setHeight(height);
+                return box;
             }
 
             case UIFontType::BMP:
             {
-                constexpr int dx = +1;
-                constexpr int dy = -2;
+                constexpr int dx = +0;
+                constexpr int dy = -1;
                 return ofBitmapFont().getBoundingBox(string, x + dx, y + dy);
             }
         }
@@ -88,13 +117,15 @@ public:
         {
             case UIFontType::TTF:
             {
-                return drawStringTTF(string, x, y);
+                constexpr int dx = +0;
+                constexpr int dy = -3;
+                return drawStringTTF(string, x + dx, y + dy);
             }
-                
+   
             case UIFontType::BMP:
             {
-                constexpr int dx = +1;
-                constexpr int dy = -2;
+                constexpr int dx = +0;
+                constexpr int dy = -1;
                 return drawStringBMP(string, x + dx, y + dy);
             }
         }

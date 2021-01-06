@@ -48,6 +48,13 @@ void Sequencer::draw()
     cursor.draw();
 }
 
+// MARK: - UIComponent callbacks
+
+const UIMargins<int>& Sequencer::getMargins() const noexcept
+{
+    return grid.getMargins();
+}
+
 void Sequencer::setPositionWithOrigin(const int x, const int y)
 {
     UIComponent::setPositionWithOrigin(x, y);

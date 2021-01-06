@@ -90,6 +90,7 @@ void Commander::windowResized(int w, int h)
 
     sequencerWindow  .setBounds(grid);
     informationWindow.setBounds(menu);
+    informationWindow.setMargins(sequencerWindow.getMargins());
 }
 
 void Commander::gotMessage(ofMessage msg)

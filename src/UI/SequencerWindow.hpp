@@ -29,17 +29,21 @@ public:
 
     void setSizeFromCentre(const float width, const float height) override;
     
-    /// \brief Set the component's position to the given origin point.
-    /// \param x The x-coordinate of the desired origin point.
-    /// \param y The y-coordinate of the desired origin point.
+    /// @brief Set the component's position to the given origin point.
+    /// @param x The x-coordinate of the desired origin point.
+    /// @param y The y-coordinate of the desired origin point.
     
     void setPositionWithOrigin(const int x, const int y) override;
     
-    /// \brief Set the component's position using the given centre point.
-    /// \param x The x-coordinate of the desired centre point.
-    /// \param y The y-coordinate of the desired centre point.
+    /// @brief Set the component's position using the given centre point.
+    /// @param x The x-coordinate of the desired centre point.
+    /// @param y The y-coordinate of the desired centre point.
 
     void setPositionWithCentre(const int x, const int y) override;
+    
+    /// @brief Get the component's margins.
+
+    [[nodiscard]] const UIMargins<int>& getMargins() const noexcept override;
     
     /// @brief Indicate whether the window contains the given screen position.
     /// @param x The x-coordinate of the screen position to check.
