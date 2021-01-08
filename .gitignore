@@ -1,4 +1,4 @@
-*.app
+# macOS files
 *.DS_Store
 
 # Prerequisites
