@@ -26,16 +26,33 @@ void InformationWindow::layoutChildComponents() noexcept
     description.shrinkToFitText();
     description.setShouldFillBackground(true);
     description.setPositionWithOrigin(margins.l, 15);
+
+    cursorMidiSettings.setText("O3:C1:V100");
+    cursorMidiSettings.shrinkToFitText();
+    cursorMidiSettings.setShouldFillBackground(true);
+    cursorMidiSettings.setPositionWithOrigin(margins.l, size.h - 30 - cursorMidiSettings.getSize().h);
     
     position.setText("NxM");
     position.shrinkToFitText();
     position.setShouldFillBackground(true);
-    position.setPositionWithOrigin(margins.l, size.h - 30 - position.getSize().h);
-    
+    position.setPositionWithOrigin(margins.l, size.h - 30 - cursorMidiSettings.getSize().h - position.getSize().h);
+
     polyphony.setText("........\n........");
     polyphony.shrinkToFitText();
     polyphony.setShouldFillBackground(true);
     polyphony.setPositionWithOrigin(size.w - polyphony.getSize().w - margins.r, 15);
+    
+    midiOutPort.setText("O: IAC Driver");
+    midiOutPort.shrinkToFitText();
+    midiOutPort.setShouldFillBackground(true);
+    midiOutPort.setPositionWithOrigin(size.w - midiOutPort.getSize().w - margins.r,
+                                      size.h - 30 - midiOutPort.getSize().h);
+    
+    midiInPort.setText("I: 0");
+    midiInPort.shrinkToFitText();
+    midiInPort.setShouldFillBackground(true);
+    midiInPort.setPositionWithOrigin(size.w - midiInPort.getSize().w - margins.r,
+                                     size.h - 30 - midiOutPort.getSize().h - midiInPort.getSize().h);
 }
 
 // MARK: - Drawing

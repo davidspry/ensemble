@@ -61,10 +61,10 @@ private:
     {
         addChildComponent(&position);
         addChildComponent(&polyphony);
-//        addChildComponent(&midiInPort);
-//        addChildComponent(&midiOutPort);
+        addChildComponent(&midiInPort);
+        addChildComponent(&midiOutPort);
         addChildComponent(&description);
-//        addChildComponent(&cursorMidiSettings);
+        addChildComponent(&cursorMidiSettings);
     }
     
     /// @brief Layout the position of each child component.
@@ -74,10 +74,10 @@ private:
 private:
     Label position;
     Label polyphony;
-//    Label midiInPort;
-//    Label midiOutPort;
+    Label midiInPort;
+    Label midiOutPort;
     Label description;
-//    Label cursorMidiSettings;
+    Label cursorMidiSettings;
 };
 
 #endif

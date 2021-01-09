@@ -14,6 +14,7 @@
 		1462C672258F434E0088A705 /* Sequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C670258F434E0088A705 /* Sequencer.cpp */; };
 		1462C676258F4CC40088A705 /* UIRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C675258F4CC40088A705 /* UIRect.cpp */; };
 		146BA56C25A993D600B12EBD /* MIDIServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA56B25A993D600B12EBD /* MIDIServer.cpp */; };
+		146BA57225A9B52600B12EBD /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA57125A9B52600B12EBD /* Label.cpp */; };
 		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
@@ -97,6 +98,7 @@
 		146AF2B7259383EE0008F8C6 /* GridCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
 		146BA56B25A993D600B12EBD /* MIDIServer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIServer.cpp; sourceTree = "<group>"; };
 		146BA56E25A9961800B12EBD /* MIDINoteQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDINoteQueue.h; sourceTree = "<group>"; };
+		146BA57125A9B52600B12EBD /* Label.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Label.cpp; sourceTree = "<group>"; };
 		14869AC725A2E66A00C6A5D8 /* UIFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFont.h; sourceTree = "<group>"; };
 		14A16FAC2596D1B400B90B49 /* ClockTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockTypes.h; sourceTree = "<group>"; };
 		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
@@ -379,18 +381,18 @@
 		1462C673258F4B210088A705 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				14869AC725A2E66A00C6A5D8 /* UIFont.h */,
+				1424EC1525919C060089A3CD /* UIFontLibrary.h */,
+				1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */,
 				1462C688259067480088A705 /* UIColourScheme.h */,
 				14D7F07D258E6E5A006A79BD /* UIComponent.h */,
-				14869AC725A2E66A00C6A5D8 /* UIFont.h */,
-				1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */,
-				1424EC1525919C060089A3CD /* UIFontLibrary.h */,
+				1462C679258F5D8C0088A705 /* UIWindow.h */,
 				1462C67A258F6E640088A705 /* UIMargins.h */,
+				1462C674258F4B2E0088A705 /* UIRect.h */,
+				1462C675258F4CC40088A705 /* UIRect.cpp */,
 				14061DEB25944C1100F8AC65 /* UIPath.h */,
 				1462C677258F580D0088A705 /* UIPoint.h */,
-				1462C675258F4CC40088A705 /* UIRect.cpp */,
-				1462C674258F4B2E0088A705 /* UIRect.h */,
 				1462C678258F58160088A705 /* UISize.h */,
-				1462C679258F5D8C0088A705 /* UIWindow.h */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -471,6 +473,7 @@
 				14061DED25949A2A00F8AC65 /* DotGrid.h */,
 				146AF2B7259383EE0008F8C6 /* GridCell.h */,
 				1462C6942590CB2A0088A705 /* Label.h */,
+				146BA57125A9B52600B12EBD /* Label.cpp */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1095,6 +1098,7 @@
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,
 				5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */,
 				853E0BA2F448076739446874 /* ofxColorPicker.cpp in Sources */,
+				146BA57225A9B52600B12EBD /* Label.cpp in Sources */,
 				B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */,
 				852E0891794923EE7583C621 /* ofxInputField.cpp in Sources */,
 				483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */,
