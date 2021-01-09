@@ -113,6 +113,10 @@ public:
     /// @throw An exception will be thrown in the case where the given position is out of range.
 
     void eraseFromCurrentPosition() noexcept(false);
+    
+    /// @brief Expand and view the subsequence at the sequencer cursor's current position.
+
+    void expandSubsequence() noexcept;
 
 // MARK: - Private functions
 

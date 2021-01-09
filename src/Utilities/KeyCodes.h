@@ -15,6 +15,7 @@ enum KeyCodes
     
     K_Space         = 32,
     K_Delete        = 8,
+    K_Tab           = 9,
     
     K_Plus          = 43,
     K_Subt          = 95,
@@ -44,15 +45,28 @@ enum KeyCodes
     K_LowerY        = 121,
 
     K_NRow0         = 48,
+    K_NRow0Shift    = 41,
     K_NRow1         = 49,
+    K_NRow1Shift    = 33,
     K_NRow2         = 50,
+    K_NRow2Shift    = 64,
     K_NRow3         = 51,
+    K_NRow3Shift    = 35,
     K_NRow4         = 52,
+    K_NRow4Shift    = 36,
     K_NRow5         = 53,
+    K_NRow5Shift    = 37,
     K_NRow6         = 54,
+    K_NRow6Shift    = 94,
     K_NRow7         = 55,
+    K_NRow7Shift    = 38,
     K_NRow8         = 56,
-    K_NRow9         = 57
+    K_NRow8Shift    = 42,
+    K_NRow9         = 57,
+    K_NRow9Shift    = 40,
+    
+    K_LSqrBracket   = 91,
+    K_RSqrBracket   = 93
 };
 
 #endif

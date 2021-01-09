@@ -58,7 +58,7 @@ const UIMargins<int>& SequencerWindow::getMargins() const noexcept
 
 void SequencerWindow::keyPressed(int key) noexcept
 {
-//    printf("%d\n", key);
+//    printf(   "%d\n", key);
     switch (key)
     {
         case K_UArrow: { return sequencer.moveCursor(Direction::N); }
@@ -68,7 +68,8 @@ void SequencerWindow::keyPressed(int key) noexcept
             
         case K_Space:  { return sequencer.toggleClock(); }
         case K_Delete: { return sequencer.eraseFromCurrentPosition(); }
-        
+        case K_Tab:    { return sequencer.expandSubsequence(); }
+
         case K_Plus:   { return sequencer.placePlayhead(Direction::S); }
             
         case K_LowerA: { sequencer.placeNote(0x9); return; }

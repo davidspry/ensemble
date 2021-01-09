@@ -5,6 +5,7 @@
 #define SEQUENCEGRID_H
 
 #include "Grid.h"
+#include "Constants.h"
 
 /// @brief A sequence of squares that conforms to a grid shape.
 
@@ -16,7 +17,7 @@ public:
     /// @param cols The maximum number of columns.
 
     SequenceGrid(int rows, int cols):
-    Grid()
+    Grid(), cursor(SPACE)
     {
         initialise(rows, cols);
         setNumberOfVisibleCells(1);
@@ -36,6 +37,12 @@ private:
 public:
     void draw() override
     {
+        const int x = origin.x + margins.l;
+        const int y = origin.y + margins.t;
+        
+        ofPushMatrix();
+        ofTranslate(x, y);
+        
         if (shouldRedraw)
         {
             grid.clear();
@@ -48,7 +55,9 @@ public:
             grid.setColor(colours->secondaryForegroundColour);
         }
 
-        grid.draw(origin.x, origin.y);
+        cursor.draw();
+        grid.draw();
+        ofPopMatrix();
     }
     
     /// @brief Draw the given number of rows with the given number of cells.
@@ -115,11 +124,29 @@ public:
 
         setNumberOfVisibleCells(visibleCells - 1);
     }
+    
+    /// @brief Move the cursor on the grid.
+
+    void moveCursor(Direction direction) noexcept
+    {
+        const int col = cursor.xy.x;
+        const int row = cursor.xy.y;
+
+        if (col  < visibleShape.w)
+        if (row == visibleShape.h)
+             return cursor.move(direction, {visibleShape.w, visibleShape.h + 1});
+        else return cursor.move(direction, {shape.w, visibleShape.h + 1});
+        else return cursor.move(direction, {shape.w, visibleShape.h + 0});
+    }
 
 private:
     /// @brief The number of visible complete rows and partial rows.
 
     UISize<int> visibleShape;
+    
+    /// @brief A cursor for navigating the grid.
+
+    GridCell cursor;
 };
 
 #endif

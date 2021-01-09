@@ -18,6 +18,12 @@ public:
         
     }
     
+    SQNote(unsigned int cellSize, MIDINote midiNote):
+    SQNode(cellSize, Note)
+    {
+        
+    }
+    
     SQNote(unsigned int cellSize, const UIPoint<int>& position):
     SQNode(cellSize, position, Note)
     {
@@ -39,7 +45,7 @@ public:
             path.setColor(colour);
         }
 
-        GridCell::draw();
+        SQNode::draw();
     }
     
     /// @brief Broadcast the SQNode's underlying MIDI note using the sequencer's MIDI server.

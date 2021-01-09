@@ -5,9 +5,8 @@
 #define MIDINOTEQUEUE_H
 
 #include "MIDINote.h"
-
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 /// @brief A priority queue of MIDI notes that orders each note by its duration.
 
@@ -24,7 +23,7 @@ public:
     /// @brief Add the given MIDI note to the queue, provided the queue is not full.
     /// @param note The MIDI note to be added to tbe underlying queue.
 
-    bool add(const MIDINote & note) noexcept
+    bool push(const MIDINote & note) noexcept
     {
         if (full())
         {

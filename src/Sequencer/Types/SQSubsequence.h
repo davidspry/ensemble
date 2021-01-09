@@ -14,15 +14,34 @@
 class SQSubsequence: public SQNode
 {
 public:
-    SQSubsequence(unsigned int cellSize);
-    SQSubsequence(unsigned int cellSize, const UIPoint<int>& position);
-    SQSubsequence(unsigned int cellSize, const UIPoint<int>& position, MIDINote midiNote);
+    SQSubsequence(unsigned int cellSize):
+    SQNode(cellSize, Subsequence)
+    {
+        initialise();
+    }
+
+    SQSubsequence(unsigned int cellSize, const UIPoint<int>& position):
+    SQNode(cellSize, position, Subsequence)
+    {
+        initialise();
+    }
+
+    SQSubsequence(unsigned int cellSize, const UIPoint<int>& position, MIDINote midiNote):
+    SQNode(cellSize, position, Subsequence)
+    {
+        initialise();
+
+        sequence.emplace_back(grid.getGridCellSize(), midiNote);
+        grid.increaseNumberOfVisibleCells();
+    }
 
 public:
+    /// @brief Draw the note at the current position in the subsequence to the sequencer.
+
     void draw() override;
 
-    /// @brief Draw the sequence at the given position.
-    /// @param centre The centre-point at which to draw the sequence.
+    /// @brief Draw the full subsequence at the given position.
+    /// @param centre The desired centre point at which to draw the sequence.
 
     void drawSequence(UIPoint<int> & centre);
 
@@ -54,21 +73,21 @@ public:
     void eraseFromCurrentPosition() noexcept;
     
 private:
-    /// @brief Initialise the underlying std::vector.
+    /// @brief Initialise the subsequence and its members.
 
-    inline void initialiseSequence() noexcept
+    inline void initialise() noexcept
     {
         sequence.reserve(16);
     }
     
 private:
-    uint8_t index;
+    uint8_t index = 0;
 
 private:
     std::vector<SQNote> sequence;
 
 private:
-    SequenceGrid grid;
+    SequenceGrid grid = {8, 8};
 };
 
 #endif

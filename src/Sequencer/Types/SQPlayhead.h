@@ -30,11 +30,6 @@ public:
     }
 
 public:
-    void draw() override
-    {
-        GridCell::draw();
-    }
-    
     void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept override
     {
         

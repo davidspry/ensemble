@@ -56,12 +56,12 @@ void Sequencer::drawSubsequenceIfRequested() noexcept
 {
     if (!viewingSubsequence)
     {
-//        return;
+        return;
     }
 
     if (!table.contains(cursor.xy.x, cursor.xy.y))
     {
-//        viewingSubsequence = false;
+        viewingSubsequence = false;
         
         return;
     }
@@ -203,13 +203,15 @@ void Sequencer::moveCursor(Direction direction) noexcept
         updateHoverDescriptionString();
         return;
     }
-    
-    const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
-    const auto type = node->nodeType;
-    
-    if (type == Subsequence)
+
+    else if (table.contains(cursor.xy.x, cursor.xy.y))
     {
-        return static_cast<SQSubsequence&>(*(node)).moveCursor(direction);
+        const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
+        const auto type = node->nodeType;
+        if (type == Subsequence)
+        {
+            static_cast<SQSubsequence&>(*(node)).moveCursor(direction);
+        }
     }
 }
 
@@ -241,6 +243,22 @@ void Sequencer::updateHoverDescriptionString() noexcept
     }
 }
 
+void Sequencer::expandSubsequence() noexcept
+{
+    if (viewingSubsequence)
+    {
+        viewingSubsequence = false;
+        return;
+    }
+    
+    else if (table.contains(cursor.xy.x, cursor.xy.y))
+    {
+        const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
+        const auto type = node->nodeType;
+        viewingSubsequence = type == Subsequence;
+    }
+}
+
 bool Sequencer::placeNote(uint8_t noteIndex) noexcept(false)
 {
     const UIPoint<int>& xy = cursor.getGridPosition();
@@ -263,8 +281,7 @@ bool Sequencer::placePortal() noexcept(false)
 {
     const UIPoint<int>& xy = cursor.getGridPosition();
     
-    if (table.contains(xy.x, xy.y))
-        return false;
+    if (table.contains(xy.x, xy.y)) return false;
     
     if (!unpairedPortals.empty())
     {
@@ -326,13 +343,13 @@ void Sequencer::eraseFromCurrentPosition() noexcept(false)
 
     if (node->get()->nodeType == SQNodeType::Portal)
     {
-        SQPortal* portal = static_cast<SQPortal*>(node->get());
+        const auto * portal = static_cast<SQPortal*>(node->get());
 
         if (portal->isPaired())
         {
             unpairedPortals.push_back(portal->getPair());
         }
-        
+
         else
         {
             auto& nodes = unpairedPortals;

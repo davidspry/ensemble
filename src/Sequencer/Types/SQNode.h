@@ -31,6 +31,23 @@ public:
     }
     
 public:
+    /// @brief Draw the node at its position on the sequencer.
+
+    void draw() override
+    {
+        const int x = origin.x + margins.l + screenPosition.x;
+        const int y = origin.y + margins.t + screenPosition.y;
+
+        if (shouldRedraw)
+        {
+            path.clear();
+            path.circle(centre.x, centre.y, static_cast<int>(0.40f * size.w));
+            shouldRedraw = false;
+        }
+
+        path.draw(x, y);
+    }
+    
     /// @brief Interact with the given node.
     /// @param node The node that should be interacted with.
     /// @param server The sequencer's MIDI server.

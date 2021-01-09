@@ -20,7 +20,7 @@ void MIDIServer::broadcast(const MIDINote &note) noexcept
         release(notes.pop());
     }
 
-    if (notes.add(note))
+    if (notes.push(note))
     {
         midiOut.sendNoteOn(note.midi.channel, note.note, note.midi.velocity);
     }
