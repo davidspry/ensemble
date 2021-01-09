@@ -49,9 +49,9 @@ public:
     inline bool containsPoint(int x, int y) noexcept override
     {
         return x >= (origin.x + margins.l)
-            && x <= (origin.x + margins.l + size.w)
+            && x <= (origin.x - margins.r + size.w)
             && y >= (origin.y + margins.t)
-            && y <= (origin.y + margins.t + size.h);
+            && y <= (origin.y - margins.b + size.h);
     }
 
 private:

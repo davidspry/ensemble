@@ -7,7 +7,6 @@ SequencerWindow::SequencerWindow():
 UIWindow()
 {
     addChildComponent(&sequencer);
-    sequencer.setCursorDuration(4);
 }
 
 SequencerWindow::SequencerWindow(int x, int y, int width, int height):
