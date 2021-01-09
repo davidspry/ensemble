@@ -15,19 +15,35 @@ public:
     Sequencer(int x, int y, int width, int height);
     ~Sequencer();
 
-public:
-    void draw() override;
-    void setPositionWithOrigin(const int x, const int y) override;
-    void setPositionWithCentre(const int x, const int y) override;
-    void setSizeFromCentre(const float width, const float height) override;
-    void setSize(const float width, const float height) override;
-    void setMargins(const int top, const int left, const int right, const int bottom) override;
-    [[nodiscard]] const UIMargins<int>& getMargins() const noexcept override;
+// MARK: - Drawing & UIComponent API
 
 public:
+    void draw() override;
+    
+    void setPositionWithOrigin(const int x, const int y) override;
+    
+    void setPositionWithCentre(const int x, const int y) override;
+    
+    void setSizeFromCentre(const float width, const float height) override;
+    
+    void setSize(const float width, const float height) override;
+    
+    void setMargins(const int top, const int left, const int right, const int bottom) override;
+
+    [[nodiscard]] const UIMargins<int>& getMargins() const noexcept override;
+
+// MARK: - Clock control
+    
+public:
+    /// @brief The callback that's executed when the sequencer's clock ticks.
+
     void tick() override;
+    
+    /// @brief Toggle the sequencer's clock.
+
     void toggleClock() noexcept;
     
+
 public:
     /// @brief Return a textual description of the sequencer's contents at the cursor's current position.
 
@@ -36,12 +52,36 @@ public:
         return hoverDescription;
     }
 
+// MARK: - Sequencer cursor
+
 public:
+    /// @brief Move the sequencer's active cursor in the given direction.
+    /// @param direction The direction in which the active cursor should be moved.
+
     void moveCursor(Direction direction) noexcept;
+
+    /// @brief Move the sequencer's cursor to the grid position nearest to the given screen position.
+    /// @param x The x-coordinate of the desired screen position.
+    /// @param y The y-coordinate of the desired screen position.
+
     void moveCursorToScreenPosition(const int x, const int y) noexcept;
+
+    /// @brief Set the octave value of the cursor's MIDI settings.
+    /// @param octave The desired octave number in the range [0, 6].
+
     void setCursorOctave(const int octave) noexcept;
+
+    /// @brief Set the channel value of the cursor's MIDI settings.
+    /// @param channel The desired channel number in the range [1, 16].
+
     void setCursorChannel(const int channel) noexcept;
+
+    /// @brief Set the duration value of the cursor's MIDI settings.
+    /// @param duration The desired duration value in the range [1, 8].
+
     void setCursorDuration(const int duration) noexcept;
+
+// MARK: - Sequence contents
     
 public:
     /// @brief Place a new note at the sequencer cursor's current position.
@@ -74,6 +114,8 @@ public:
 
     void eraseFromCurrentPosition() noexcept(false);
 
+// MARK: - Private functions
+
 private:
     /// @brief Update the underlying data structures to reflect a change in the size of the sequencer grid.
 
@@ -82,6 +124,10 @@ private:
     /// @brief Update the string that describes the contents of the sequencer at the cursor's current position.
 
     void updateHoverDescriptionString() noexcept;
+    
+    /// @brief Draw the subsequence at the cursor's current position if the user has requested to view an expanded subsequence.
+
+    void drawSubsequenceIfRequested() noexcept;
 
 private:
     Clock      clock;
@@ -94,11 +140,15 @@ private:
 
     std::string hoverDescription;
     
+    /// @brief Whether or not the user is viewing an expanded subsequence.
+
+    bool viewingSubsequence = false;
+
 private:
+    using NodePtr = std::shared_ptr<SQNode>;
     std::vector<SQPlayhead> playheads;
     std::vector<SQPortal *> unpairedPortals;
-    
-    Table<std::shared_ptr<SQNode>> table;
+    Table<NodePtr> table;
 };
 
 #endif

@@ -15,6 +15,9 @@
 		1462C676258F4CC40088A705 /* UIRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C675258F4CC40088A705 /* UIRect.cpp */; };
 		146BA56C25A993D600B12EBD /* MIDIServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA56B25A993D600B12EBD /* MIDIServer.cpp */; };
 		146BA57225A9B52600B12EBD /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA57125A9B52600B12EBD /* Label.cpp */; };
+		146BA57425A9BAD900B12EBD /* SQPortal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA57325A9BAD900B12EBD /* SQPortal.cpp */; };
+		146BA57625A9BCDF00B12EBD /* SQRedirect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA57525A9BCDF00B12EBD /* SQRedirect.cpp */; };
+		146BA57925A9BF7200B12EBD /* SQSubsequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA57725A9BF7200B12EBD /* SQSubsequence.cpp */; };
 		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
@@ -99,6 +102,11 @@
 		146BA56B25A993D600B12EBD /* MIDIServer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIServer.cpp; sourceTree = "<group>"; };
 		146BA56E25A9961800B12EBD /* MIDINoteQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDINoteQueue.h; sourceTree = "<group>"; };
 		146BA57125A9B52600B12EBD /* Label.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Label.cpp; sourceTree = "<group>"; };
+		146BA57325A9BAD900B12EBD /* SQPortal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SQPortal.cpp; sourceTree = "<group>"; };
+		146BA57525A9BCDF00B12EBD /* SQRedirect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SQRedirect.cpp; sourceTree = "<group>"; };
+		146BA57725A9BF7200B12EBD /* SQSubsequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SQSubsequence.cpp; sourceTree = "<group>"; };
+		146BA57825A9BF7200B12EBD /* SQSubsequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQSubsequence.h; sourceTree = "<group>"; };
+		146BA57A25A9EEA900B12EBD /* SequenceGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SequenceGrid.h; sourceTree = "<group>"; };
 		14869AC725A2E66A00C6A5D8 /* UIFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFont.h; sourceTree = "<group>"; };
 		14A16FAC2596D1B400B90B49 /* ClockTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockTypes.h; sourceTree = "<group>"; };
 		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
@@ -424,9 +432,13 @@
 			children = (
 				1462C682258FAF4E0088A705 /* SQNode.h */,
 				1462C684258FB09E0088A705 /* SQRedirect.h */,
+				146BA57525A9BCDF00B12EBD /* SQRedirect.cpp */,
 				1462C685258FB2A30088A705 /* SQPlayhead.h */,
 				146AF2B6259251CC0008F8C6 /* SQPortal.h */,
+				146BA57325A9BAD900B12EBD /* SQPortal.cpp */,
 				14268C1E259CB51700D00121 /* SQNote.h */,
+				146BA57825A9BF7200B12EBD /* SQSubsequence.h */,
+				146BA57725A9BF7200B12EBD /* SQSubsequence.cpp */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -471,6 +483,7 @@
 			children = (
 				14D7F080258E742B006A79BD /* Grid.h */,
 				14061DED25949A2A00F8AC65 /* DotGrid.h */,
+				146BA57A25A9EEA900B12EBD /* SequenceGrid.h */,
 				146AF2B7259383EE0008F8C6 /* GridCell.h */,
 				1462C6942590CB2A0088A705 /* Label.h */,
 				146BA57125A9B52600B12EBD /* Label.cpp */,
@@ -1105,6 +1118,7 @@
 				F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */,
 				837220E80EB56CD44AD27F2A /* ofxSlider.cpp in Sources */,
 				B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */,
+				146BA57425A9BAD900B12EBD /* SQPortal.cpp in Sources */,
 				147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */,
 				1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */,
 				63D0FD8734D5760B8080C901 /* RtMidi.cpp in Sources */,
@@ -1112,6 +1126,7 @@
 				3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */,
 				1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */,
 				63F9FE1D90234FA6DE6F509E /* ofxMidi.cpp in Sources */,
+				146BA57625A9BCDF00B12EBD /* SQRedirect.cpp in Sources */,
 				1427F83825A4AA6600E07334 /* SequencerWindow.cpp in Sources */,
 				1462C672258F434E0088A705 /* Sequencer.cpp in Sources */,
 				881AF887EC2124F4105DE9E1 /* ofxMidiClock.cpp in Sources */,
@@ -1122,6 +1137,7 @@
 				99779C37E7F089888D850542 /* ofxRisographColours.cpp in Sources */,
 				1427F83525A4A6A100E07334 /* InformationWindow.cpp in Sources */,
 				146BA56C25A993D600B12EBD /* MIDIServer.cpp in Sources */,
+				146BA57925A9BF7200B12EBD /* SQSubsequence.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

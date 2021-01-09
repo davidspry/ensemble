@@ -32,6 +32,8 @@ Sequencer::~Sequencer()
 
 void Sequencer::draw()
 {
+    ofClear(colours->backgroundColour);
+
     grid.draw();
 
     ofPushMatrix();
@@ -39,13 +41,41 @@ void Sequencer::draw()
     
     for (auto & node : table)
         node->draw();
-    
+
     for (auto & node : playheads)
         node.draw();
 
     ofPopMatrix();
     
     cursor.draw();
+    
+    drawSubsequenceIfRequested();
+}
+
+void Sequencer::drawSubsequenceIfRequested() noexcept
+{
+    if (!viewingSubsequence)
+    {
+//        return;
+    }
+
+    if (!table.contains(cursor.xy.x, cursor.xy.y))
+    {
+//        viewingSubsequence = false;
+        
+        return;
+    }
+
+    ofSetColor(colours->backgroundColour, 145);
+    ofDrawRectangle(origin.x, origin.y, size.w, size.h);
+
+    const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
+    const auto type = node->nodeType;
+
+    if (type == Subsequence)
+    {
+        static_cast<SQSubsequence&>(*node).drawSequence(centre);
+    }
 }
 
 // MARK: - UIComponent callbacks
@@ -113,8 +143,22 @@ void Sequencer::toggleClock() noexcept
 void Sequencer::tick()
 {
     midiServer.releaseExpiredNotes();
-    
+
     const auto dimensions = grid.getGridDimensions();
+
+    const auto interact = [&](SQPlayhead & playhead) -> bool
+    {
+        if (table.contains(playhead.xy.x, playhead.xy.y))
+        {
+            const auto & xy = playhead.xy;
+            const auto node = table.get(xy.x, xy.y)->get();
+            const auto type = node->nodeType;
+            node->interact(playhead, midiServer, dimensions);
+            return type == Subsequence;
+        }
+
+        return false;
+    };
 
     for (auto & playhead : playheads)
     {
@@ -122,24 +166,14 @@ void Sequencer::tick()
 
         playhead.update(dimensions);
 
-        if (table.contains(playhead.xy.x, playhead.xy.y))
-        {
-            auto node = table.get(playhead.xy.x, playhead.xy.y);
-            node->get()->interact(playhead, midiServer, dimensions);
-        }
+        if (interact(playhead)) break;
 
         if (playhead.xy == originalPosition)
             playhead.update(dimensions);
 
         for (size_t k = 0; k < 4; ++k)
         {
-            if (table.contains(playhead.xy.x, playhead.xy.y))
-            {
-                auto node = table.get(playhead.xy.x, playhead.xy.y);
-                node->get()->interact(playhead, midiServer, dimensions);
-            }
-            
-            else break;
+            if (interact(playhead)) break;
         }
     }
 }
@@ -163,8 +197,20 @@ void Sequencer::setCursorDuration(const int duration) noexcept
 
 void Sequencer::moveCursor(Direction direction) noexcept
 {
-    cursor.move(direction, grid.getGridDimensions());
-    updateHoverDescriptionString();
+    if (!viewingSubsequence)
+    {
+        cursor.move(direction, grid.getGridDimensions());
+        updateHoverDescriptionString();
+        return;
+    }
+    
+    const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
+    const auto type = node->nodeType;
+    
+    if (type == Subsequence)
+    {
+        return static_cast<SQSubsequence&>(*(node)).moveCursor(direction);
+    }
 }
 
 void Sequencer::moveCursorToScreenPosition(const int x, const int y) noexcept
@@ -191,7 +237,7 @@ void Sequencer::updateHoverDescriptionString() noexcept
     
     else
     {
-        hoverDescription = "";
+        hoverDescription.clear();
     }
 }
 
@@ -204,7 +250,7 @@ bool Sequencer::placeNote(uint8_t noteIndex) noexcept(false)
     
     const MIDINote note = {noteIndex, cursor.getMIDISettings()};
 
-    SQNote* node = new SQNote(grid.getGridCellSize(), xy, note);
+    auto * const node = new SQSubsequence(grid.getGridCellSize(), xy, note);
 
     table.set(std::shared_ptr<SQNode>(node), xy.x, xy.y);
     

@@ -7,6 +7,8 @@
 #include "SQNode.h"
 #include "MIDITypes.h"
 
+/// @brief A node representing a MIDI note on the sequencer.
+
 class SQNote: public SQNode
 {
 public:
@@ -55,6 +57,17 @@ public:
         return note.description();
     }
     
+    /// @brief Pass the given note's notename into the given stream.
+    /// @param ostream The stream that should be written to.
+    /// @param note The note whose notename should be written.
+
+    friend std::ostream & operator << (std::ostream& stream, const SQNote& note)
+    {
+        stream << note.note.notename();
+
+        return stream;
+    }
+
 protected:
     /// @brief Get the ofColor corresponding to the SQNote's underlying MIDI note.
 

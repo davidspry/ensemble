@@ -28,16 +28,16 @@ public:
 
             const int t = margins.t;
             const int l = margins.l;
-            const int r = margins.l + W * SPACE;
-            const int b = margins.t + H * SPACE;
+            const int r = margins.l + shape.w * SPACE;
+            const int b = margins.t + shape.h * SPACE;
 
-            for (size_t y = 0; y < H + 1; ++y)
+            for (size_t y = 0; y < shape.h + 1; ++y)
             {
                 grid.moveTo(l - 1, t + y * SPACE);
                 grid.lineTo(r + 1, t + y * SPACE);
             }
 
-            for (size_t x = 0; x < W + 1; ++x)
+            for (size_t x = 0; x < shape.w + 1; ++x)
             {
                 grid.moveTo(l + x * SPACE, t - 1);
                 grid.lineTo(l + x * SPACE, b + 1);
@@ -78,7 +78,7 @@ public:
 
     const UIPoint<int> positionOfCell(uint row, uint col) const noexcept(false)
     {
-        if (!(row < H && col < W))
+        if (!(row < shape.h && col < shape.w))
         {
             constexpr auto error = "The given cell position is out of range";
             throw std::out_of_range(error);
@@ -109,15 +109,13 @@ protected:
 
     inline void updateGridDimensions()
     {
-        W = (size.w - margins.l - margins.r) / SPACE;
-        H = (size.h - margins.t - margins.b) / SPACE;
+        const int W = (size.w - margins.l - margins.r) / SPACE;
+        const int H = (size.h - margins.t - margins.b) / SPACE;
         shape.set(W, H);
     }
 
 protected:
     ofPath grid;
-    unsigned int W;
-    unsigned int H;
     unsigned int SPACE;
     UISize <int> shape;
 };

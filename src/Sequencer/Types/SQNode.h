@@ -11,7 +11,7 @@
 
 /// @brief Constants defining nodes that can be placed on the Ensemble sequencer.
 
-enum  SQNodeType { Redirect, Playhead, Portal, Note };
+enum  SQNodeType { Redirect, Playhead, Portal, Note, Subsequence };
 
 /// @brief A node that can be placed on the Ensemble sequencer.
 

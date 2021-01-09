@@ -33,14 +33,14 @@ struct MIDINote
     
     /// @brief Return the MIDI note's note name.
 
-    inline std::string notename() noexcept
+    inline std::string notename() const noexcept
     {
-        const std::array<std::string, 12> notes =
+        constexpr std::array<const char *, 12> notes =
         {
             "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
         };
 
-        return notes[note % 12] + std::to_string(midi.octave - 1);
+        return notes[note % 12] + std::to_string(midi.octave);
     }
     
     /// @brief Compute a textual description of the note and its MIDI settings.

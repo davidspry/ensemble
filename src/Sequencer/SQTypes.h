@@ -9,5 +9,6 @@
 #include "SQPortal.h"
 #include "SQRedirect.h"
 #include "SQPlayhead.h"
+#include "SQSubsequence.h"
 
 #endif
