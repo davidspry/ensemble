@@ -81,6 +81,11 @@ public:
     {
         midi.channel = Utilities::boundBy(1, 16, channel);
     }
+    
+    void setDuration(const int duration) noexcept
+    {
+        midi.duration = Utilities::boundBy(1, 8, duration);
+    }
 
 private:
     MIDISettings midi;

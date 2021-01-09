@@ -4,6 +4,7 @@
 #ifndef MIDISETTINGS_H
 #define MIDISETTINGS_H
 
+#include <cstdint>
 #include "MIDISettingsValues.h"
 
 /// @brief The properties of a MIDI note that can be specified on the Ensemble sequencer.

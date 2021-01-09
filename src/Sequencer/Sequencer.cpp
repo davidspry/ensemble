@@ -112,7 +112,7 @@ void Sequencer::toggleClock() noexcept
 
 void Sequencer::tick()
 {
-    midiServer.releaseAllNotes();
+    midiServer.releaseExpiredNotes();
     
     const auto dimensions = grid.getGridDimensions();
 
@@ -144,7 +144,22 @@ void Sequencer::tick()
     }
 }
 
-// MARK: - Sequence contents
+// MARK: - Sequencer cursor
+
+void Sequencer::setCursorOctave(const int octave) noexcept
+{
+    cursor.setOctave(octave);
+}
+
+void Sequencer::setCursorChannel(const int channel) noexcept
+{
+    cursor.setChannel(channel);
+}
+
+void Sequencer::setCursorDuration(const int duration) noexcept
+{
+    cursor.setDuration(duration);
+}
 
 void Sequencer::moveCursor(Direction direction) noexcept
 {
@@ -164,6 +179,8 @@ void Sequencer::moveCursorToScreenPosition(const int x, const int y) noexcept
     updateHoverDescriptionString();
 }
 
+// MARK: - Sequence contents
+
 void Sequencer::updateHoverDescriptionString() noexcept
 {
     if (table.contains(cursor.xy.x, cursor.xy.y))
@@ -176,11 +193,6 @@ void Sequencer::updateHoverDescriptionString() noexcept
     {
         hoverDescription = "";
     }
-}
-
-void Sequencer::setCursorOctave(const int octave) noexcept
-{
-    cursor.setOctave(octave);
 }
 
 bool Sequencer::placeNote(uint8_t noteIndex) noexcept(false)

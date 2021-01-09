@@ -13,6 +13,7 @@
 		1427F83825A4AA6600E07334 /* SequencerWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1427F83625A4AA6600E07334 /* SequencerWindow.cpp */; };
 		1462C672258F434E0088A705 /* Sequencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C670258F434E0088A705 /* Sequencer.cpp */; };
 		1462C676258F4CC40088A705 /* UIRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1462C675258F4CC40088A705 /* UIRect.cpp */; };
+		146BA56C25A993D600B12EBD /* MIDIServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA56B25A993D600B12EBD /* MIDIServer.cpp */; };
 		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
@@ -94,6 +95,8 @@
 		1462C6942590CB2A0088A705 /* Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Label.h; sourceTree = "<group>"; };
 		146AF2B6259251CC0008F8C6 /* SQPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQPortal.h; sourceTree = "<group>"; };
 		146AF2B7259383EE0008F8C6 /* GridCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
+		146BA56B25A993D600B12EBD /* MIDIServer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIServer.cpp; sourceTree = "<group>"; };
+		146BA56E25A9961800B12EBD /* MIDINoteQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDINoteQueue.h; sourceTree = "<group>"; };
 		14869AC725A2E66A00C6A5D8 /* UIFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFont.h; sourceTree = "<group>"; };
 		14A16FAC2596D1B400B90B49 /* ClockTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockTypes.h; sourceTree = "<group>"; };
 		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
@@ -398,6 +401,8 @@
 				1462C680258F9F640088A705 /* Types */,
 				1462C67F258F9CEA0088A705 /* MIDITypes.h */,
 				14268C1C259CA72D00D00121 /* MIDIServer.h */,
+				146BA56B25A993D600B12EBD /* MIDIServer.cpp */,
+				146BA56E25A9961800B12EBD /* MIDINoteQueue.h */,
 			);
 			path = MIDI;
 			sourceTree = "<group>";
@@ -1112,6 +1117,7 @@
 				1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */,
 				99779C37E7F089888D850542 /* ofxRisographColours.cpp in Sources */,
 				1427F83525A4A6A100E07334 /* InformationWindow.cpp in Sources */,
+				146BA56C25A993D600B12EBD /* MIDIServer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

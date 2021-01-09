@@ -40,6 +40,8 @@ public:
     void moveCursor(Direction direction) noexcept;
     void moveCursorToScreenPosition(const int x, const int y) noexcept;
     void setCursorOctave(const int octave) noexcept;
+    void setCursorChannel(const int channel) noexcept;
+    void setCursorDuration(const int duration) noexcept;
     
 public:
     /// @brief Place a new note at the sequencer cursor's current position.

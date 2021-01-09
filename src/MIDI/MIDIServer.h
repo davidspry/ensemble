@@ -4,84 +4,44 @@
 #ifndef MIDISERVER_H
 #define MIDISERVER_H
 
-#include "CircularQueue.h"
+#include "MIDINoteQueue.h"
 #include "MIDITypes.h"
 #include "ofxMidi.h"
 
 class MIDIServer
 {
 public:
-    MIDIServer()
-    {
-        midiOut.openPort(0);
-    }
-
-    ~MIDIServer()
-    {
-        midiOut.closePort();
-    }
+     MIDIServer();
+    ~MIDIServer();
 
 public:
     /// @brief Broadcast the given note.
     /// @param note The MIDI note to broadcast.
 
-    inline void broadcast(const MIDINote& note) noexcept
-    {
-        if (notes.full())
-        {
-            release(notes.dequeue());
-        }
-        
-        if (notes.enqueue(note))
-        {
-            midiOut.sendNoteOn(note.midi.channel, note.note, note.midi.velocity);
-        }
-    }
+    void broadcast(const MIDINote& note) noexcept;
+    
+    /// @brief Release any expired notes.
+
+    void releaseExpiredNotes() noexcept;
     
     /// @brief Release all notes pending release.
 
-    inline void releaseAllNotes() noexcept
-    {
-        while (notes.isNotEmpty())
-        {
-            release(notes.dequeue());
-        }
-    }
+    void releaseAllNotes() noexcept;
     
 public:
     /// @brief Close the current MIDI port and open the given MIDI port.
     /// @param port The number of the port to be opened.
     /// @return A Boolean value indicating whether the given port was successfully opened or not.
 
-    inline bool selectMIDIPort(unsigned int port) noexcept
-    {
-        if (port == midiOut.getPort())
-            return true;
-        
-        if (port >= midiOut.getNumOutPorts())
-            return false;
-        
-        midiOut.closePort();
-        return midiOut.openPort(port);
-    }
+    bool selectMIDIPort(unsigned int port) noexcept;
     
     /// @brief Open the next available MIDI port.
     
-    inline void selectNextMIDIPort() noexcept
-    {
-        const int port  = midiOut.getPort();
-        const int ports = midiOut.getNumOutPorts();
-        selectMIDIPort((port + 1) % ports);
-    }
+    void selectNextMIDIPort() noexcept;
     
     /// @brief Open the previous available MIDI port.
 
-    inline void selectPreviousMIDIPort() noexcept
-    {
-        const int port  = midiOut.getPort();
-        const int ports = midiOut.getNumOutPorts();
-        selectMIDIPort((port - 1 + ports) % ports);
-    }
+    void selectPreviousMIDIPort() noexcept;
     
 private:
     /// @brief Send a note off message for the given MIDI note.
@@ -96,7 +56,7 @@ private:
     ofxMidiOut midiOut;
     
 private:
-    CircularQueue<MIDINote, 16> notes;
+    MIDINoteQueue<16> notes;
 };
 
 #endif

@@ -4,6 +4,8 @@
 #ifndef MIDINOTE_H
 #define MIDINOTE_H
 
+#include <array>
+#include <string>
 #include "MIDISettings.h"
 
 /// @brief A MIDI note, which can be broadcast from the Ensemble sequencer.
