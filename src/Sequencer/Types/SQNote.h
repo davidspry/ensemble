@@ -19,7 +19,7 @@ public:
     }
     
     SQNote(unsigned int cellSize, MIDINote midiNote):
-    SQNode(cellSize, Note)
+    SQNode(cellSize, Note), note(midiNote)
     {
         
     }
@@ -61,6 +61,16 @@ public:
     inline std::string describe() noexcept override
     {
         return note.description();
+    }
+    
+    /// @brief Modify the underlying MIDI note.
+    /// @param noteIndex A number in the range [0, 11] representing a note from the chromatic scale, beginning with C.
+    /// @param midiSettings The MIDI settings that the note should use.
+
+    void modify(uint8_t noteIndex, MIDISettings settings) noexcept
+    {
+        note.note = noteIndex;
+        note.midi = settings;
     }
     
     /// @brief Pass the given note's notename into the given stream.

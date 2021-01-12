@@ -54,14 +54,14 @@ void Sequencer::draw()
 
 void Sequencer::drawSubsequenceIfRequested() noexcept
 {
-    if (!viewingSubsequence)
+    if (!isViewingSubsequence)
     {
         return;
     }
 
     if (!table.contains(cursor.xy.x, cursor.xy.y))
     {
-        viewingSubsequence = false;
+        isViewingSubsequence = false;
         
         return;
     }
@@ -166,7 +166,7 @@ void Sequencer::tick()
 
         playhead.update(dimensions);
 
-        if (interact(playhead)) break;
+        if (interact(playhead)) continue;
 
         if (playhead.xy == originalPosition)
             playhead.update(dimensions);
@@ -197,7 +197,7 @@ void Sequencer::setCursorDuration(const int duration) noexcept
 
 void Sequencer::moveCursor(Direction direction) noexcept
 {
-    if (!viewingSubsequence)
+    if (!isViewingSubsequence)
     {
         cursor.move(direction, grid.getGridDimensions());
         updateHoverDescriptionString();
@@ -245,9 +245,9 @@ void Sequencer::updateHoverDescriptionString() noexcept
 
 void Sequencer::expandSubsequence() noexcept
 {
-    if (viewingSubsequence)
+    if (isViewingSubsequence)
     {
-        viewingSubsequence = false;
+        isViewingSubsequence = false;
         return;
     }
     
@@ -255,23 +255,34 @@ void Sequencer::expandSubsequence() noexcept
     {
         const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
         const auto type = node->nodeType;
-        viewingSubsequence = type == Subsequence;
+        isViewingSubsequence = type == Subsequence;
     }
 }
 
 bool Sequencer::placeNote(uint8_t noteIndex) noexcept(false)
 {
     const UIPoint<int>& xy = cursor.getGridPosition();
-    
+
     if (table.contains(xy.x, xy.y))
-        return false;
-    
+    {
+        if (!isViewingSubsequence)
+            return false;
+
+        const auto node = table.get(xy.x, xy.y);
+        const auto type = node->get()->nodeType;
+        
+        if (type == Subsequence)
+        {
+            return static_cast<SQSubsequence&>(*(node->get())).placeNote(noteIndex, cursor.getMIDISettings());
+        }
+    }
+
     const MIDINote note = {noteIndex, cursor.getMIDISettings()};
-
-    auto * const node = new SQSubsequence(grid.getGridCellSize(), xy, note);
-
-    table.set(std::shared_ptr<SQNode>(node), xy.x, xy.y);
     
+    std::shared_ptr<SQNode> node = std::make_shared<SQSubsequence>(grid.getGridCellSize(), xy, note);
+
+    table.set(std::move(node), xy.x, xy.y);
+
     updateHoverDescriptionString();
     
     return true;
@@ -336,30 +347,38 @@ bool Sequencer::placeRedirect(Redirection type) noexcept(false)
 void Sequencer::eraseFromCurrentPosition() noexcept(false)
 {
     const UIPoint<int>& xy = cursor.getGridPosition();
-    
+
     if (!table.contains(xy.x, xy.y)) return;
 
-    auto node = table.get(xy.x, xy.y);
-
-    if (node->get()->nodeType == SQNodeType::Portal)
+    const auto node = table.get(xy.x, xy.y)->get();
+    const auto type = node->nodeType;
+    
+    if (isViewingSubsequence)
     {
-        const auto * portal = static_cast<SQPortal*>(node->get());
+        auto & sequence = static_cast<SQSubsequence&>(*node);
+        sequence.eraseFromCurrentPosition();
+        updateHoverDescriptionString();
+        return;
+    }
+    
+    if (type == Portal)
+    {
+        const auto & portal = static_cast<SQPortal&>(*node);
 
-        if (portal->isPaired())
+        if (portal.isPaired())
         {
-            unpairedPortals.push_back(portal->getPair());
+            unpairedPortals.push_back(portal.getPair());
         }
 
         else
         {
             auto& nodes = unpairedPortals;
-            auto remove = std::remove(nodes.begin(), nodes.end(), node->get());
+            auto remove = std::remove(nodes.begin(), nodes.end(), node);
             nodes.erase(remove, nodes.end());
         }
     }
 
     table.erase(xy.x, xy.y);
-    
     updateHoverDescriptionString();
 }
 

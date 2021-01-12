@@ -146,7 +146,7 @@ private:
     
     /// @brief Whether or not the user is viewing an expanded subsequence.
 
-    bool viewingSubsequence = false;
+    bool isViewingSubsequence = false;
 
 private:
     using NodePtr = std::shared_ptr<SQNode>;

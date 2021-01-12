@@ -17,7 +17,7 @@ public:
     /// @param cols The maximum number of columns.
 
     SequenceGrid(int rows, int cols):
-    Grid(), cursor(SPACE)
+    Grid(), cursor(SPACE), index(SPACE)
     {
         initialise(rows, cols);
         setNumberOfVisibleCells(1);
@@ -32,6 +32,7 @@ private:
     {
         shape.set(cols, rows);
         setSize(shape.w * SPACE, shape.h * SPACE);
+        index.setCellColour(ofxRisographColours::light_gray);
     }
 
 public:
@@ -55,8 +56,9 @@ public:
             grid.setColor(colours->secondaryForegroundColour);
         }
 
+        index .draw();
         cursor.draw();
-        grid.draw();
+        grid  .draw();
         ofPopMatrix();
     }
     
@@ -70,11 +72,11 @@ public:
         if (rows == 0 || cols == 0) return;
 
         const int l = margins.l;
-        const int t = margins.t + row  * SPACE;
+        const int t = margins.t +  row * SPACE;
         const int r = margins.l + cols * SPACE;
         const int b = margins.t + rows * SPACE + row * SPACE;
 
-        for (size_t y = row; y < rows + 1; ++y)
+        for (size_t y = 0; y < rows + 1; ++y)
         {
             grid.moveTo(l - 1, t + y * SPACE);
             grid.lineTo(r + 1, t + y * SPACE);
@@ -138,6 +140,29 @@ public:
         else return cursor.move(direction, {shape.w, visibleShape.h + 1});
         else return cursor.move(direction, {shape.w, visibleShape.h + 0});
     }
+    
+    /// @brief Get the grid cursor's grid position.
+
+    const UIPoint<int> & getCursorPosition() const noexcept
+    {
+        return cursor.xy;
+    }
+    
+    /// @brief Set the sequence's current position.
+    /// @param index A one-dimensional index representing the sequence's current position.
+
+    void setCurrentSequenceIndex(unsigned int index)
+    {
+        const int visibleCells = visibleShape.h * shape.w
+                               + visibleShape.w;
+        
+        if (index < visibleCells)
+        {
+            const int col = index % shape.w;
+            const int row = index / shape.h;
+            this->index.moveToGridPosition(row, col);
+        }
+    }
 
 private:
     /// @brief The number of visible complete rows and partial rows.
@@ -147,6 +172,10 @@ private:
     /// @brief A cursor for navigating the grid.
 
     GridCell cursor;
+    
+    /// @brief A cell used to highlight the sequence's current position.
+
+    GridCell index;
 };
 
 #endif

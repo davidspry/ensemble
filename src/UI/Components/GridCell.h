@@ -89,6 +89,14 @@ public:
     {
         return screenPosition;
     }
+    
+    /// @brief Set the cell's fill colour.
+    /// @param colour The desired fill colour.
+
+    inline void setCellColour(const ofColor & colour) noexcept
+    {
+        path.setColor(colour);
+    }
 
     void draw() override
     {
@@ -99,7 +107,6 @@ public:
         {
             path.clear();
             path.rectangle(0, 0, size.w, size.h);
-            path.setColor(colours->foregroundColour);
         }
 
         path.draw(x, y);

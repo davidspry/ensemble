@@ -23,8 +23,8 @@ void SQSubsequence::drawSequence(UIPoint<int> & centre)
     ofTranslate(x, y);
 
     grid.draw();
-    for (auto & note : sequence)
-        note.draw();
+    for (auto & node : sequence)
+        node.draw();
 
     ofPopMatrix();
 }
@@ -52,6 +52,7 @@ void SQSubsequence::interact(SQNode& node, MIDIServer& server, const UISize<int>
         return;
     }
 
+    grid.setCurrentSequenceIndex(index);
     sequence.at(index).interact(node, server, gridSize);
 
     index = index + 1;
@@ -63,13 +64,21 @@ void SQSubsequence::moveCursor(Direction direction) noexcept
     grid.moveCursor(direction);
 }
 
-void SQSubsequence::placeNote(uint8_t noteIndex, MIDISettings midiSettings) noexcept
+bool SQSubsequence::placeNote(uint8_t noteIndex, MIDISettings midiSettings) noexcept
 {
     const auto size = grid.getGridDimensions();
-    const int index = static_cast<int>(sequence.size());
+    const int index = grid.getCursorPosition().y * size.w
+                    + grid.getCursorPosition().x;
 
-    if (!(index < size.w * size.h))
-        return;
+    if (grid.getCursorPosition().x > size.w ||
+        grid.getCursorPosition().y > size.h)
+        return false;
+
+    if (index < sequence.size())
+    {
+        sequence.at(index).modify(noteIndex, midiSettings);
+        return true;
+    }
 
     const UIPoint<int> xy =
     {
@@ -77,14 +86,41 @@ void SQSubsequence::placeNote(uint8_t noteIndex, MIDISettings midiSettings) noex
         index / size.w
     };
 
-    MIDINote note (noteIndex, midiSettings);
+    MIDINote const note (noteIndex, midiSettings);
     sequence.emplace_back(grid.getGridCellSize(), xy, note);
     grid.increaseNumberOfVisibleCells();
+
+    return true;
 }
 
 void SQSubsequence::eraseFromCurrentPosition() noexcept
 {
-    // TODO: Implement erasing
+    const int length = static_cast<int>(sequence.size());
+    const int cursor = grid.getCursorPosition().y
+                     * grid.getGridDimensions().w
+                     + grid.getCursorPosition().x;
+
+    if (length <= 1) return;
+
+    const auto decrementPosition = [&](SQNode & node)
+    {
+        const UIPoint<int> & xy = node.xy;
+        const UISize <int> & dimensions = grid.getGridDimensions();
+        const int n = xy.y * dimensions.w + xy.x;
+        const int row = (n - 1) / dimensions.w;
+        const int col = (n - 1) % dimensions.w;
+        node.moveToGridPosition(row, col);
+    };
+
+    for (size_t k = cursor + 1; k < length; ++k)
+    {
+        auto & node = sequence.at(k);
+        decrementPosition (node);
+    }
+
+    sequence.erase(sequence.begin() + cursor);
     
+    index = index % sequence.size();
+
     grid.decreaseNumberOfVisibleCells();
 }

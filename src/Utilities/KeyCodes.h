@@ -4,6 +4,13 @@
 #ifndef KEYCODES_H
 #define KEYCODES_H
 
+enum MouseButtonCodes
+{
+    M_ButtonL = 0,
+    M_ButtonM = 1,
+    M_ButtonR = 2
+};
+
 // TODO: Add modifier key listener and combinations (e.g. CMD + key, Shift + key, etc.)
 
 enum KeyCodes

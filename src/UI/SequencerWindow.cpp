@@ -110,10 +110,22 @@ void SequencerWindow::keyPressed(int key) noexcept
 
 void SequencerWindow::mousePressed(int x, int y, int buttonIndex) noexcept
 {
-    sequencer.moveCursorToScreenPosition(x, y);
+    switch (buttonIndex)
+    {
+        case M_ButtonL: return;
+        case M_ButtonM: return;
+        case M_ButtonR: return sequencer.moveCursorToScreenPosition(x, y);
+        default:        return;
+    }
 }
 
 void SequencerWindow::mouseDragged(int x, int y, int buttonIndex) noexcept
 {
-    sequencer.moveCursorToScreenPosition(x, y);
+    switch (buttonIndex)
+    {
+        case M_ButtonL: return;
+        case M_ButtonM: return;
+        case M_ButtonR: return sequencer.moveCursorToScreenPosition(x, y);
+        default:        return;
+    }
 }

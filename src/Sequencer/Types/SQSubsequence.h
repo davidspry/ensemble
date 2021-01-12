@@ -30,8 +30,9 @@ public:
     SQNode(cellSize, position, Subsequence)
     {
         initialise();
-
+        
         sequence.emplace_back(grid.getGridCellSize(), midiNote);
+        
         grid.increaseNumberOfVisibleCells();
     }
 
@@ -66,8 +67,8 @@ public:
     /// @param noteIndex A number in the range [0, 11] representing a note from the chromatic scale, beginning with C.
     /// @param midiSettings The MIDI settings that the note should use.
 
-    void placeNote(uint8_t noteIndex, MIDISettings midiSettings) noexcept;
-    
+    bool placeNote(uint8_t noteIndex, MIDISettings midiSettings) noexcept;
+
     /// @brief Erase from the subsequence at the subsequence's cursor's current position.
 
     void eraseFromCurrentPosition() noexcept;
@@ -78,6 +79,7 @@ private:
     inline void initialise() noexcept
     {
         sequence.reserve(16);
+        grid.setCurrentSequenceIndex(0);
     }
     
 private:
