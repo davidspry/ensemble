@@ -66,7 +66,7 @@ void Sequencer::drawSubsequenceIfRequested() noexcept
         return;
     }
 
-    ofSetColor(colours->backgroundColour, 145);
+    ofSetColor(colours->backgroundColour, 175);
     ofDrawRectangle(origin.x, origin.y, size.w, size.h);
 
     const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
@@ -278,11 +278,8 @@ bool Sequencer::placeNote(uint8_t noteIndex) noexcept(false)
     }
 
     const MIDINote note = {noteIndex, cursor.getMIDISettings()};
-    
     std::shared_ptr<SQNode> node = std::make_shared<SQSubsequence>(grid.getGridCellSize(), xy, note);
-
     table.set(std::move(node), xy.x, xy.y);
-
     updateHoverDescriptionString();
     
     return true;
@@ -309,12 +306,10 @@ bool Sequencer::placePortal() noexcept(false)
     else
     {
         SQPortal* node = new SQPortal(grid.getGridCellSize(), xy, PortalType::A);
-
         unpairedPortals.push_back(node);
-
         table.set(std::shared_ptr<SQPortal>(node), xy.x, xy.y);
     }
-    
+
     updateHoverDescriptionString();
 
     return true;

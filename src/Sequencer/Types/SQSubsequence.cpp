@@ -52,8 +52,9 @@ void SQSubsequence::interact(SQNode& node, MIDIServer& server, const UISize<int>
         return;
     }
 
+    auto & note = sequence.at(index);
     grid.setCurrentSequenceIndex(index);
-    sequence.at(index).interact(node, server, gridSize);
+    note.interact(node, server, gridSize);
 
     index = index + 1;
     index = index % sequence.size();

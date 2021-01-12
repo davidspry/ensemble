@@ -39,7 +39,7 @@ void SQRedirect::interact(SQNode& node, MIDIServer& server, const UISize<int>& g
     if (node.delta.x == 0 && node.delta.y == 0)
         return;
 
-    switch (determineBasicRedirectionType())
+    switch (readBasicRedirectionType())
     {
         case Redirection::X:
         {
@@ -76,7 +76,7 @@ void SQRedirect::interact(SQNode& node, MIDIServer& server, const UISize<int>& g
 
 std::string SQRedirect::describe() noexcept
 {
-    switch (determineBasicRedirectionType())
+    switch (readBasicRedirectionType())
     {
         case Redirection::X: return "REDIRECT X";
         case Redirection::Y: return "REDIRECT Y";
@@ -85,7 +85,7 @@ std::string SQRedirect::describe() noexcept
     }
 }
 
-Redirection SQRedirect::determineBasicRedirectionType() noexcept
+Redirection SQRedirect::readBasicRedirectionType() noexcept
 {
     switch (redirection)
     {

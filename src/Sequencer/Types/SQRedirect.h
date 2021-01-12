@@ -32,7 +32,7 @@ public:
     SQNode(cellSize, position, Redirect),
     redirection(type)
     {
-        const auto r = determineBasicRedirectionType();
+        const auto r = readBasicRedirectionType();
 
         updateLabelText(r);
     }
@@ -73,7 +73,7 @@ private:
     /// @brief Determine whether the redirection type is currently X, Y, or Diagonal.
     /// @note  This should only be called when an interaction occurs.
 
-    Redirection determineBasicRedirectionType() noexcept;
+    Redirection readBasicRedirectionType() noexcept;
     
     /// @brief Update the redirection if it has a dynamic type.
     /// @note  This should be called when an interaction occurs.

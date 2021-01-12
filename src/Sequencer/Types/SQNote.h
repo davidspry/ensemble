@@ -69,8 +69,7 @@ public:
 
     void modify(uint8_t noteIndex, MIDISettings settings) noexcept
     {
-        note.note = noteIndex;
-        note.midi = settings;
+        note.set(noteIndex, settings);
     }
     
     /// @brief Pass the given note's notename into the given stream.

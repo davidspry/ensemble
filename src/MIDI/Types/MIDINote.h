@@ -27,6 +27,15 @@ struct MIDINote
 
     MIDINote(uint8_t noteIndex, const MIDISettings& settings)
     {
+        set(noteIndex, settings);
+    }
+    
+    /// @brief Set the note and the MIDI settings of the MIDINote.
+    /// @param noteIndex A number in the range [0, 11] representing a note from the chromatic scale, beginning with C.
+    /// @param settings The note's MIDI settings, including duration, channel, velocity, and octave.
+
+    inline void set(uint8_t noteIndex, const MIDISettings& settings)
+    {
         note = 12 * (settings.octave + 1) + (noteIndex % 12);
         midi = settings;
     }
