@@ -62,6 +62,13 @@ public:
     }
 
 public:
+    /// @brief Compute the number of notes in the note queue.
+
+    inline int size() noexcept
+    {
+        return static_cast<int>(queue.size());
+    }
+    
     /// @brief Indicate whether the underlying queue contains expired notes or not.
     
     inline bool containsExpiredNotes() noexcept

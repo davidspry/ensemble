@@ -19,6 +19,7 @@
 		146BA57625A9BCDF00B12EBD /* SQRedirect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA57525A9BCDF00B12EBD /* SQRedirect.cpp */; };
 		146BA57925A9BF7200B12EBD /* SQSubsequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 146BA57725A9BF7200B12EBD /* SQSubsequence.cpp */; };
 		147CEBDD2591BBD000E14B37 /* UIFontLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1424EC172591B79C0089A3CD /* UIFontLibrary.cpp */; };
+		14CFBB6425B6C46A00F4ED01 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14CFBB6325B6C46A00F4ED01 /* Clock.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
 		3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712B183BC00EBFFB1EEA5AB8 /* ofxRtMidiOut.cpp */; };
@@ -110,6 +111,8 @@
 		14869AC725A2E66A00C6A5D8 /* UIFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFont.h; sourceTree = "<group>"; };
 		14A16FAC2596D1B400B90B49 /* ClockTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockTypes.h; sourceTree = "<group>"; };
 		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
+		14CFBB6225B6A17C00F4ED01 /* SequencerStateDescription.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SequencerStateDescription.hpp; sourceTree = "<group>"; };
+		14CFBB6325B6C46A00F4ED01 /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
 		14D7F07D258E6E5A006A79BD /* UIComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponent.h; sourceTree = "<group>"; };
 		14D7F07E258E715B006A79BD /* UITypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITypes.h; sourceTree = "<group>"; };
 		14D7F080258E742B006A79BD /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -379,9 +382,10 @@
 			children = (
 				1462C681258FAE870088A705 /* Types */,
 				1462C68925906CF00088A705 /* SQTypes.h */,
+				1462C67B258F98B30088A705 /* Cursor.h */,
 				1462C670258F434E0088A705 /* Sequencer.cpp */,
 				1462C671258F434E0088A705 /* Sequencer.hpp */,
-				1462C67B258F98B30088A705 /* Cursor.h */,
+				14CFBB6225B6A17C00F4ED01 /* SequencerStateDescription.hpp */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -449,6 +453,7 @@
 				14A16FAD2596D5DC00B90B49 /* Types */,
 				14A16FAC2596D1B400B90B49 /* ClockTypes.h */,
 				14A95EBD2595CA4A0082168E /* Clock.h */,
+				14CFBB6325B6C46A00F4ED01 /* Clock.cpp */,
 			);
 			path = Clock;
 			sourceTree = "<group>";
@@ -1111,6 +1116,7 @@
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,
 				5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */,
 				853E0BA2F448076739446874 /* ofxColorPicker.cpp in Sources */,
+				14CFBB6425B6C46A00F4ED01 /* Clock.cpp in Sources */,
 				146BA57225A9B52600B12EBD /* Label.cpp in Sources */,
 				B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */,
 				852E0891794923EE7583C621 /* ofxInputField.cpp in Sources */,

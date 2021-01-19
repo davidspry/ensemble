@@ -5,7 +5,6 @@
 #define SEQUENCEGRID_H
 
 #include "Grid.h"
-#include "Constants.h"
 
 /// @brief A sequence of squares that conforms to a grid shape.
 
@@ -94,7 +93,8 @@ public:
 
     void setNumberOfVisibleCells(int cells) noexcept
     {
-        const unsigned int visibleCells = std::max(1, cells);
+        const int totalCells = shape.w * shape.h;
+        const unsigned int visibleCells = Utilities::boundBy(1, totalCells, cells);
         const unsigned int rows = visibleCells / shape.w;
         const unsigned int cols = visibleCells % shape.w;
 
@@ -114,10 +114,10 @@ public:
     void increaseNumberOfVisibleCells() noexcept
     {
         const int visibleCells = visibleShape.h * shape.w + visibleShape.w;
-
+        
         setNumberOfVisibleCells(visibleCells + 1);
     }
-    
+
     /// @brief Decrease the number of visible cells by one.
 
     void decreaseNumberOfVisibleCells() noexcept

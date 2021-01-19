@@ -62,6 +62,14 @@ public:
     void mousePressed(int x, int y, int buttonIndex) noexcept override;
     void mouseDragged(int x, int y, int buttonIndex) noexcept override;
 
+public:
+    /// @brief Return a reference to the underlying sequencer.
+
+    Sequencer & getSequencer() noexcept
+    {
+        return sequencer;
+    }
+
 private:
     Sequencer sequencer;
 };

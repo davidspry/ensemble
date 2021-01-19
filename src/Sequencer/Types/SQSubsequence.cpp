@@ -71,8 +71,8 @@ bool SQSubsequence::placeNote(uint8_t noteIndex, MIDISettings midiSettings) noex
     const int index = grid.getCursorPosition().y * size.w
                     + grid.getCursorPosition().x;
 
-    if (grid.getCursorPosition().x > size.w ||
-        grid.getCursorPosition().y > size.h)
+    if (grid.getCursorPosition().x >= size.w ||
+        grid.getCursorPosition().y >= size.h)
         return false;
 
     if (index < sequence.size())
@@ -101,7 +101,7 @@ void SQSubsequence::eraseFromCurrentPosition() noexcept
                      * grid.getGridDimensions().w
                      + grid.getCursorPosition().x;
 
-    if (length <= 1) return;
+    if (length <= 1 || cursor == length) return;
 
     const auto decrementPosition = [&](SQNode & node)
     {
@@ -116,9 +116,9 @@ void SQSubsequence::eraseFromCurrentPosition() noexcept
     for (size_t k = cursor + 1; k < length; ++k)
     {
         auto & node = sequence.at(k);
-        decrementPosition (node);
+        decrementPosition(node);
     }
-
+    
     sequence.erase(sequence.begin() + cursor);
     
     index = index % sequence.size();

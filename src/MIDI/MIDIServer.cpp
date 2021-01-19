@@ -44,6 +44,11 @@ void MIDIServer::releaseAllNotes() noexcept
     }
 }
 
+int MIDIServer::getPolyphony() noexcept
+{
+    return notes.size();
+}
+
 bool MIDIServer::selectMIDIPort(unsigned int port) noexcept
 {
     if (port == midiOut.getPort())
@@ -68,4 +73,14 @@ void MIDIServer::selectPreviousMIDIPort() noexcept
     const int port  = midiOut.getPort();
     const int ports = midiOut.getNumOutPorts();
     selectMIDIPort((port - 1 + ports) % ports);
+}
+
+unsigned int MIDIServer::getMIDIPort() noexcept
+{
+    return midiOut.getPort();
+}
+
+std::string MIDIServer::getMIDIPortDescription() noexcept
+{
+    return midiOut.getName();
 }

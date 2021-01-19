@@ -14,6 +14,8 @@ void Label::shrinkToFitText() noexcept
 
 void Label::draw()
 {
+    if (text.empty()) return;
+    
     ofPushStyle();
     ofPushMatrix();
     

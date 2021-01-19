@@ -7,25 +7,28 @@ Sequencer::Sequencer():
 UIComponent(),
 cursor(grid.getGridCellSize())
 {
-    const int cellSize = grid.getGridCellSize() * 2;
-    setMargins(cellSize, cellSize, cellSize, 0);
-    
-    clock.connect(this);
+    initialise();
 }
 
 Sequencer::Sequencer(int x, int y, int width, int height):
 UIComponent(x, y, width, height),
 cursor(grid.getGridCellSize())
 {
-    const int cellSize = grid.getGridCellSize() * 2;
-    setMargins(cellSize, cellSize, cellSize, 0);
-    
-    clock.connect(this);
+    initialise();
 }
 
 Sequencer::~Sequencer()
 {
     midiServer.releaseAllNotes();
+}
+
+void Sequencer::initialise() noexcept
+{
+    const int cellSize = grid.getGridCellSize() * 2;
+    setMargins(cellSize, cellSize, cellSize, 0);
+    updateCursorStateDescription();
+    updateMIDIStateDescription();
+    clock.connect(this);
 }
 
 // MARK: - UIComponent drawing
@@ -176,6 +179,8 @@ void Sequencer::tick()
             if (interact(playhead)) break;
         }
     }
+    
+    updateMIDIStateDescription();
 }
 
 // MARK: - Sequencer cursor
@@ -200,7 +205,7 @@ void Sequencer::moveCursor(Direction direction) noexcept
     if (!isViewingSubsequence)
     {
         cursor.move(direction, grid.getGridDimensions());
-        updateHoverDescriptionString();
+        updateCursorStateDescription();
         return;
     }
 
@@ -211,6 +216,7 @@ void Sequencer::moveCursor(Direction direction) noexcept
         if (type == Subsequence)
         {
             static_cast<SQSubsequence&>(*(node)).moveCursor(direction);
+            updateCursorStateDescription();
         }
     }
 }
@@ -224,23 +230,43 @@ void Sequencer::moveCursorToScreenPosition(const int x, const int y) noexcept
     xy.y = Utilities::boundBy(0, grid.getGridDimensions().h - 1, xy.y);
 
     cursor.moveToGridPosition(xy.y, xy.x);
-    updateHoverDescriptionString();
+    updateCursorStateDescription();
 }
 
 // MARK: - Sequence contents
 
-void Sequencer::updateHoverDescriptionString() noexcept
+void Sequencer::updateCursorStateDescription() noexcept
 {
+    stateDescription.cursorGridPosition.x = cursor.xy.x;
+    stateDescription.cursorGridPosition.y = cursor.xy.y;
+
     if (table.contains(cursor.xy.x, cursor.xy.y))
     {
-        const auto node  = table.get(cursor.xy.x, cursor.xy.y)->get();
-        hoverDescription = node->describe();
+        const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
+        stateDescription.cursorHoverDescription = node->describe();
     }
     
     else
     {
-        hoverDescription.clear();
+        stateDescription.cursorHoverDescription.clear();
     }
+    
+    stateDescription.setContainsNewData();
+}
+
+void Sequencer::updateMIDIStateDescription() noexcept
+{
+    stateDescription.cursorOctave           = cursor.getMIDISettings().octave;
+    stateDescription.cursorChannel          = cursor.getMIDISettings().channel;
+    stateDescription.cursorVelocity         = cursor.getMIDISettings().velocity;
+    
+    stateDescription.midiPolyphony          = midiServer.getPolyphony();
+    stateDescription.midiPortNumberIn       = clock.getMIDIPort();
+    stateDescription.midiPortNumberOut      = midiServer.getMIDIPort();
+    stateDescription.midiPortDescriptionIn  = clock.getMIDIPortDescription();
+    stateDescription.midiPortDescriptionOut = midiServer.getMIDIPortDescription();
+    
+    stateDescription.setContainsNewData();
 }
 
 void Sequencer::expandSubsequence() noexcept
@@ -273,15 +299,18 @@ bool Sequencer::placeNote(uint8_t noteIndex) noexcept(false)
         
         if (type == Subsequence)
         {
-            return static_cast<SQSubsequence&>(*(node->get())).placeNote(noteIndex, cursor.getMIDISettings());
+            auto& subsequence = static_cast<SQSubsequence&>(*(node->get()));
+            const bool result = subsequence.placeNote(noteIndex, cursor.getMIDISettings());
+            updateCursorStateDescription();
+            return result;
         }
     }
 
     const MIDINote note = {noteIndex, cursor.getMIDISettings()};
     std::shared_ptr<SQNode> node = std::make_shared<SQSubsequence>(grid.getGridCellSize(), xy, note);
     table.set(std::move(node), xy.x, xy.y);
-    updateHoverDescriptionString();
-    
+    updateCursorStateDescription();
+
     return true;
 }
 
@@ -310,7 +339,7 @@ bool Sequencer::placePortal() noexcept(false)
         table.set(std::shared_ptr<SQPortal>(node), xy.x, xy.y);
     }
 
-    updateHoverDescriptionString();
+    updateCursorStateDescription();
 
     return true;
 }
@@ -334,7 +363,7 @@ bool Sequencer::placeRedirect(Redirection type) noexcept(false)
 
     table.set(std::shared_ptr<SQNode>(node), xy.x, xy.y);
     
-    updateHoverDescriptionString();
+    updateCursorStateDescription();
 
     return true;
 }
@@ -352,7 +381,7 @@ void Sequencer::eraseFromCurrentPosition() noexcept(false)
     {
         auto & sequence = static_cast<SQSubsequence&>(*node);
         sequence.eraseFromCurrentPosition();
-        updateHoverDescriptionString();
+        updateCursorStateDescription();
         return;
     }
     
@@ -374,7 +403,7 @@ void Sequencer::eraseFromCurrentPosition() noexcept(false)
     }
 
     table.erase(xy.x, xy.y);
-    updateHoverDescriptionString();
+    updateCursorStateDescription();
 }
 
 void Sequencer::gridDimensionsDidUpdate() noexcept(false)

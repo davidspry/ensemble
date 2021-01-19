@@ -7,7 +7,9 @@ Commander::Commander()
 
 void Commander::setup()
 {
-    
+    auto & state = sequencerWindow.getSequencer().getSequencerStateDescription();
+
+    informationWindow.setStateDescription(&state);
 }
 
 void Commander::update()

@@ -79,6 +79,20 @@ public:
         selectMIDIPort((port - 1 + ports) % ports);
     }
     
+    /// @brief Return the clock's MIDI input port.
+    
+    inline unsigned int getMIDIPort() noexcept
+    {
+        return midiIn.getPort();
+    }
+    
+    /// @brief Return a textual description of the clock's MIDI input port.
+
+    inline std::string getMIDIPortDescription() noexcept
+    {
+        return midiIn.getName();
+    }
+    
     inline void setClockShouldTick(bool shouldTick) noexcept override
     {
         ClockEngine::setClockShouldTick(shouldTick);

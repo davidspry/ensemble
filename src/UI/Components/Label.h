@@ -16,9 +16,23 @@ public:
     Label():
     UIComponent()
     {
-        setSize(50, 25);
-        setUseBitmapFont();
         setText("Label");
+        shrinkToFitText();
+        setUseBitmapFont();
+        UIComponent::setMargins(3);
+    }
+    
+    /// @brief Construct a Label with the given text.
+    /// @param text The text that should be drawn on the Label.
+    /// @note  The Label will shrink to fit the given text.
+    /// @note  The Label will use the default bitmap font by default.
+
+    Label(std::string_view text):
+    UIComponent()
+    {
+        setText(text);
+        shrinkToFitText();
+        setUseBitmapFont();
         UIComponent::setMargins(3);
     }
 

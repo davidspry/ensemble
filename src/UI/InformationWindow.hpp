@@ -5,6 +5,7 @@
 #define DISPLAY_HPP
 
 #include "Ensemble.h"
+#include "SequencerStateDescription.hpp"
 
 /// @brief A window containing an arrangement of labels describing the state of the Ensemble sequencer.
 
@@ -12,9 +13,9 @@ class InformationWindow: public UIWindow, public Commandable
 {
 public:
     InformationWindow();
-
+    
     InformationWindow(int x, int y, int width, int height);
-
+    
 public:
     void draw() override;
     
@@ -53,6 +54,17 @@ public:
             && y >= (origin.y + margins.t)
             && y <= (origin.y - margins.b + size.h);
     }
+    
+public:
+    /// @brief Set the state description object that the InformationWindow's labels should derive information from.
+    /// @param state A pointer to the sequencer state description object.
+
+    inline void setStateDescription(SequencerStateDescription * state) noexcept
+    {
+        stateDescription = state;
+
+        setShouldRedraw();
+    }
 
 private:
     /// @brief Add all labels as child components of the window.
@@ -66,18 +78,31 @@ private:
         addChildComponent(&description);
         addChildComponent(&cursorMidiSettings);
     }
+
+    /// @brief Update the text contents of each label.
+    
+    void updateLabelsContents() noexcept;
+    
+    /// @brief Compute a string representing the broadcast of the given number of notes.
+    /// @param width The number of characters to display on each line.
+    /// @param polyphony The number of notes being broadcast.
+
+    const std::string computePolyphonyString(uint8_t width, uint8_t polyphony) const noexcept;
     
     /// @brief Layout the position of each child component.
 
     void layoutChildComponents() noexcept;
     
 private:
-    Label position;
-    Label polyphony;
-    Label midiInPort;
-    Label midiOutPort;
-    Label description;
-    Label cursorMidiSettings;
+    Label position           = {"-x-"};
+    Label polyphony          = {"........\n........"};
+    Label midiInPort         = {"I: -"};
+    Label midiOutPort        = {"O: -"};
+    Label description        = {""};
+    Label cursorMidiSettings = {"Ox:Cx:Vx"};
+
+private:
+    SequencerStateDescription * stateDescription;
 };
 
 #endif

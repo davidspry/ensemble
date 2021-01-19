@@ -4,6 +4,7 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include <string>
 #include <algorithm>
 
 namespace Utilities
@@ -26,6 +27,31 @@ template <typename T>
 [[nodiscard]] inline static const int numberOfLines(const std::string & text) noexcept
 {
     return 1 + static_cast<int>(std::count(text.begin(), text.end(), '\n'));
+}
+
+/// @brief Construct a string with the given text and the given length by padding or truncating.
+/// @param text The text to construct the string with.
+/// @param length The desired number of characters to include.
+
+[[nodiscard]] static std::string stringWithLength(const std::string & text, unsigned int length)
+{
+    std::string string;
+    string.reserve(length);
+    size_t const textSize = text.size();
+
+    if (textSize > length)
+    {
+        string.insert(0, text, 0, length - 3);
+        string.insert(length - 3, 3, '.');
+    }
+
+    else
+    {
+        string.insert(0, text);
+        string.insert(textSize, length - textSize, ' ');
+    }
+
+    return string;
 }
 
 }

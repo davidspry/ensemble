@@ -16,14 +16,10 @@
 class Clock: public ClockListener
 {
 public:
-    Clock()
-    {
-        connectToClockEngines();
-        useSampleClock();
-    }
+    Clock();
     
 public:
-    void tick() override
+    inline void tick() override
     {
         for (ClockListener* listener : listeners)
         {
@@ -35,55 +31,21 @@ public:
     /// @brief Connect a new listener, who will subsequently receive notifications when the clock ticks.
     /// @param listener The listener who should be connected.
     
-    void connect(ClockListener* listener)
-    {
-        const auto target = std::find(listeners.begin(), listeners.end(), listener);
-        const auto exists = target != listeners.end();
-        
-        if (!exists)
-            listeners.push_back(listener);
-    }
+    void connect(ClockListener* listener);
     
     /// @brief Disconnect an existing listener from the clock.
     /// @param listener The listener who should be disconnected.
 
-    void disconnect(ClockListener* listener)
-    {
-        auto & list = listeners;
-
-        list.erase(std::remove(list.begin(), list.end(), listener), list.end());
-    }
+    void disconnect(ClockListener* listener);
     
 public:
     /// @brief Use the underlying audio sample rate clock as the clock source.
 
-    inline void useSampleClock()
-    {
-        if (usingSampleClock)
-            return;
-        
-        const bool isTicking = midiClock.clockIsTicking();
-        
-        midiClock.setClockShouldTick(false);
-        sampleClock.setClockShouldTick(isTicking);
-        
-        usingSampleClock = true;
-    }
+    void useSampleClock();
     
     /// @brief Use the underlying MIDI clock listener as the clock source.
 
-    inline void useMidiClock()
-    {
-        if (!usingSampleClock)
-            return;
-        
-        const bool isTicking = midiClock.clockIsTicking();
-
-        sampleClock.setClockShouldTick(false);
-        midiClock.setClockShouldTick(isTicking);
-        
-        usingSampleClock = false;
-    }
+    void useMidiClock();
     
 // MARK: - Global Clock Interface
 public:
@@ -169,6 +131,20 @@ public:
     inline void selectPreviousMIDIPort() noexcept
     {
         midiClock.selectPreviousMIDIPort();
+    }
+    
+    /// @brief Return the clock's MIDI input port.
+    
+    inline unsigned int getMIDIPort() noexcept
+    {
+        return midiClock.getMIDIPort();
+    }
+    
+    /// @brief Return a textual description of the clock's MIDI input port.
+
+    inline std::string getMIDIPortDescription() noexcept
+    {
+        return midiClock.getMIDIPortDescription();
     }
 
 private:

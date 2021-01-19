@@ -7,6 +7,7 @@
 #include "Ensemble.h"
 #include "DotGrid.h"
 #include "Cursor.h"
+#include "SequencerStateDescription.hpp"
 
 class Sequencer: public UIComponent, public ClockListener
 {
@@ -47,9 +48,9 @@ public:
 public:
     /// @brief Return a textual description of the sequencer's contents at the cursor's current position.
 
-    inline std::string_view getHoverDescription() noexcept
+    inline SequencerStateDescription & getSequencerStateDescription() noexcept
     {
-        return hoverDescription;
+        return stateDescription;
     }
 
 // MARK: - Sequencer cursor
@@ -121,13 +122,19 @@ public:
 // MARK: - Private functions
 
 private:
+    void initialise() noexcept;
+    
     /// @brief Update the underlying data structures to reflect a change in the size of the sequencer grid.
 
     void gridDimensionsDidUpdate() noexcept(false);
     
-    /// @brief Update the string that describes the contents of the sequencer at the cursor's current position.
+    /// @brief Update the contents of the sequencer's state description object to reflect a change in the sequencer's cursor.
 
-    void updateHoverDescriptionString() noexcept;
+    void updateCursorStateDescription() noexcept;
+    
+    /// @brief Update the contents of the sequencer's state description object to reflect a change in the sequencer's MIDI components.
+    
+    void updateMIDIStateDescription() noexcept;
     
     /// @brief Draw the subsequence at the cursor's current position if the user has requested to view an expanded subsequence.
 
@@ -140,10 +147,10 @@ private:
     MIDIServer midiServer;
     
 private:
-    /// @brief A textual description of the sequence's contents at the cursor's current position.
+    /// @brief A collection of data from which a textual description of the sequencer's state can be derived.
 
-    std::string hoverDescription;
-    
+    SequencerStateDescription stateDescription;
+
     /// @brief Whether or not the user is viewing an expanded subsequence.
 
     bool isViewingSubsequence = false;

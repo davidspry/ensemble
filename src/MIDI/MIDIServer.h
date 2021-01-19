@@ -29,6 +29,10 @@ public:
     void releaseAllNotes() noexcept;
     
 public:
+    /// @brief Return the number of notes currently being broadcast.
+
+    int getPolyphony() noexcept;
+    
     /// @brief Close the current MIDI port and open the given MIDI port.
     /// @param port The number of the port to be opened.
     /// @return A Boolean value indicating whether the given port was successfully opened or not.
@@ -42,6 +46,14 @@ public:
     /// @brief Open the previous available MIDI port.
 
     void selectPreviousMIDIPort() noexcept;
+    
+    /// @brief Return the MIDI port.
+    
+    unsigned int getMIDIPort() noexcept;
+    
+    /// @brief Return the MIDI port's textual description.
+
+    std::string getMIDIPortDescription() noexcept;
     
 private:
     /// @brief Send a note off message for the given MIDI note.
