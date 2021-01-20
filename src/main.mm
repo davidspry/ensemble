@@ -9,7 +9,7 @@ constexpr int H = 700;
 int main()
 {
     ofSetupOpenGL(W, H, OF_WINDOW);
-    
+
     ofxWindowOptions::setMovableByWindowBackground(true);
     ofxWindowOptions::setTitleBarVisibility(false);
     ofxWindowOptions::setResizable(false);

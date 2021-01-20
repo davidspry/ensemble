@@ -19,17 +19,43 @@ public:
 // MARK: - Drawing & UIComponent API
 
 public:
+    /// @brief Draw the sequencer's contents in the current graphics context.
+
     void draw() override;
     
+    /// @brief Set the position of the sequencer and its contents by the given origin point.
+    /// @param x The x-coordinate of the desired origin point.
+    /// @param y The y-coordinate of the desired origin point.
+
     void setPositionWithOrigin(const int x, const int y) override;
     
+    /// @brief Set the position of the sequencer and its contents by the given centre point.
+    /// @param x The x-coordinate of the desired centre point.
+    /// @param y The y-coordinate of the desired centre point.
+
     void setPositionWithCentre(const int x, const int y) override;
     
+    /// @brief Set the size of the sequencer and its contents while maintaining the current centre point.
+    /// @param width The desired width in pixels.
+    /// @param height The desired height in pixels.
+
     void setSizeFromCentre(const float width, const float height) override;
     
+    /// @brief Set the size of the sequencer and its contents while maintaining the current origin point.
+    /// @param width The desired width in pixels.
+    /// @param height The desired height in pixels.
+
     void setSize(const float width, const float height) override;
     
+    /// @brief Set the sequencer's margins.
+    /// @param top The desired top margin in pixels.
+    /// @param left The desired left margin in pixels.
+    /// @param right The desired right margin in pixels.
+    /// @param bottom The desired bottom margin in pixels.
+
     void setMargins(const int top, const int left, const int right, const int bottom) override;
+
+    /// @brief Return the sequencer's margins.
 
     [[nodiscard]] const UIMargins<int>& getMargins() const noexcept override;
 
@@ -122,6 +148,8 @@ public:
 // MARK: - Private functions
 
 private:
+    /// @brief Initialise the sequencer and its state description object.
+
     void initialise() noexcept;
     
     /// @brief Update the underlying data structures to reflect a change in the size of the sequencer grid.
@@ -141,24 +169,35 @@ private:
     void drawSubsequenceIfRequested() noexcept;
 
 private:
-    Clock      clock;
-    Cursor     cursor;
-    DotGrid    grid;
-    MIDIServer midiServer;
+    /// @brief The sequencer's clock interface, which wraps both an internal clock and an external clock.
+
+    Clock clock;
     
-private:
+    /// @brief The sequencer's cursor.
+
+    Cursor cursor;
+    
+    /// @brief The sequencer's grid.
+
+    DotGrid grid;
+    
+    /// @brief The sequencer's MIDI server, which manages the broadcast of MIDI notes.
+
+    MIDIServer midiServer;
+
     /// @brief A collection of data from which a textual description of the sequencer's state can be derived.
 
     SequencerStateDescription stateDescription;
 
+private:
     /// @brief Whether or not the user is viewing an expanded subsequence.
 
     bool isViewingSubsequence = false;
 
 private:
-    using NodePtr = std::shared_ptr<SQNode>;
     std::vector<SQPlayhead> playheads;
     std::vector<SQPortal *> unpairedPortals;
+    using NodePtr = std::shared_ptr<SQNode>;
     Table<NodePtr> table;
 };
 

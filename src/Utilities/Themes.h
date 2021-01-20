@@ -19,20 +19,20 @@ static UIColourScheme light00 =
     {15}
 };
 
-/// @brief A dark theme with a yellow accent colour.
+/// @brief A dark theme with a blue accent colour.
 
 static UIColourScheme dark00 =
 {
-    {25},
+    {15},
     {235},
     {125},
-    {246, 160, 77},
+    {50, 85, 164},
     {235}
 };
 
 /// @brief The active colour scheme.
 
-static UIColourScheme & theme = light00;
+static UIColourScheme & theme = dark00;
 };
 
 #endif

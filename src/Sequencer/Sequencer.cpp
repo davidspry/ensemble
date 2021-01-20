@@ -141,6 +141,8 @@ void Sequencer::toggleClock() noexcept
     clock.toggleClock();
 
     midiServer.releaseAllNotes();
+    
+    updateMIDIStateDescription();
 }
 
 void Sequencer::tick()
@@ -188,16 +190,19 @@ void Sequencer::tick()
 void Sequencer::setCursorOctave(const int octave) noexcept
 {
     cursor.setOctave(octave);
+    updateCursorStateDescription();
 }
 
 void Sequencer::setCursorChannel(const int channel) noexcept
 {
     cursor.setChannel(channel);
+    updateCursorStateDescription();
 }
 
 void Sequencer::setCursorDuration(const int duration) noexcept
 {
     cursor.setDuration(duration);
+    updateCursorStateDescription();
 }
 
 void Sequencer::moveCursor(Direction direction) noexcept
@@ -240,26 +245,26 @@ void Sequencer::updateCursorStateDescription() noexcept
     stateDescription.cursorGridPosition.x = cursor.xy.x;
     stateDescription.cursorGridPosition.y = cursor.xy.y;
 
+    stateDescription.cursorOctave   = cursor.getMIDISettings().octave;
+    stateDescription.cursorChannel  = cursor.getMIDISettings().channel;
+    stateDescription.cursorVelocity = cursor.getMIDISettings().velocity;
+
     if (table.contains(cursor.xy.x, cursor.xy.y))
     {
         const auto node = table.get(cursor.xy.x, cursor.xy.y)->get();
         stateDescription.cursorHoverDescription = node->describe();
     }
-    
+
     else
     {
         stateDescription.cursorHoverDescription.clear();
     }
-    
+
     stateDescription.setContainsNewData();
 }
 
 void Sequencer::updateMIDIStateDescription() noexcept
 {
-    stateDescription.cursorOctave           = cursor.getMIDISettings().octave;
-    stateDescription.cursorChannel          = cursor.getMIDISettings().channel;
-    stateDescription.cursorVelocity         = cursor.getMIDISettings().velocity;
-    
     stateDescription.midiPolyphony          = midiServer.getPolyphony();
     stateDescription.midiPortNumberIn       = clock.getMIDIPort();
     stateDescription.midiPortNumberOut      = midiServer.getMIDIPort();
@@ -396,7 +401,7 @@ void Sequencer::eraseFromCurrentPosition() noexcept(false)
 
         else
         {
-            auto& nodes = unpairedPortals;
+            auto &nodes = unpairedPortals;
             auto remove = std::remove(nodes.begin(), nodes.end(), node);
             nodes.erase(remove, nodes.end());
         }
