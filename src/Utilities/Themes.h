@@ -14,8 +14,9 @@ static UIColourScheme light00 =
 {
     {215},
     {15},
-    {55},
+    {165},
     {246, 160, 77},
+    {75},
     {15}
 };
 
@@ -25,14 +26,15 @@ static UIColourScheme dark00 =
 {
     {15},
     {235},
-    {125},
+    {145},
     {50, 85, 164},
+    {95},
     {235}
 };
 
 /// @brief The active colour scheme.
 
-static UIColourScheme & theme = dark00;
+static UIColourScheme & theme = light00;
 };
 
 #endif

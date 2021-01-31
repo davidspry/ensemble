@@ -23,6 +23,7 @@
 #include "Constants.h"
 #include "Utilities.h"
 #include "Commandable.h"
+#include "ModifierKeys.h"
 
 // UI headers
 // ==========

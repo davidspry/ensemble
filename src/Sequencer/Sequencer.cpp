@@ -199,6 +199,20 @@ void Sequencer::setCursorChannel(const int channel) noexcept
     updateCursorStateDescription();
 }
 
+void Sequencer::selectPreviousCursorChannel() noexcept
+{
+    const MIDISettings & settings = cursor.getMIDISettings();
+    const uint8_t channel = (settings.channel + 0xF) % 17 + 1;
+    setCursorChannel(channel);
+}
+
+void Sequencer::selectNextCursorChannel() noexcept
+{
+    const MIDISettings & settings = cursor.getMIDISettings();
+    const uint8_t channel = (settings.channel + 0x1) % 17;
+    setCursorChannel(channel);
+}
+
 void Sequencer::setCursorDuration(const int duration) noexcept
 {
     cursor.setDuration(duration);
@@ -375,6 +389,8 @@ bool Sequencer::placeRedirect(Redirection type) noexcept(false)
 
 void Sequencer::eraseFromCurrentPosition() noexcept(false)
 {
+    if (isSelectingPlayheads) return eraseSelectedPlayhead();
+
     const UIPoint<int>& xy = cursor.getGridPosition();
 
     if (!table.contains(xy.x, xy.y)) return;
@@ -416,4 +432,63 @@ void Sequencer::gridDimensionsDidUpdate() noexcept(false)
     const UISize<int>& dimensions = grid.getGridDimensions();
 
     table.setSize(dimensions.h, dimensions.w);
+}
+
+// MARK: - Playhead controls
+
+void Sequencer::toggleSelectPlayheadsMode() noexcept
+{
+    isSelectingPlayheads = !isSelectingPlayheads && !playheads.empty();
+    
+    if (isSelectingPlayheads)
+    {
+        selectedPlayheadIndex = -1;
+        selectNextPlayhead();
+    }
+
+    else if (!playheads.empty())
+    {
+        selectedPlayheadIndex = selectedPlayheadIndex % playheads.size();
+        playheads.at(selectedPlayheadIndex).setIsSelected(false);
+    }
+}
+
+void Sequencer::toggleSelectedPlayhead() noexcept
+{
+    if (!isSelectingPlayheads) return;
+
+    auto& playhead = playheads.at(selectedPlayheadIndex);
+    bool isEnabled = playhead.getIsEnabled();
+
+    playhead.setIsEnabled(!isEnabled);
+}
+
+void Sequencer::selectPlayheadSuccessor(bool next) noexcept
+{
+    if (playheads.empty()) return;
+    
+    auto const size = playheads.size();
+
+    isSelectingPlayheads = true;
+
+    selectedPlayheadIndex = selectedPlayheadIndex % size;
+
+    playheads.at(selectedPlayheadIndex).setIsSelected(false);
+
+    selectedPlayheadIndex += (next ? 1 : (int) size - 1);
+    selectedPlayheadIndex %= size;
+
+    playheads.at(selectedPlayheadIndex).setIsSelected(true);
+}
+
+void Sequencer::eraseSelectedPlayhead() noexcept
+{
+    if (!isSelectingPlayheads) return;
+
+    auto &nodes = playheads;
+    auto remove = nodes.erase(nodes.begin() + selectedPlayheadIndex);
+
+    if (playheads.empty())
+         return toggleSelectPlayheadsMode();
+    else return selectPreviousPlayhead();
 }

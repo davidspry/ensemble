@@ -15,6 +15,7 @@ struct UIColourScheme
     ofColor foregroundColour;
     ofColor secondaryForegroundColour;
     ofColor accentColour;
+    ofColor gridColour;
     ofColor textColour;
     
     /// @brief Construct a colour scheme by specifying each colour.
@@ -22,14 +23,18 @@ struct UIColourScheme
     /// @param foreground A foreground colour
     /// @param secondary A secondary foreground colour
     /// @param accent An accent colour
+    /// @param grid The colour of the grid
     /// @param text A text colour
 
-    UIColourScheme(ofColor background, ofColor foreground, ofColor secondary, ofColor accent, ofColor text)
+    UIColourScheme(ofColor background, ofColor foreground,
+                   ofColor secondary,  ofColor accent,
+                   ofColor grid,       ofColor text)
     {
         backgroundColour = background;
         foregroundColour = foreground;
         secondaryForegroundColour = secondary;
         accentColour = accent;
+        gridColour = grid;
         textColour = text;
     }
 };

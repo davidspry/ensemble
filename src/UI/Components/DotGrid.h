@@ -36,7 +36,7 @@ public:
                                 margins.t + SPACE * (y + 0.5f), 1.0f);
             }
 
-            grid.setColor(colours->secondaryForegroundColour);
+            grid.setColor(colours->gridColour);
         }
 
         grid.draw(origin.x, origin.y);

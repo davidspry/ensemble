@@ -113,6 +113,7 @@
 		14A95EBD2595CA4A0082168E /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
 		14CFBB6225B6A17C00F4ED01 /* SequencerStateDescription.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SequencerStateDescription.hpp; sourceTree = "<group>"; };
 		14CFBB6325B6C46A00F4ED01 /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
+		14D305D425C6C57B002B0B6F /* ModifierKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifierKeys.h; sourceTree = "<group>"; };
 		14D7F07D258E6E5A006A79BD /* UIComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponent.h; sourceTree = "<group>"; };
 		14D7F07E258E715B006A79BD /* UITypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITypes.h; sourceTree = "<group>"; };
 		14D7F080258E742B006A79BD /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -504,6 +505,7 @@
 				14D7F084258E75DF006A79BD /* KeyCodes.h */,
 				14D7F083258E75B3006A79BD /* Constants.h */,
 				1427F83925A4AB3F00E07334 /* Commandable.h */,
+				14D305D425C6C57B002B0B6F /* ModifierKeys.h */,
 				14061DEC2594888A00F8AC65 /* Themes.h */,
 				1462C68F2590A6FD0088A705 /* Utilities.h */,
 			);

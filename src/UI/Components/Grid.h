@@ -43,7 +43,7 @@ public:
                 grid.lineTo(l + x * SPACE, b + 1);
             }
 
-            grid.setColor(colours->secondaryForegroundColour);
+            grid.setColor(colours->gridColour);
         }
 
         grid.draw(origin.x, origin.y);

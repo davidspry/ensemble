@@ -37,10 +37,6 @@ public:
     }
 
 public:
-    /// @brief Draw the note at the current position in the subsequence to the sequencer.
-
-    void draw() override;
-
     /// @brief Draw the full subsequence at the given position.
     /// @param centre The desired centre point at which to draw the sequence.
 
@@ -80,8 +76,9 @@ private:
     {
         sequence.reserve(16);
         grid.setCurrentSequenceIndex(0);
+        path.setColor(colours->secondaryForegroundColour);
     }
-    
+
 private:
     uint8_t index = 0;
 

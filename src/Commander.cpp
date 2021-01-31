@@ -14,24 +14,25 @@ void Commander::setup()
 
 void Commander::update()
 {
-
+    
 }
 
 void Commander::draw()
 {
-    sequencerWindow  .draw();
+    sequencerWindow.draw();
     informationWindow.draw();
 }
 
 void Commander::keyPressed(int key)
 {
-    sequencerWindow  .keyPressed(key);
+    sequencerWindow.keyPressed(key);
     informationWindow.keyPressed(key);
 }
 
 void Commander::keyReleased(int key)
 {
-    
+    sequencerWindow.keyReleased(key);
+    informationWindow.keyReleased(key);
 }
 
 void Commander::mouseEntered(int x, int y)

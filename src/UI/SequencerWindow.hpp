@@ -59,6 +59,7 @@ public:
     
 public:
     void keyPressed(int key) noexcept override;
+    void keyReleased(int key) noexcept override;
     void mousePressed(int x, int y, int buttonIndex) noexcept override;
     void mouseDragged(int x, int y, int buttonIndex) noexcept override;
 
@@ -71,7 +72,8 @@ public:
     }
 
 private:
-    Sequencer sequencer;
+    Sequencer    sequencer;
+    ModifierKeys modifiers;
 };
 
 #endif

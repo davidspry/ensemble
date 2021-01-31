@@ -20,12 +20,21 @@ enum KeyCodes
     K_LArrow        = 57356,
     K_RArrow        = 57358,
     
-    K_Space         = 32,
+    K_Shift         = 1,
+    K_Control       = 2,
+    K_Option        = 4,
     K_Delete        = 8,
     K_Tab           = 9,
-    
+    K_Command       = 16,
+    K_Enter         = 13,
+    K_Space         = 32,
+    K_Escape        = 27,
+
     K_Plus          = 43,
     K_Subt          = 95,
+    K_Pipe          = 124,
+    K_BSlash        = 92,
+    K_FSlash        = 47,
     
     K_UpperA        = 65,
     K_UpperB        = 66,
@@ -73,7 +82,10 @@ enum KeyCodes
     K_NRow9Shift    = 40,
     
     K_LSqrBracket   = 91,
-    K_RSqrBracket   = 93
+    K_RSqrBracket   = 93,
+    
+    K_LAngBracket   = 60,
+    K_RAngBracket   = 62
 };
 
 #endif

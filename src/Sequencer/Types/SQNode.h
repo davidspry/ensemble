@@ -37,7 +37,7 @@ public:
     {
         const int x = origin.x + margins.l + screenPosition.x;
         const int y = origin.y + margins.t + screenPosition.y;
-
+        
         if (shouldRedraw)
         {
             path.clear();
@@ -58,6 +58,29 @@ public:
     /// @brief Provide a textual description of the node.
     
     virtual std::string describe() noexcept = 0;
+    
+    /// @brief Determine whether the node is enabled or not.
+
+    inline bool getIsEnabled() const noexcept
+    {
+        return isEnabled;
+    }
+    
+    /// @brief Set a flag to indicate whether the node should move or not.
+    /// @param nodeShouldMove A flag indicating whether the node should move or not.
+
+    inline void setIsEnabled(bool nodeShouldMove) noexcept
+    {
+        isEnabled = nodeShouldMove;
+    }
+    
+    /// @brief Select or deselect the node.
+    /// @param nodeIsSelected A flag indicating whether the node is selected or not.
+
+    inline void setIsSelected(bool nodeIsSelected) noexcept
+    {
+        isSelected = nodeIsSelected;
+    }
 
     /// @brief Update the node's position on the sequencer.
     /// @param gridSize The dimensions of the sequencer grid in rows and columns.
@@ -87,7 +110,17 @@ public:
     SQNodeType nodeType;
     
 protected:
+    /// @brief The node's text label.
+
     Label text;
+    
+    /// @brief A flag to indicate whether the node should move or not (if the node would otherwise move).
+    
+    bool isEnabled = true;
+    
+    /// @brief A flag to indicate whether the node is currently selected by the user or not.
+
+    bool isSelected = false;
 };
 
 #endif

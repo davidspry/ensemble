@@ -55,7 +55,10 @@ public:
 
     void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept override
     {
-        server.broadcast(note);
+        if (node.getIsEnabled())
+        {
+            server.broadcast(note);
+        }
     }
     
     inline std::string describe() noexcept override

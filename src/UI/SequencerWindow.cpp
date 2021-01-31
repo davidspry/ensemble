@@ -57,7 +57,9 @@ const UIMargins<int>& SequencerWindow::getMargins() const noexcept
 
 void SequencerWindow::keyPressed(int key) noexcept
 {
-//    printf(   "%d\n", key);
+//    printf("%d\n", key);
+    modifiers.keyPressed(key);
+    
     switch (key)
     {
         case K_UArrow: { return sequencer.moveCursor(Direction::N); }
@@ -96,16 +98,28 @@ void SequencerWindow::keyPressed(int key) noexcept
         case K_LowerP: { sequencer.placePortal(); return; }
         
         case K_Tilde:
-        case K_NRow0:  { return sequencer.setCursorOctave(0); }
-        case K_NRow1:  { return sequencer.setCursorOctave(1); }
-        case K_NRow2:  { return sequencer.setCursorOctave(2); }
-        case K_NRow3:  { return sequencer.setCursorOctave(3); }
-        case K_NRow4:  { return sequencer.setCursorOctave(4); }
-        case K_NRow5:  { return sequencer.setCursorOctave(5); }
-        case K_NRow6:  { return sequencer.setCursorOctave(6); }
+        case K_NRow0:  { sequencer.setCursorOctave(0); return; }
+        case K_NRow1:  { sequencer.setCursorOctave(1); return; }
+        case K_NRow2:  { sequencer.setCursorOctave(2); return; }
+        case K_NRow3:  { sequencer.setCursorOctave(3); return; }
+        case K_NRow4:  { sequencer.setCursorOctave(4); return; }
+        case K_NRow5:  { sequencer.setCursorOctave(5); return; }
+        case K_NRow6:  { sequencer.setCursorOctave(6); return; }
+            
+        case K_RSqrBracket: { sequencer.selectNextCursorChannel();     return; }
+        case K_LSqrBracket: { sequencer.selectPreviousCursorChannel(); return; }
+
+        case K_Enter:       { sequencer.toggleSelectedPlayhead();    return; }
+        case K_BSlash:      { sequencer.toggleSelectPlayheadsMode(); return; }
+        case K_Pipe:        { sequencer.selectNextPlayhead();        return; }
 
         default: return;
     }
+}
+
+void SequencerWindow::keyReleased(int key) noexcept
+{
+    modifiers.keyReleased(key);
 }
 
 void SequencerWindow::mousePressed(int x, int y, int buttonIndex) noexcept

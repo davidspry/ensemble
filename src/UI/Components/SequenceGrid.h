@@ -52,7 +52,7 @@ public:
             drawRows(0, H, shape.w);
             drawRows(H, 1, visibleShape.w);
 
-            grid.setColor(colours->secondaryForegroundColour);
+            grid.setColor(colours->gridColour);
         }
 
         index .draw();

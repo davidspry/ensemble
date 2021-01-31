@@ -102,6 +102,14 @@ public:
     /// @param channel The desired channel number in the range [1, 16].
 
     void setCursorChannel(const int channel) noexcept;
+    
+    /// @brief Select the previous available MIDI channel for the sequencer's cursor.
+    
+    void selectPreviousCursorChannel() noexcept;
+    
+    /// @brief Select the next available MIDI channel for the sequencer's cursor.
+    
+    void selectNextCursorChannel() noexcept;
 
     /// @brief Set the duration value of the cursor's MIDI settings.
     /// @param duration The desired duration value in the range [1, 8].
@@ -144,6 +152,41 @@ public:
     /// @brief Expand and view the subsequence at the sequencer cursor's current position.
 
     void expandSubsequence() noexcept;
+    
+// MARK: - Playhead selection
+public:
+    /// @brief Toggle the playhead selection mode.
+
+    void toggleSelectPlayheadsMode() noexcept;
+    
+    /// @brief Enable or disable the selected playhead.
+
+    void toggleSelectedPlayhead() noexcept;
+    
+    /// @brief Select the next playhead on the sequencer.
+    
+    inline void selectNextPlayhead() noexcept
+    {
+        selectPlayheadSuccessor(true);
+    }
+    
+    /// @brief Select the previous available playhead on the sequencer.
+    
+    inline void selectPreviousPlayhead() noexcept
+    {
+        selectPlayheadSuccessor(false);
+    }
+    
+private:
+    /// @brief Select the successor playhead.
+    /// @param next Whether the next playhead or the previous playhead should be selected.
+
+    void selectPlayheadSuccessor(bool next) noexcept;
+    
+    /// @brief Erase the selected playhead.
+    /// @note  The sequencer must be in playhead selection mode.
+    
+    void eraseSelectedPlayhead() noexcept;
 
 // MARK: - Private functions
 
@@ -193,6 +236,14 @@ private:
     /// @brief Whether or not the user is viewing an expanded subsequence.
 
     bool isViewingSubsequence = false;
+    
+    /// @brief Whether or not the user is selecting a playhead node.
+
+    bool isSelectingPlayheads = false;
+    
+    /// @brief The index of the currently selected playhead node.
+
+    int selectedPlayheadIndex = 0;
 
 private:
     std::vector<SQPlayhead> playheads;

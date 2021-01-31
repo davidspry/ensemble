@@ -3,17 +3,6 @@
 
 #include "SQSubsequence.h"
 
-void SQSubsequence::draw()
-{
-    if (shouldRedraw)
-    {
-        auto colour = colours->secondaryForegroundColour;
-        path.setColor(colour);
-    }
-
-    SQNode::draw();
-}
-
 void SQSubsequence::drawSequence(UIPoint<int> & centre)
 {
     const int x = centre.x - grid.getSize().w * 0.5f;
@@ -52,6 +41,7 @@ void SQSubsequence::interact(SQNode& node, MIDIServer& server, const UISize<int>
         return;
     }
 
+    index = index % sequence.size();
     auto & note = sequence.at(index);
     grid.setCurrentSequenceIndex(index);
     note.interact(node, server, gridSize);

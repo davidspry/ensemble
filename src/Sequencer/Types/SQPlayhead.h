@@ -30,6 +30,16 @@ public:
     }
 
 public:
+    void draw() override
+    {
+        const auto enabled = isEnabled  ? colours->foregroundColour : colours->secondaryForegroundColour;
+        const auto colour  = isSelected ? colours->accentColour     : enabled;
+
+        path.setColor(colour);
+
+        SQNode::draw();
+    }
+    
     void interact(SQNode& node, MIDIServer& server, const UISize<int>& gridSize) noexcept override
     {
         
